@@ -5,6 +5,10 @@ const mongoose = require('mongoose');
 const ImageKit = require('imagekit');
 const AuthRouter = require('./routes/auth');
 require('dotenv').config();
+const rideData = require('./data.js');
+const WeeklyRide = require('./models/WeeklyRide.js');
+
+console.log(rideData);
 
 const app = express();
 
@@ -48,6 +52,7 @@ mongoose
     console.log('Connected to MongoDB database');
     app.listen(PORT, () => {
       console.log(`Server listening on port ${PORT}`);
+      WeeklyRide.insertMany(rideData);
     });
   })
   .catch((error) => {

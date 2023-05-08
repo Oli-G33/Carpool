@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Copyright } from './copyright';
-import { Snackbar } from '@mui/material';
+import { CircularProgress, Snackbar } from '@mui/material';
 import { Alert } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -29,6 +29,7 @@ export default function Login({ isLogin, setIsLogin }) {
   const [emailErrorText, setEmailErrorText] = useState();
   const [passwordError, setPasswordError] = useState();
   const [passwordErrorText, setPasswordErrorText] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,16 +40,20 @@ export default function Login({ isLogin, setIsLogin }) {
 
   const handleSubmit = async event => {
     event.preventDefault();
+    setLoading(true);
 
     if (!email || !password) {
       setAlertMessage('Please fill in all required fields');
+      setLoading(false);
       return;
     }
+
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     const isValidEmail = emailRegex.test(email);
     if (!isValidEmail) {
       setEmailError(true);
       setEmailErrorText('Please provide a valid email address');
+      setLoading(false);
       return;
     } else {
       setEmailError(false);
@@ -58,7 +63,7 @@ export default function Login({ isLogin, setIsLogin }) {
     if (password.length < 8 || !password.length) {
       setPasswordError(true);
       setPasswordErrorText('Invalid password');
-      console.log(password.length);
+      setLoading(false);
       return;
     }
 
@@ -75,14 +80,21 @@ export default function Login({ isLogin, setIsLogin }) {
         );
       }
       navigate('/booking');
-    } catch (error) {
-      console.log(error.message);
-      if (error.message) {
+    } catch (err) {
+      console.error(err.response.data); // log the server error response
+
+      // handle specific error messages
+      if (err.response.data.msg === 'User does not exist') {
         setEmailError(true);
+        setEmailErrorText(err.response.data.msg);
+      } else if (err.response.data.msg === 'Invalid password') {
         setPasswordError(true);
-        setEmailErrorText('Invalid credentials');
-        setPasswordErrorText('Invalid credentials');
+        setPasswordErrorText(err.response.data.msg);
+      } else {
+        setAlertMessage('An error occurred');
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -157,8 +169,9 @@ export default function Login({ isLogin, setIsLogin }) {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={loading}
             >
-              Sign In
+              {loading ? <CircularProgress size={24} /> : 'Sign In'}
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>

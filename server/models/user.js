@@ -34,6 +34,11 @@ const schema = new mongoose.Schema(
     password: {
       type: String
     },
+    role: {
+      type: String,
+      enum: ['passenger', 'driver'],
+      default: 'passenger'
+    },
     isAdmin: {
       type: String,
       default: false

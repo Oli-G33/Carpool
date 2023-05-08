@@ -1,47 +1,37 @@
-import React, { useReducer } from 'react';
-import {
-  DateRangeInput,
-  DateSingleInput,
-  Datepicker
-} from '@datepicker-react/styled';
+import React, { useReducer, useState } from 'react';
 import Navbar from '../components/Navbar';
+import { Box, Grid, Typography } from '@mui/material';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 
-const initialState = {
-  startDate: null,
-  endDate: null,
-  focusedInput: null
-};
-
-function reducer(state, action) {
-  switch (action.type) {
-    case 'focusChange':
-      return { ...state, focusedInput: action.payload };
-    case 'dateChange':
-      return action.payload;
-    default:
-      throw new Error();
-  }
-}
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const BookingPage = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [selectedDate, setSelectedDate] = useState(null);
+  console.log(selectedDate);
   return (
     <>
       <Navbar />
-      <div>
-        BookingPage
-        <Datepicker
-          onDatesChange={data =>
-            dispatch({ type: 'dateChange', payload: data })
-          }
-          onFocusChange={focusedInput =>
-            dispatch({ type: 'focusChange', payload: focusedInput })
-          }
-          startDate={state.startDate} // Date or null
-          endDate={state.endDate} // Date or null
-          focusedInput={state.focusedInput} // START_DATE, END_DATE or null
-        />
-      </div>
+      <Box boxShadow={'2px 2px 4px rgba(0, 0, 0, 0.2)'} flexGrow={0}>
+        <Grid container spacing={2}>
+          <Grid item xs={8}>
+            <Box>
+              <Typography>Book a ride:</Typography>
+
+              <DemoContainer components={['DatePicker']}>
+                <DatePicker
+                  value={selectedDate}
+                  onChange={newDate => setSelectedDate(newDate)}
+                />
+              </DemoContainer>
+            </Box>
+          </Grid>
+          <Grid item xs={4}>
+            <Box>
+              <Typography>Available seats:</Typography>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
     </>
   );
 };

@@ -17,8 +17,13 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { setLogout } from '../state';
 import { useNavigate } from 'react-router-dom';
 
+const colors = ['orange', 'pink', 'green', 'red', 'purple'];
+
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [randomColor, setRandomColor] = useState(
+    colors[Math.floor(Math.random() * 6)]
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -77,7 +82,7 @@ const Navbar = () => {
             <Avatar
               alt={user.firstName}
               src={user.picture}
-              sx={{ ml: 2, mr: 1 }}
+              sx={{ ml: 2, mr: 1, bgcolor: randomColor }}
             />
             <IconButton color="inherit" onClick={handleLogout}>
               <LogoutIcon />
