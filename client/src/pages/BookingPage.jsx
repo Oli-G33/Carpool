@@ -1,9 +1,13 @@
 import React, { useReducer, useState } from 'react';
 import Navbar from '../components/Navbar';
-import { Box, Grid, Typography } from '@mui/material';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { Box, Button, Container, Grid, Typography } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { deDE } from '@mui/x-date-pickers/locales';
 
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
+const maxSelectableDate = new Date();
+maxSelectableDate.setDate(maxSelectableDate.getDate() + 7);
 
 const BookingPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -11,27 +15,44 @@ const BookingPage = () => {
   return (
     <>
       <Navbar />
-      <Box boxShadow={'2px 2px 4px rgba(0, 0, 0, 0.2)'} flexGrow={0}>
-        <Grid container spacing={2}>
-          <Grid item xs={8}>
-            <Box>
-              <Typography>Book a ride:</Typography>
-
-              <DemoContainer components={['DatePicker']}>
-                <DatePicker
-                  value={selectedDate}
-                  onChange={newDate => setSelectedDate(newDate)}
-                />
-              </DemoContainer>
-            </Box>
+      <Container>
+        <Box boxShadow={'2px 2px 4px rgba(0, 0, 0, 0.2)'} flexGrow={0} p={2}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <Box>
+                <Typography variant="h5">Select a date:</Typography>
+                <LocalizationProvider>
+                  <DatePicker
+                    value={selectedDate}
+                    onChange={newDate => setSelectedDate(newDate)}
+                    inputVariant="outlined"
+                    fullWidth
+                    margin="normal"
+                    disablePast
+                    format="DD/MM/YYYY"
+                    placeholder="Select a date"
+                    startOfWeek={0}
+                    maxDate="14"
+                  />
+                </LocalizationProvider>
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Box>
+                <Typography variant="h5">Available Seats:</Typography>
+                {/* Here you can display the available seats for the selected date */}
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <Box display="flex" justifyContent="center" mt={2}>
+                <Button variant="contained" color="primary" size="large">
+                  Book Your Ride
+                </Button>
+              </Box>
+            </Grid>
           </Grid>
-          <Grid item xs={4}>
-            <Box>
-              <Typography>Available seats:</Typography>
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
+        </Box>
+      </Container>
     </>
   );
 };

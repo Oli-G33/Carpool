@@ -1,23 +1,19 @@
 const mongoose = require('mongoose');
 
 const rideData = {
-  driver: mongoose.Types.ObjectId('645797f641f1b01e735339ae'),
+  driver: mongoose.Types.ObjectId('5f99205c8e2a3a00119a56e1'),
   passengers: [
     {
-      user: mongoose.Types.ObjectId('60a1acdfaa30e65461c2d05d'),
-      date: '2023-05-09T00:00:00.000Z'
-    },
-    {
-      user: mongoose.Types.ObjectId('60a1acdfaa30e65461c2d05e'),
-      date: '2023-05-10T00:00:00.000Z'
+      user: mongoose.Types.ObjectId('5f9920c48e2a3a00119a56e2'),
+      date: '2023-05-16'
     }
   ],
   availableSeats: {
-    '2023-05-09': 2,
-    '2023-05-10': 3,
-    '2023-05-11': 4,
-    '2023-05-12': 4,
-    '2023-05-13': 4
+    '2023-05-15': 4,
+    '2023-05-16': 3,
+    '2023-05-17': 4,
+    '2023-05-18': 4,
+    '2023-05-19': 4
   }
 };
 

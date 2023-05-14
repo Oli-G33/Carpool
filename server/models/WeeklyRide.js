@@ -23,11 +23,21 @@ const weeklyRideSchema = new mongoose.Schema(
       }
     ],
     availableSeats: {
-      '2023-05-09': { type: Number, default: 4 },
-      '2023-05-10': { type: Number, default: 4 },
-      '2023-05-11': { type: Number, default: 4 },
-      '2023-05-12': { type: Number, default: 4 },
-      '2023-05-13': { type: Number, default: 4 }
+      type: Map,
+      of: {
+        type: Number,
+        default: 4
+      },
+      default: function () {
+        const seats = new Map();
+        const startDate = new Date('2023-05-15');
+        for (let i = 0; i < 5; i++) {
+          const date = new Date(startDate);
+          date.setDate(startDate.getDate() + i);
+          seats.set(date.toISOString().slice(0, 10), 4);
+        }
+        return seats;
+      }
     }
   },
   { timestamps: true }

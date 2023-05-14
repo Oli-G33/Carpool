@@ -4,11 +4,10 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const ImageKit = require('imagekit');
 const AuthRouter = require('./routes/auth');
+const BookingRouter = require('./routes/weeklyRide');
 require('dotenv').config();
 const rideData = require('./data.js');
 const WeeklyRide = require('./models/WeeklyRide.js');
-
-console.log(rideData);
 
 const app = express();
 
@@ -40,6 +39,8 @@ app.get('/auth', function (req, res) {
   res.send(result);
 });
 
+// Routes
+app.use('/booking', BookingRouter);
 app.use('/auth', AuthRouter);
 
 mongoose.set('strictQuery', false);
@@ -52,7 +53,7 @@ mongoose
     console.log('Connected to MongoDB database');
     app.listen(PORT, () => {
       console.log(`Server listening on port ${PORT}`);
-      WeeklyRide.insertMany(rideData);
+      // WeeklyRide.insertMany(rideData);
     });
   })
   .catch((error) => {

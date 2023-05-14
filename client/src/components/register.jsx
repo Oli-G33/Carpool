@@ -103,11 +103,14 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
       setLastNameErrorText('');
     }
 
-    if (password.length < 8 || !password.length) {
+    if (password.length < 8) {
       setPasswordError(true);
       setPasswordErrorText('Password should be at least 8 characters long');
       console.log(password.length);
       return;
+    } else {
+      setPasswordError(false);
+      setPasswordErrorText('');
     }
 
     try {
