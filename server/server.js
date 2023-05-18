@@ -53,7 +53,7 @@ mongoose
     console.log('Connected to MongoDB database');
     app.listen(PORT, () => {
       console.log(`Server listening on port ${PORT}`);
-      // WeeklyRide.insertMany(rideData);
+      WeeklyRide.insertMany(rideData);
     });
   })
   .catch((error) => {

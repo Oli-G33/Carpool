@@ -29,4 +29,33 @@ const getSeats = async (req, res) => {
   });
 };
 
-module.exports = { getSeats };
+const bookSeat = async (req, res) => {
+  try {
+    const { date } = req.body;
+
+    // Find and update the WeeklyRide document for the specified date
+    const ride = await WeeklyRide.findOneAndUpdate(
+      { [`availableSeats.${date}`]: { $exists: true } }, // match the document with the specified date
+      { $inc: { [`availableSeats.${date}`]: -1 } }, // decrement the available seats by 1
+      { new: true } // return the updated document
+    );
+
+    if (!ride) {
+      // No ride found for the date
+      return res
+        .status(404)
+        .json({ message: `No ride found for date ${date}` });
+    }
+
+    // Get the updated available seats count
+    const availableSeats = ride.availableSeats[date];
+
+    // Return the updated available seats count
+    res.json({ availableSeats });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+module.exports = { getSeats, bookSeat };

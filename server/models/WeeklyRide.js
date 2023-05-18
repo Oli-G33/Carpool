@@ -37,6 +37,18 @@ const weeklyRideSchema = new mongoose.Schema(
           seats.set(date.toISOString().slice(0, 10), 4);
         }
         return seats;
+      },
+      validate: {
+        validator: function (seats) {
+          // Iterate over each seat value and check if it's less than 0
+          for (const value of seats.values()) {
+            if (value < 0) {
+              return false;
+            }
+          }
+          return true;
+        },
+        message: 'Available seats cannot be negative'
       }
     }
   },
