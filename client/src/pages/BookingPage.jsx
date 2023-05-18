@@ -1,17 +1,48 @@
-import React, { useReducer, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { deDE } from '@mui/x-date-pickers/locales';
-
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
-const maxSelectableDate = new Date();
-maxSelectableDate.setDate(maxSelectableDate.getDate() + 7);
+import { getAvailableSeats } from '../services/weeklyRides';
+import dayjs from 'dayjs';
 
 const BookingPage = () => {
-  const [selectedDate, setSelectedDate] = useState(null);
-  console.log(selectedDate);
+  const [selectedDate, setSelectedDate] = useState('');
+  const [availableSeats, setAvailableSeats] = useState(null);
+
+  const date = new Date(selectedDate.$d);
+  const formattedDate = date
+    .toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    })
+    .replace(/\//g, '-');
+
+  console.log(formattedDate); // Output: 25-05-2023
+
+  const presentDate = dayjs();
+  const maxSelectableDate = presentDate.add(14, 'day');
+
+  const isWeekend = date => {
+    const day = date.day();
+
+    return day === 6 || day === 0;
+  };
+
+  useEffect(() => {
+    if (formattedDate) {
+      getAvailableSeats()
+        .then(data => {
+          console.log(data);
+          setAvailableSeats(data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+  }, [formattedDate]);
+
   return (
     <>
       <Navbar />
@@ -31,8 +62,8 @@ const BookingPage = () => {
                     disablePast
                     format="DD/MM/YYYY"
                     placeholder="Select a date"
-                    startOfWeek={0}
-                    maxDate="14"
+                    maxDate={maxSelectableDate}
+                    shouldDisableDate={isWeekend}
                   />
                 </LocalizationProvider>
               </Box>
@@ -40,7 +71,9 @@ const BookingPage = () => {
             <Grid item xs={12} sm={6}>
               <Box>
                 <Typography variant="h5">Available Seats:</Typography>
-                {/* Here you can display the available seats for the selected date */}
+                {availableSeats && (
+                  <Typography>{`Available seats: ${availableSeats}`}</Typography>
+                )}
               </Box>
             </Grid>
             <Grid item xs={12}>

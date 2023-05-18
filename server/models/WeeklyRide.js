@@ -30,7 +30,7 @@ const weeklyRideSchema = new mongoose.Schema(
       },
       default: function () {
         const seats = new Map();
-        const startDate = new Date('2023-05-15');
+        const startDate = new Date('05-15-2023');
         for (let i = 0; i < 5; i++) {
           const date = new Date(startDate);
           date.setDate(startDate.getDate() + i);

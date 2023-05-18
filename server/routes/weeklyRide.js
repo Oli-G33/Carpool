@@ -3,6 +3,6 @@ const { getSeats } = require('../controllers/weeklyRide');
 
 const router = express.Router();
 
-router.get('/booking', getSeats);
+router.get('/:date', getSeats);
 
 module.exports = router;
