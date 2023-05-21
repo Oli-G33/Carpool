@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import Navbar from '../components/Navbar';
 
-const Dashboard = () => {
+const DashboardPage = () => {
   const [selectedWeek, setSelectedWeek] = useState('');
 
   const handleWeekSelect = e => {
@@ -89,4 +89,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardPage;

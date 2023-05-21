@@ -16,7 +16,7 @@ import {
 import ModeIcon from '@mui/icons-material/Mode';
 import Navbar from '../components/Navbar';
 
-const MyRides = () => {
+const MyRidesPage = () => {
   const [rides, setRides] = useState([
     { id: 1, week: '2023-W21', date: '2023-05-22', canceled: false },
     { id: 2, week: '2023-W21', date: '2023-05-24', canceled: false },
@@ -140,4 +140,4 @@ const MyRides = () => {
   );
 };
 
-export default MyRides;
+export default MyRidesPage;
