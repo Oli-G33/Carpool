@@ -6,6 +6,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import SuccessPage from './pages/SuccessPage';
 import './index.css';
+import Dashboard from './pages/Dashboard';
+import MyRides from './pages/MyRides';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
             <Route path="/booking" element={<BookingPage />} />
             <Route path="/terms" element={<TermsPage />} />
             <Route path="/success" element={<SuccessPage />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/myrides" element={<MyRides />} />
           </Routes>
         </BrowserRouter>
       </LocalizationProvider>

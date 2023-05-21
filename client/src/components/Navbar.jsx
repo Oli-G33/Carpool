@@ -16,6 +16,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { setLogout } from '../state';
 import { useNavigate } from 'react-router-dom';
+import Link from '@mui/material/Link';
 
 const colors = ['orange', 'pink', 'green', 'red', 'purple'];
 
@@ -51,14 +52,34 @@ const Navbar = () => {
         </ListItemIcon>
         <ListItemText primary="Close" />
       </ListItemButton>
+      {user.isAdmin ? (
+        <ListItemButton>
+          <Link href="/dashboard" color="inherit" underline="none">
+            <ListItemText primary="Dashboard" />
+          </Link>
+        </ListItemButton>
+      ) : (
+        ''
+      )}
       <ListItemButton>
-        <ListItemText primary="Home" />
+        <Link href="/booking" color="inherit" underline="none">
+          <ListItemText primary="Book a ride" />
+        </Link>
       </ListItemButton>
       <ListItemButton>
-        <ListItemText primary="About" />
+        <Link href="/myrides" color="inherit" underline="none">
+          <ListItemText primary="My Rides" />
+        </Link>
       </ListItemButton>
       <ListItemButton>
-        <ListItemText primary="Contact" />
+        <Link href="" color="inherit" underline="none">
+          <ListItemText primary="About" />
+        </Link>
+      </ListItemButton>
+      <ListItemButton>
+        <Link href="" color="inherit" underline="none">
+          <ListItemText primary="Contact" />
+        </Link>
       </ListItemButton>
     </List>
   );
@@ -75,7 +96,7 @@ const Navbar = () => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          CarPool
+          ExportCarpooler
         </Typography>
         {user && (
           <>

@@ -5,25 +5,27 @@ const { availableSeats } = require('../data');
 
 const getSeats = async (req, res) => {
   const { date } = req.params;
-  console.log(req.params);
+  console.log('Here===>', date);
+  const formattedDate = date.split('-').reverse().join('-');
+  console.log(formattedDate);
 
   WeeklyRide.findOne(
-    { [`availableSeats.${date}`]: { $exists: true } }, // match the document with the specified date
-    { [`availableSeats.${date}`]: 1 } // project only the available seats for that date
+    { [`availableSeats.${formattedDate}`]: { $exists: true } }, // match the document with the specified date
+    { [`availableSeats.${formattedDate}`]: 1 } // project only the available seats for that date
   ).exec((err, ride) => {
     if (err) {
       res.status(503).json(err);
       console.error(err);
       // handle error
     } else if (!ride || availableSeats === undefined) {
-      res.status(200).json(availableSeats.date);
-      console.error(`No ride found for date ${date}`);
+      res.status(200).json(availableSeats.formattedDate);
+      console.error(`No ride found for date ${formattedDate}`);
       // handle no ride found
     } else {
-      const availableSeats = ride.availableSeats.get(date);
+      const availableSeats = ride.availableSeats.get(formattedDate);
       res.status(200).json(availableSeats);
       console.log(
-        `There are ${availableSeats} available seats for date ${date}`
+        `There are ${availableSeats} available seats for date ${formattedDate}`
       );
     }
   });
@@ -31,24 +33,29 @@ const getSeats = async (req, res) => {
 
 const bookSeat = async (req, res) => {
   try {
-    const { date } = req.body;
+    const { date, userId } = req.body;
+
+    const formattedDate = date.split('-').reverse().join('-');
 
     // Find and update the WeeklyRide document for the specified date
     const ride = await WeeklyRide.findOneAndUpdate(
-      { [`availableSeats.${date}`]: { $exists: true } }, // match the document with the specified date
-      { $inc: { [`availableSeats.${date}`]: -1 } }, // decrement the available seats by 1
-      { new: true } // return the updated document
+      { [`availableSeats.${formattedDate}`]: { $exists: true } },
+      {
+        $inc: { [`availableSeats.${formattedDate}`]: -1 },
+        $push: { passengers: { userId, date: formattedDate } }
+      },
+      { new: true }
     );
 
     if (!ride) {
       // No ride found for the date
       return res
         .status(404)
-        .json({ message: `No ride found for date ${date}` });
+        .json({ message: `No ride found for date ${formattedDate}` });
     }
 
     // Get the updated available seats count
-    const availableSeats = ride.availableSeats[date];
+    const availableSeats = ride.availableSeats[formattedDate];
 
     // Return the updated available seats count
     res.json({ availableSeats });

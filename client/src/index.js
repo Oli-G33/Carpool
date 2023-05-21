@@ -15,6 +15,7 @@ import {
   PURGE,
   REGISTER
 } from 'redux-persist';
+import { CookiesProvider } from 'react-cookie';
 
 import authReducer from './state/index';
 
@@ -39,9 +40,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistStore(store)}>
-        <App />
-      </PersistGate>
+      <CookiesProvider>
+        <PersistGate loading={null} persistor={persistStore(store)}>
+          <App />
+        </PersistGate>
+      </CookiesProvider>
     </Provider>
   </React.StrictMode>
 );

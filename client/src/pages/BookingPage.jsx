@@ -17,6 +17,7 @@ import dayjs from 'dayjs';
 import { bookRide } from '../services/weeklyRides';
 import AirlineSeatReclineNormalIcon from '@mui/icons-material/AirlineSeatReclineNormal';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const BookingPage = () => {
   const today = new Date(); // Get the present date
@@ -33,6 +34,7 @@ const BookingPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
+  const user = useSelector(state => state.user.user);
 
   const date = new Date(selectedDate.$d);
   const formattedDate = date
@@ -46,7 +48,7 @@ const BookingPage = () => {
   console.log(formattedDate); // Output: 25-05-2023
 
   const presentDate = dayjs();
-  const maxSelectableDate = presentDate.add(14, 'day');
+  const maxSelectableDate = presentDate.add(7, 'day');
 
   const isWeekend = date => {
     const day = date.day();
@@ -75,14 +77,12 @@ const BookingPage = () => {
 
   const handleBookRide = () => {
     setIsLoading(true);
-    bookRide(formattedDate)
+    bookRide(formattedDate, user._id)
       .then(() => {
-        // Redirect to success page
         navigate('/success');
       })
       .catch(error => {
         console.error(error);
-        // Handle error scenario
       })
       .finally(() => setIsLoading(false));
   };
@@ -111,6 +111,7 @@ const BookingPage = () => {
                     placeholder="Select a date"
                     maxDate={maxSelectableDate}
                     shouldDisableDate={isWeekend}
+                    defaultValue={selectedDate}
                   />
                 </LocalizationProvider>
               </Box>
