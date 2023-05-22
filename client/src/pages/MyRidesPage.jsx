@@ -11,7 +11,8 @@ import {
   Modal,
   TextField,
   Box,
-  Link
+  Link,
+  Skeleton
 } from '@mui/material';
 import ModeIcon from '@mui/icons-material/Mode';
 import Navbar from '../components/Navbar';
@@ -26,6 +27,9 @@ const MyRidesPage = () => {
   const [openModal, setOpenModal] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleCancelRide = rideId => {
     setRides(prevRides =>
@@ -44,10 +48,11 @@ const MyRidesPage = () => {
   };
 
   const handleSavePersonalDetails = () => {
-    // Logic to save personal details
-    // Here, we're simply logging the values for demonstration purposes
     console.log('First Name:', firstName);
     console.log('Last Name:', lastName);
+    console.log('Phone Number:', phoneNumber);
+    console.log('Email:', email);
+    console.log('Password:', password);
 
     handleCloseModal();
   };
@@ -55,7 +60,7 @@ const MyRidesPage = () => {
   return (
     <>
       <Navbar />
-      <Container>
+      <Container sx={{ marginTop: '50px' }}>
         <Grid container spacing={2} justifyContent="center">
           <Grid item xs={12}>
             <Typography variant="h4">My Rides</Typography>
@@ -67,10 +72,19 @@ const MyRidesPage = () => {
                   {rides.map(ride => (
                     <ListItem key={ride.id} disablePadding>
                       <ListItemText
-                        primary={`Week ${ride.week}`}
-                        secondary={`Date: ${ride.date}`}
+                        primary={
+                          <Skeleton
+                            animation="wave"
+                            height={24}
+                            width="40%"
+                            style={{ marginBottom: 4 }}
+                          />
+                        }
+                        secondary={
+                          <Skeleton animation="wave" height={16} width="30%" />
+                        }
                       />
-                      {!ride.canceled && (
+                      {!ride.canceled ? (
                         <Button
                           variant="contained"
                           color="error"
@@ -78,6 +92,13 @@ const MyRidesPage = () => {
                         >
                           Cancel
                         </Button>
+                      ) : (
+                        <Skeleton
+                          animation="wave"
+                          height={32}
+                          width={80}
+                          style={{ marginLeft: 8 }}
+                        />
                       )}
                     </ListItem>
                   ))}
@@ -109,7 +130,7 @@ const MyRidesPage = () => {
               bgcolor: 'background.paper',
               boxShadow: 24,
               p: 4,
-              borderRadius: '8px' // Add rounded corners
+              borderRadius: '8px'
             }}
           >
             <Typography variant="h6" align="center" gutterBottom>
@@ -128,6 +149,28 @@ const MyRidesPage = () => {
               fullWidth
               value={lastName}
               onChange={e => setLastName(e.target.value)}
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              label="Phone Number"
+              fullWidth
+              value={phoneNumber}
+              onChange={e => setPhoneNumber(e.target.value)}
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              label="Email Address"
+              fullWidth
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              label="Password"
+              type="password"
+              fullWidth
+              value={password}
+              onChange={e => setPassword(e.target.value)}
               sx={{ mb: 2 }}
             />
             <Button variant="contained" onClick={handleSavePersonalDetails}>

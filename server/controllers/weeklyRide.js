@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const WeeklyRide = require('../models/WeeklyRide');
 const { availableSeats } = require('../data');
+const User = require('../models/user');
 
 const getSeats = async (req, res) => {
   const { date } = req.params;
@@ -65,4 +66,34 @@ const bookSeat = async (req, res) => {
   }
 };
 
-module.exports = { getSeats, bookSeat };
+const fetchPassengers = async (req, res) => {
+  try {
+    const desiredDate = new Date('2023-05-23'); // Example desired date
+
+    // Query the WeeklyRide collection for a specific date's passengers
+    const ride = await WeeklyRide.findOne(
+      { 'passengers.date': desiredDate },
+      'passengers'
+    );
+
+    if (!ride) {
+      // Handle case where no ride with passengers for the desired date is found
+      return res.status(404).json({ message: 'No ride found for the date' });
+    }
+
+    const passengerIds = ride.passengers.map((passenger) => passenger.userId);
+
+    // Query the Users collection to get the user documents for the passengerIds
+    const passengers = await User.find(
+      { _id: { $in: passengerIds } },
+      'firstName lastName'
+    );
+
+    res.json(passengers);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+module.exports = { getSeats, bookSeat, fetchPassengers };

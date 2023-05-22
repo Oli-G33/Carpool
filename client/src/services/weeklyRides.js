@@ -12,3 +12,6 @@ export const bookRide = (formattedDate, id) => {
       throw error;
     });
 };
+
+export const getPassengers = date =>
+  api.get(`booking/dashboard/${date}`).then(response => response.data);

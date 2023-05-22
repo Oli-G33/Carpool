@@ -1,87 +1,67 @@
 import React, { useState } from 'react';
 import {
-  Typography,
   Container,
   Grid,
+  Typography,
   Paper,
-  TextField,
-  List,
-  ListItem,
-  ListItemText
+  Button,
+  TextField
 } from '@mui/material';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Navbar from '../components/Navbar';
 
 const DashboardPage = () => {
-  const [selectedWeek, setSelectedWeek] = useState('');
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [passengers, setPassengers] = useState([]);
 
-  const handleWeekSelect = e => {
-    setSelectedWeek(e.target.value);
-  };
-
-  const handleViewPassengers = () => {
-    // Logic to fetch and display passengers for the selected week
-    // You can use the selectedWeek value to make API requests or retrieve data
-    // Here, we're assuming a static set of passengers for demonstration purposes
-    const passengersData = [
-      { date: '2023-05-22', passengers: ['Passenger 1', 'Passenger 2'] },
-      {
-        date: '2023-05-23',
-        passengers: ['Passenger 3', 'Passenger 4', 'Passenger 5']
-      }
-      // Add more data for other days
-    ];
-
-    // Render the passengers list based on the selected week
-    return (
-      <List>
-        {passengersData.map(data => (
-          <ListItem key={data.date}>
-            <ListItemText
-              primary={data.date}
-              secondary={data.passengers.join(', ')}
-            />
-          </ListItem>
-        ))}
-      </List>
-    );
+  const handleDateChange = date => {
+    setSelectedDate(date);
+    // Call an API or perform a database query to get the passengers for the selected date
+    // Update the 'passengers' state with the retrieved data
+    // setPassengers([...]);
   };
 
   return (
     <>
       <Navbar />
-      <Container>
-        <Grid container spacing={2} justifyContent="center">
+      <Container maxWidth="lg" sx={{ marginTop: '50px' }}>
+        <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Typography variant="h4">Dashboard</Typography>
+            <Typography variant="h4" component="h1" align="center">
+              Dashboard
+            </Typography>
           </Grid>
-          <Grid item xs={12}>
-            <Paper variant="outlined">
-              <Grid
-                container
-                spacing={2}
-                justifyContent="center"
-                alignItems="center"
-              >
-                <Grid item>
-                  <TextField
-                    label="Select Week"
-                    type="week"
-                    value={selectedWeek}
-                    onChange={handleWeekSelect}
-                  />
-                </Grid>
-              </Grid>
+          <Grid item xs={12} md={6}>
+            <Paper elevation={3} sx={{ p: 2 }}>
+              <Typography variant="h6" component="h2" mb={2}>
+                Select a Date
+              </Typography>
+              <DatePicker
+                label="Choose a date"
+                value={selectedDate}
+                onChange={handleDateChange}
+                renderInput={props => <TextField {...props} />}
+                fullWidth
+              />
             </Paper>
           </Grid>
-          <Grid item xs={12}>
-            {selectedWeek && (
-              <Paper variant="outlined">
-                <Typography variant="h5">
-                  Passengers for Week: {selectedWeek}
+          <Grid item xs={12} md={6}>
+            <Paper elevation={3} sx={{ p: 2 }}>
+              <Typography variant="h6" component="h2" mb={2}>
+                Passengers for {selectedDate ? selectedDate.toDateString() : ''}
+              </Typography>
+              {passengers.length > 0 ? (
+                passengers.map(passenger => (
+                  <Typography key={passenger.id} variant="body1" component="p">
+                    {passenger.firstName} {passenger.lastName}
+                  </Typography>
+                ))
+              ) : (
+                <Typography variant="body1" component="p">
+                  No passengers found for the selected date.
                 </Typography>
-                {handleViewPassengers()}
-              </Paper>
-            )}
+              )}
+            </Paper>
           </Grid>
         </Grid>
       </Container>

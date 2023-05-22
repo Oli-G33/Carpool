@@ -48,7 +48,7 @@ const BookingPage = () => {
   console.log(formattedDate); // Output: 25-05-2023
 
   const presentDate = dayjs();
-  const maxSelectableDate = presentDate.add(7, 'day');
+  const maxSelectableDate = presentDate.add(14, 'day');
 
   const isWeekend = date => {
     const day = date.day();
@@ -71,7 +71,7 @@ const BookingPage = () => {
 
   const renderSeatIcons = count => {
     return Array.from({ length: count }, (_, index) => (
-      <AirlineSeatReclineNormalIcon key={index} />
+      <AirlineSeatReclineNormalIcon key={index} color="primary" />
     ));
   };
 
@@ -90,12 +90,14 @@ const BookingPage = () => {
   return (
     <>
       <Navbar />
-      <Container>
+      <Container sx={{ marginTop: '50px' }}>
         <Box boxShadow={'2px 2px 4px rgba(0, 0, 0, 0.2)'} flexGrow={0} p={2}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Box>
-                <Typography variant="h5">Select a date:</Typography>
+                <Typography variant="h5" sx={{ marginBottom: '20px' }}>
+                  Select a date:
+                </Typography>
                 <LocalizationProvider
                   dateAdapter={AdapterDayjs}
                   adapterLocale="en-gb"
@@ -109,9 +111,9 @@ const BookingPage = () => {
                     disablePast
                     format="DD/MM/YYYY"
                     placeholder="Select a date"
-                    maxDate={maxSelectableDate}
                     shouldDisableDate={isWeekend}
                     defaultValue={selectedDate}
+                    maxDate={maxSelectableDate}
                   />
                 </LocalizationProvider>
               </Box>
@@ -119,8 +121,14 @@ const BookingPage = () => {
             <Grid item xs={12} sm={6}>
               {availableSeats > 0 && (
                 <Box>
-                  <Typography variant="h5">Available Seats:</Typography>
-                  <Box display="flex" alignItems="center">
+                  <Typography variant="h5" sx={{ marginBottom: '20px' }}>
+                    Available Seats:
+                  </Typography>
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    sx={{ border: '1px solid black', width: '25%' }}
+                  >
                     {renderSeatIcons(availableSeats)}
                   </Box>
                 </Box>
