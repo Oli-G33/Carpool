@@ -71,7 +71,11 @@ const BookingPage = () => {
 
   const renderSeatIcons = count => {
     return Array.from({ length: count }, (_, index) => (
-      <AirlineSeatReclineNormalIcon key={index} color="primary" />
+      <AirlineSeatReclineNormalIcon
+        key={index}
+        color="primary"
+        sx={{ fontSize: 48 }}
+      />
     ));
   };
 
@@ -90,12 +94,12 @@ const BookingPage = () => {
   return (
     <>
       <Navbar />
-      <Container sx={{ marginTop: '50px' }}>
+      <Container sx={{ marginTop: '50px', minHeight: '80vh' }}>
         <Box boxShadow={'2px 2px 4px rgba(0, 0, 0, 0.2)'} flexGrow={0} p={2}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Box>
-                <Typography variant="h5" sx={{ marginBottom: '20px' }}>
+                <Typography variant="h4" sx={{ marginBottom: '20px' }}>
                   Select a date:
                 </Typography>
                 <LocalizationProvider
@@ -121,13 +125,17 @@ const BookingPage = () => {
             <Grid item xs={12} sm={6}>
               {availableSeats > 0 && (
                 <Box>
-                  <Typography variant="h5" sx={{ marginBottom: '20px' }}>
+                  <Typography variant="h4" sx={{ marginBottom: '20px' }}>
                     Available Seats:
                   </Typography>
                   <Box
                     display="flex"
                     alignItems="center"
-                    sx={{ border: '1px solid black', width: '25%' }}
+                    sx={{
+                      border: '2px solid black',
+                      borderRadius: '8px',
+                      width: '34%'
+                    }}
                   >
                     {renderSeatIcons(availableSeats)}
                   </Box>

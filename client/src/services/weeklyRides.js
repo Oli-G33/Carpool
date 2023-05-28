@@ -1,7 +1,7 @@
 import api from './api';
 
 export const getAvailableSeats = date =>
-  api.get(`/booking/${date}`).then(response => response.data);
+  api.get(`/booking/availability/${date}`).then(response => response.data);
 
 export const bookRide = (formattedDate, id) => {
   return api
@@ -15,3 +15,6 @@ export const bookRide = (formattedDate, id) => {
 
 export const getPassengers = date =>
   api.get(`booking/dashboard/${date}`).then(response => response.data);
+
+export const getMyRides = userId =>
+  api.get(`/booking/myrides/${userId}`).then(response => response.data);

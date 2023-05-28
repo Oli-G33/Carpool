@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Container,
   Typography,
@@ -16,20 +17,37 @@ import {
 } from '@mui/material';
 import ModeIcon from '@mui/icons-material/Mode';
 import Navbar from '../components/Navbar';
+import { getMyRides } from '../services/weeklyRides';
 
 const MyRidesPage = () => {
-  const [rides, setRides] = useState([
-    { id: 1, week: '2023-W21', date: '2023-05-22', canceled: false },
-    { id: 2, week: '2023-W21', date: '2023-05-24', canceled: false },
-    { id: 3, week: '2023-W22', date: '2023-05-30', canceled: false }
-  ]);
-
+  const [rides, setRides] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const user = useSelector(state => state.user.user);
+  console.log(rides);
+
+  useEffect(() => {
+    const fetchRides = async () => {
+      try {
+        // Fetch the rides for the signed-in user
+        const userRides = await getMyRides(user._id); // Update this with your API call
+
+        // Set the fetched rides in the state
+        setRides(userRides);
+      } catch (error) {
+        console.error(error);
+        // Handle error, show error message, etc.
+      }
+    };
+
+    // Call the fetchRides function
+    fetchRides();
+  }, []); // Empty dependency array to run the effect only once
 
   const handleCancelRide = rideId => {
     setRides(prevRides =>
@@ -69,8 +87,8 @@ const MyRidesPage = () => {
             <Paper variant="outlined">
               {rides.length > 0 ? (
                 <List>
-                  {rides.map(ride => (
-                    <ListItem key={ride.id} disablePadding>
+                  {rides.map((ride, index) => (
+                    <ListItem key={index}>
                       <ListItemText
                         primary={
                           <Skeleton
@@ -78,17 +96,24 @@ const MyRidesPage = () => {
                             height={24}
                             width="40%"
                             style={{ marginBottom: 4 }}
-                          />
-                        }
-                        secondary={
-                          <Skeleton animation="wave" height={16} width="30%" />
+                          >
+                            {ride && (
+                              <Typography>
+                                {new Date(ride).toLocaleDateString('de-DE', {
+                                  day: '2-digit',
+                                  month: '2-digit',
+                                  year: 'numeric'
+                                })}
+                              </Typography>
+                            )}
+                          </Skeleton>
                         }
                       />
                       {!ride.canceled ? (
                         <Button
                           variant="contained"
                           color="error"
-                          onClick={() => handleCancelRide(ride.id)}
+                          onClick={() => handleCancelRide(index)}
                         >
                           Cancel
                         </Button>
