@@ -8,6 +8,7 @@ import SuccessPage from './pages/SuccessPage';
 import './index.css';
 import DashboardPage from './pages/DashboardPage';
 import MyRidesPage from './pages/MyRidesPage';
+import { Copyright } from './components/copyright';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/myrides" element={<MyRidesPage />} />
           </Routes>
         </BrowserRouter>
+        <Copyright sx={{ mt: 5 }} />
       </LocalizationProvider>
     </>
   );

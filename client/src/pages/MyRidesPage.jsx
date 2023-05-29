@@ -13,7 +13,9 @@ import {
   TextField,
   Box,
   Link,
-  Skeleton
+  Skeleton,
+  Stack,
+  Divider
 } from '@mui/material';
 import ModeIcon from '@mui/icons-material/Mode';
 import Navbar from '../components/Navbar';
@@ -71,7 +73,7 @@ const MyRidesPage = () => {
     (a, b) => new Date(a.date) - new Date(b.date)
   );
 
-  console.log(formattedDates);
+  console.log(rides);
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -103,38 +105,28 @@ const MyRidesPage = () => {
             <Paper variant="outlined">
               {rides.length > 0 ? (
                 <List>
-                  {rides.map((ride, index) => (
-                    <ListItem key={ride.passengerId}>
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          width: '40%',
-                          marginBottom: 4
-                        }}
-                      >
-                        {ride && <Typography>{sortedRides[index]}</Typography>}
-                      </Box>
-                      {!ride.canceled ? (
-                        <Button
-                          variant="contained"
-                          color="error"
-                          size="small"
-                          sx={{ alignSelf: 'center', marginLeft: 'auto' }}
-                          onClick={() => handleCancelRide(index)}
-                        >
-                          Cancel
-                        </Button>
-                      ) : (
-                        <Skeleton
-                          animation="wave"
-                          height={32}
-                          width={80}
-                          style={{ marginLeft: 8 }}
-                        />
-                      )}
-                    </ListItem>
-                  ))}
+                  <Stack spacing={1}>
+                    {sortedRides.map((date, index) => (
+                      <React.Fragment key={index}>
+                        <ListItem>
+                          <ListItemText primary={date} />
+                          {!rides[index].canceled ? (
+                            <Button
+                              variant="outlined"
+                              color="error"
+                              size="small"
+                              onClick={() => handleCancelRide(index)}
+                            >
+                              Cancel
+                            </Button>
+                          ) : (
+                            <Skeleton animation="wave" height={32} width={80} />
+                          )}
+                        </ListItem>
+                        {index !== sortedRides.length - 1 && <Divider />}
+                      </React.Fragment>
+                    ))}
+                  </Stack>
                 </List>
               ) : (
                 <Typography>No rides found</Typography>
@@ -142,7 +134,7 @@ const MyRidesPage = () => {
             </Paper>
           </Grid>
           <Grid item xs={12}>
-            <Box mt={2}>
+            <Box mt={2} mb={12}>
               <Link href="#" onClick={handleOpenModal}>
                 Modify Personal Details
                 <ModeIcon sx={{ ml: 1 }} />

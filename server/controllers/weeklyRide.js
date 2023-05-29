@@ -3,6 +3,7 @@ const router = express.Router();
 const WeeklyRide = require('../models/WeeklyRide');
 const { availableSeats } = require('../data');
 const User = require('../models/user');
+const { ObjectId } = require('mongodb');
 
 const getSeats = async (req, res) => {
   const { date } = req.params;
@@ -121,7 +122,64 @@ const fetchMyRides = async (req, res) => {
   }
 };
 
-const cancelMyRide = async (req, res) => {};
+const cancelMyRide = async (req, res) => {
+  try {
+    const { passengerId: _id } = req.body;
+    console.log(_id);
+
+    // Find the ride in the database using the passengerId
+    const ride = await WeeklyRide.findOne({
+      'passengers._id': new ObjectId(_id)
+    });
+
+    if (!ride) {
+      return res.status(404).json({ message: 'Ride not found1' });
+    }
+
+    // Find the passenger in the ride's passengers array
+    const passenger = ride.passengers.find(
+      (passenger) => passenger._id.toString() === _id
+    );
+
+    if (!passenger) {
+      return res
+        .status(404)
+        .json({ message: 'Passenger not found in the ride' });
+    }
+
+    const passengerId = passenger._id.toString();
+    console.log(passengerId);
+
+    // Get the date of the ride
+    const rideDate = ride.passengers.find(
+      (passenger) => passenger._id.toString() === _id
+    ).date;
+
+    // Add 1 seat to the availableSeats for the ride's date
+    const updatedRide = await WeeklyRide.findOneAndUpdate(
+      { 'availableSeats.date': rideDate },
+      { $inc: { 'availableSeats.$.seats': 1 } },
+      { new: true }
+    );
+
+    if (!updatedRide) {
+      return res.status(404).json({ message: 'Ride not found2' });
+    }
+
+    // Remove the passenger from the ride
+    updatedRide.passengers = updatedRide.passengers.filter(
+      (passenger) => passenger._id.toString() !== _id
+    );
+
+    // Save the updated ride
+    await updatedRide.save();
+
+    res.json({ message: 'Ride canceled successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 module.exports = {
   getSeats,
