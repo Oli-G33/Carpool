@@ -132,9 +132,12 @@ const BookingPage = () => {
                     display="flex"
                     alignItems="center"
                     sx={{
-                      border: '2px solid black',
-                      borderRadius: '8px',
-                      width: '34%'
+                      border: '1px solid',
+                      borderColor: 'primary.main',
+                      borderRadius: '4px',
+                      padding: '4px',
+                      maxWidth: '34%',
+                      margin: '0 auto'
                     }}
                   >
                     {renderSeatIcons(availableSeats)}

@@ -96,4 +96,37 @@ const fetchPassengers = async (req, res) => {
   }
 };
 
-module.exports = { getSeats, bookSeat, fetchPassengers };
+const fetchMyRides = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // Query the WeeklyRide collection for rides where the user is a passenger
+    const rides = await WeeklyRide.find({ 'passengers.userId': userId });
+
+    // Extract the dates and passenger IDs where the user is a passenger
+    const passengerData = rides.reduce((result, ride) => {
+      const passengerDates = ride.passengers
+        .filter((passenger) => passenger.userId.toString() === userId)
+        .map((passenger) => ({
+          date: passenger.date,
+          passengerId: passenger._id
+        }));
+      return [...result, ...passengerDates];
+    }, []);
+
+    res.json(passengerData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+const cancelMyRide = async (req, res) => {};
+
+module.exports = {
+  getSeats,
+  bookSeat,
+  fetchPassengers,
+  fetchMyRides,
+  cancelMyRide
+};

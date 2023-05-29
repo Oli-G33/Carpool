@@ -57,6 +57,22 @@ const MyRidesPage = () => {
     );
   };
 
+  const formattedDates = rides.map(data => {
+    const date = new Date(data.date);
+    const formattedDate = date.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    });
+    return formattedDate;
+  });
+
+  const sortedRides = formattedDates.sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
+
+  console.log(formattedDates);
+
   const handleOpenModal = () => {
     setOpenModal(true);
   };
@@ -88,31 +104,23 @@ const MyRidesPage = () => {
               {rides.length > 0 ? (
                 <List>
                   {rides.map((ride, index) => (
-                    <ListItem key={index}>
-                      <ListItemText
-                        primary={
-                          <Skeleton
-                            animation="wave"
-                            height={24}
-                            width="40%"
-                            style={{ marginBottom: 4 }}
-                          >
-                            {ride && (
-                              <Typography>
-                                {new Date(ride).toLocaleDateString('de-DE', {
-                                  day: '2-digit',
-                                  month: '2-digit',
-                                  year: 'numeric'
-                                })}
-                              </Typography>
-                            )}
-                          </Skeleton>
-                        }
-                      />
+                    <ListItem key={ride.passengerId}>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          width: '40%',
+                          marginBottom: 4
+                        }}
+                      >
+                        {ride && <Typography>{sortedRides[index]}</Typography>}
+                      </Box>
                       {!ride.canceled ? (
                         <Button
                           variant="contained"
                           color="error"
+                          size="small"
+                          sx={{ alignSelf: 'center', marginLeft: 'auto' }}
                           onClick={() => handleCancelRide(index)}
                         >
                           Cancel
