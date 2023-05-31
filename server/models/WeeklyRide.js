@@ -26,7 +26,8 @@ const weeklyRideSchema = new mongoose.Schema(
       type: Map,
       of: {
         type: Number,
-        default: 4
+        default: 4,
+        max: 4
       },
       default: function () {
         const seats = new Map();

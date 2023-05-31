@@ -19,9 +19,9 @@ export const getPassengers = date =>
 export const getMyRides = userId =>
   api.get(`/booking/myrides/${userId}`).then(response => response.data);
 
-export const cancelMyRide = async passengerId => {
+export const cancelMyRide = async (passengerId, date) => {
   return api
-    .post(`/booking/myrides/cancel`, { passengerId })
+    .post(`/booking/myrides/cancel`, { passengerId, date })
     .then(response => response.data)
     .catch(error => {
       console.error(error);

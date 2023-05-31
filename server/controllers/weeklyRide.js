@@ -124,8 +124,7 @@ const fetchMyRides = async (req, res) => {
 
 const cancelMyRide = async (req, res) => {
   try {
-    const { passengerId: _id } = req.body;
-    console.log(_id);
+    const { passengerId: _id, date } = req.body;
 
     // Find the ride in the database using the passengerId
     const ride = await WeeklyRide.findOne({
@@ -136,43 +135,34 @@ const cancelMyRide = async (req, res) => {
       return res.status(404).json({ message: 'Ride not found1' });
     }
 
-    // Find the passenger in the ride's passengers array
-    const passenger = ride.passengers.find(
+    // Find the passenger index in the ride's passengers array
+    const passengerIndex = ride.passengers.findIndex(
       (passenger) => passenger._id.toString() === _id
     );
 
-    if (!passenger) {
+    if (passengerIndex === -1) {
       return res
         .status(404)
         .json({ message: 'Passenger not found in the ride' });
     }
 
-    const passengerId = passenger._id.toString();
-    console.log(passengerId);
+    // Remove the passenger from the ride's passengers array
+    ride.passengers.splice(passengerIndex, 1);
 
-    // Get the date of the ride
-    const rideDate = ride.passengers.find(
-      (passenger) => passenger._id.toString() === _id
-    ).date;
+    const query = {};
+    query[`availableSeats.${date}`] = { $exists: true };
 
-    // Add 1 seat to the availableSeats for the ride's date
-    const updatedRide = await WeeklyRide.findOneAndUpdate(
-      { 'availableSeats.date': rideDate },
-      { $inc: { 'availableSeats.$.seats': 1 } },
-      { new: true }
-    );
+    const update = {};
+    update[`availableSeats.${date}`] = 1;
+
+    const updatedRide = await ride.save();
 
     if (!updatedRide) {
       return res.status(404).json({ message: 'Ride not found2' });
     }
 
-    // Remove the passenger from the ride
-    updatedRide.passengers = updatedRide.passengers.filter(
-      (passenger) => passenger._id.toString() !== _id
-    );
-
-    // Save the updated ride
-    await updatedRide.save();
+    // Update the available seats
+    await WeeklyRide.findOneAndUpdate(query, { $inc: update }, { new: true });
 
     res.json({ message: 'Ride canceled successfully' });
   } catch (error) {
