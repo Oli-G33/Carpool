@@ -29,7 +29,8 @@ const BookingPage = () => {
     })
     .replace(/\//g, '-');
   console.log(formattedTodayDate);
-  const [selectedDate, setSelectedDate] = useState(formattedTodayDate);
+  const [selectedDate, setSelectedDate] = useState(dayjs(formattedTodayDate));
+
   const [availableSeats, setAvailableSeats] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -108,7 +109,7 @@ const BookingPage = () => {
                 >
                   <DatePicker
                     value={selectedDate}
-                    onChange={newDate => setSelectedDate(newDate)}
+                    onChange={newDate => setSelectedDate(dayjs(newDate))}
                     inputVariant="outlined"
                     fullWidth
                     margin="normal"
