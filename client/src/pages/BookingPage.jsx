@@ -29,7 +29,7 @@ const BookingPage = () => {
     })
     .replace(/\//g, '-');
   console.log(formattedTodayDate);
-  const [selectedDate, setSelectedDate] = useState(dayjs(formattedTodayDate));
+  const [selectedDate, setSelectedDate] = useState(dayjs());
 
   const [availableSeats, setAvailableSeats] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
