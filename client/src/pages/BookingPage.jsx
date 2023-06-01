@@ -37,14 +37,15 @@ const BookingPage = () => {
   const navigate = useNavigate();
   const user = useSelector(state => state.user.user);
 
-  const date = new Date(selectedDate.$d);
-  const formattedDate = date
-    .toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    })
-    .replace(/\//g, '-');
+  const date = selectedDate.toDate();
+  const formattedDate = selectedDate.format('DD-MM-YYYY');
+  // const formattedDate = date
+  //   .toLocaleDateString('en-GB', {
+  //     day: '2-digit',
+  //     month: '2-digit',
+  //     year: 'numeric'
+  //   })
+  //   .replace(/\//g, '-');
 
   console.log(formattedDate); // Output: 25-05-2023
 
