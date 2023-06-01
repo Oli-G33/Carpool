@@ -51,7 +51,7 @@ const BookingPage = () => {
   const maxSelectableDate = presentDate.add(14, 'day');
 
   const isWeekend = date => {
-    const day = date.day();
+    const day = dayjs(date).day();
 
     return day === 6 || day === 0;
   };
