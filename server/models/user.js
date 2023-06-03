@@ -27,8 +27,8 @@ const schema = new mongoose.Schema(
       trim: true
     },
     picture: {
-      type: String
-      // default: '../assets/profilePic.png'
+      type: String,
+      default: '../assets/profilePic.png'
     },
 
     password: {

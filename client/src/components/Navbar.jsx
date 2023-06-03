@@ -28,7 +28,8 @@ const Navbar = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector(state => state.user.user);
+  const user = useSelector(state => state.user);
+  console.log(user);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -41,7 +42,6 @@ const Navbar = () => {
   const handleLogout = () => {
     navigate('/');
     dispatch(setLogout());
-    console.log(user);
   };
 
   const drawer = (
@@ -52,14 +52,12 @@ const Navbar = () => {
         </ListItemIcon>
         <ListItemText primary="Close" />
       </ListItemButton>
-      {user.isAdmin ? (
+      {user.isAdmin && (
         <ListItemButton>
           <Link href="/dashboard" color="inherit" underline="none">
             <ListItemText primary="Dashboard" />
           </Link>
         </ListItemButton>
-      ) : (
-        ''
       )}
       <ListItemButton>
         <Link href="/booking" color="inherit" underline="none">

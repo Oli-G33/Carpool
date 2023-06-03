@@ -15,7 +15,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { MuiTelInput, matchIsValidTel } from 'mui-tel-input';
 // import { IKImage, IKContext, IKUpload } from 'imagekitio-react';
 // import ImageInput from './ImageInput';
-import { Copyright } from './copyright';
 import { Snackbar } from '@mui/material';
 import { Alert } from '@mui/material';
 import { useState } from 'react';
@@ -123,6 +122,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
       });
 
       const registeredUser = await registerResponse.json();
+      console.log(registeredUser.json());
       if (registeredUser) {
         dispatch(
           setLogin({
@@ -292,7 +292,6 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );

@@ -10,7 +10,6 @@ import LockIcon from '@mui/icons-material/Lock';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Copyright } from './copyright';
 import { CircularProgress, Snackbar } from '@mui/material';
 import { Alert } from '@mui/material';
 import { useState } from 'react';
@@ -69,7 +68,6 @@ export default function Login({ isLogin, setIsLogin }) {
 
     try {
       const loggedInResponse = await logInUser({ email, password });
-      console.log(loggedInResponse);
 
       if (loggedInResponse) {
         dispatch(
@@ -107,7 +105,11 @@ export default function Login({ isLogin, setIsLogin }) {
             marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center'
+            alignItems: 'center',
+            backgroundColor: 'white',
+            border: '1px solid #ccc',
+            borderRadius: '8px',
+            padding: '36px'
           }}
         >
           <Avatar
@@ -182,7 +184,6 @@ export default function Login({ isLogin, setIsLogin }) {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );

@@ -40,7 +40,6 @@ const DashboardPage = () => {
                 label="Choose a date"
                 value={selectedDate}
                 onChange={handleDateChange}
-                renderInput={props => <TextField {...props} />}
                 fullWidth
               />
             </Paper>

@@ -1,19 +1,10 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import AuthenticationPage from './pages/AuthenticationPage/AuthenticationPage';
-import TermsPage from './pages/TermsPage';
-import BookingPage from './pages/BookingPage';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import SuccessPage from './pages/SuccessPage';
-import './index.css';
-import DashboardPage from './pages/DashboardPage';
-import MyRidesPage from './pages/MyRidesPage';
-import { Copyright } from './components/copyright';
+import React from 'react';
 import { useCallback } from 'react';
 import Particles from 'react-tsparticles';
 import { loadFull } from 'tsparticles';
+import '../index.css';
 
-function App() {
+const Background = () => {
   const particlesInit = useCallback(async engine => {
     await loadFull(engine);
   }, []);
@@ -22,19 +13,18 @@ function App() {
     await console.log(container);
   }, []);
   return (
-    <div className="app">
+    <>
       <Particles
         id="tsparticles"
-        className="particles-background"
         init={particlesInit}
         loaded={particlesLoaded}
         options={{
           fullScreen: false,
           background: {
-            image: ' linear-gradient(19deg, #21D4FD 0%, #1c305c 100%)'
+            image: ' linear-gradient(19deg, #21D4FD 0%, #B721FF 100%)'
           },
           particles: {
-            number: { value: 15, density: { enable: true, value_area: 600 } },
+            number: { value: 10, density: { enable: true, value_area: 600 } },
             color: { value: '#ffffff' },
             shape: {
               type: 'square',
@@ -92,25 +82,8 @@ function App() {
           retina_detect: true
         }}
       />
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <BrowserRouter>
-          <div className="content">
-            <Routes>
-              <Route path="/" element={<AuthenticationPage />} />
-              <Route path="/booking" element={<BookingPage />} />
-              <Route path="/terms" element={<TermsPage />} />
-              <Route path="/success" element={<SuccessPage />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/myrides" element={<MyRidesPage />} />
-            </Routes>
-          </div>
-        </BrowserRouter>
-        <div className="footer">
-          <Copyright sx={{ mt: 5, mb: 1 }} />
-        </div>
-      </LocalizationProvider>
-    </div>
+    </>
   );
-}
+};
 
-export default App;
+export default Background;
