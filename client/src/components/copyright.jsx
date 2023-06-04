@@ -4,7 +4,7 @@ export function Copyright(props) {
   return (
     <Typography
       variant="body2"
-      color="text.secondary"
+      color="white"
       align="center"
       {...props}
     >
