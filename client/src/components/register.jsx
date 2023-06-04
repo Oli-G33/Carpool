@@ -139,7 +139,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="md">
         <CssBaseline />
         <Box
           sx={{

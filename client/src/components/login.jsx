@@ -98,7 +98,7 @@ export default function Login({ isLogin, setIsLogin }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="md">
         <CssBaseline />
         <Box
           sx={{
