@@ -63,14 +63,14 @@ const BookingPage = () => {
   }, [formattedDate]);
 
   const renderSeatIcons = count => {
-    const seatIconSize = 34 / count;
+    const seatIconSize = 16 / count;
 
     return Array.from({ length: count }, (_, index) => (
       <AirlineSeatReclineNormalIcon
         key={index}
         color="primary"
         sx={{
-          fontSize: `${seatIconSize}vh`,
+          fontSize: `6vh`,
           margin: '0 2px'
         }}
       />
@@ -136,12 +136,16 @@ const BookingPage = () => {
             </LocalizationProvider>
           </Box>
           <Divider orientation="vertical" sx={{ margin: '0 20px' }} />
-          <Box width="50%" justifyContent="center">
+          <Box width="50%" sx={{ justifyContent: 'center' }}>
             {availableSeats > 0 && (
-              <Box flexGrow={0} justifyItems={'center'}>
+              <Box flexGrow={0} sx={{ justifyContent: 'center' }}>
                 <Typography
                   variant="h4"
-                  sx={{ marginBottom: '10px', color: 'white' }}
+                  sx={{
+                    marginBottom: '10px',
+                    color: 'white',
+                    ml: '25%'
+                  }}
                 >
                   Available Seats
                 </Typography>
@@ -152,8 +156,13 @@ const BookingPage = () => {
                     borderColor: 'primary.main',
                     borderRadius: '4px',
                     padding: '4px',
-                    width: `${availableSeats * 4}%`,
-                    margin: '0 auto'
+                    width: '100%',
+                    maxWidth: '400px', // Adjust the maximum width as needed
+                    margin: '0 auto',
+                    justifyContent: 'center',
+                    '@media (min-width: 768px)': {
+                      width: `${availableSeats * 4}%`
+                    }
                   }}
                 >
                   {renderSeatIcons(availableSeats)}

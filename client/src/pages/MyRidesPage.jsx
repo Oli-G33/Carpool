@@ -98,7 +98,16 @@ const MyRidesPage = () => {
             <Typography variant="h4">My Rides</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Paper variant="outlined">
+            <Paper
+              variant="outlined"
+              sx={{
+                backgroundColor: 'rgba(200, 200, 200, 0.6)',
+                border: '1px solid #ccc',
+                borderRadius: '8px',
+                padding: '2px',
+                maxWidth: '80%'
+              }}
+            >
               {rides.length > 0 ? (
                 <List>
                   <Stack spacing={1}>
