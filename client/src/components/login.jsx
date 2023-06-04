@@ -106,10 +106,11 @@ export default function Login({ isLogin, setIsLogin }) {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            backgroundColor: 'rgba(255, 255, 255, 0.6)',
+            backgroundColor: 'rgba(220, 220, 220, 0.6)',
             border: '1px solid #ccc',
             borderRadius: '8px',
-            padding: '36px'
+            padding: '36px', 
+            minWidth: "500px"
           }}
         >
           <Avatar
