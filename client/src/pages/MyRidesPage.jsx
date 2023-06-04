@@ -13,13 +13,14 @@ import {
   TextField,
   Box,
   Link,
-  Skeleton,
   Stack,
+  // CircularProgress,
   Divider
 } from '@mui/material';
 import ModeIcon from '@mui/icons-material/Mode';
 import Navbar from '../components/Navbar';
-import { getMyRides } from '../services/weeklyRides';
+import { getMyRides, cancelMyRide } from '../services/weeklyRides';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const MyRidesPage = () => {
   const [rides, setRides] = useState([]);
@@ -29,6 +30,7 @@ const MyRidesPage = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const user = useSelector(state => state.user);
   console.log(rides);
@@ -37,43 +39,37 @@ const MyRidesPage = () => {
     const fetchRides = async () => {
       try {
         // Fetch the rides for the signed-in user
-        const userRides = await getMyRides(user._id); // Update this with your API call
-
-        // Set the fetched rides in the state
+        const userRides = await getMyRides(user._id);
         setRides(userRides);
       } catch (error) {
         console.error(error);
-        // Handle error, show error message, etc.
       }
     };
 
     // Call the fetchRides function
     fetchRides();
-  }, []); // Empty dependency array to run the effect only once
+  }, []);
 
-  const handleCancelRide = (rideId, date) => {
-    setRides(prevRides =>
-      prevRides.map(ride =>
-        ride.id === rideId ? { ...ride, canceled: true } : ride
-      )
-    );
+  const handleCancelRide = async (passengerId, date) => {
+    try {
+      setLoading(true);
+
+      await cancelMyRide(passengerId, date);
+
+      // Update the rides state to mark the cancelled ride
+      setRides(prevRides =>
+        prevRides.map(ride =>
+          ride.passengerId === passengerId ? { ...ride, canceled: true } : ride
+        )
+      );
+      const updatedRides = await getMyRides(user._id);
+      setRides(updatedRides);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
-
-  const formattedDates = rides.map(data => {
-    const date = new Date(data.date);
-    const formattedDate = date.toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    });
-    return formattedDate;
-  });
-
-  const sortedRides = formattedDates.sort(
-    (a, b) => new Date(a.date) - new Date(b.date)
-  );
-
-  console.log(rides);
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -106,24 +102,31 @@ const MyRidesPage = () => {
               {rides.length > 0 ? (
                 <List>
                   <Stack spacing={1}>
-                    {sortedRides.map((date, index) => (
+                    {rides.map((ride, index) => (
                       <React.Fragment key={index}>
                         <ListItem>
-                          <ListItemText primary={date} />
-                          {!rides[index].canceled ? (
+                          <ListItemText primary={ride.date} />
+                          {!ride.canceled ? (
                             <Button
                               variant="outlined"
                               color="error"
                               size="small"
-                              onClick={() => handleCancelRide(index)}
+                              onClick={() =>
+                                handleCancelRide(ride.passengerId, ride.date)
+                              }
+                              disabled={loading}
                             >
-                              Cancel
+                              {loading ? (
+                                <CircularProgress size={25} />
+                              ) : (
+                                'Cancel'
+                              )}
                             </Button>
                           ) : (
-                            <Skeleton animation="wave" height={32} width={80} />
+                            ''
                           )}
                         </ListItem>
-                        {index !== sortedRides.length - 1 && <Divider />}
+                        {index !== rides.length - 1 && <Divider />}
                       </React.Fragment>
                     ))}
                   </Stack>

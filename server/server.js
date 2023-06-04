@@ -6,7 +6,7 @@ const ImageKit = require('imagekit');
 const AuthRouter = require('./routes/auth');
 const BookingRouter = require('./routes/weeklyRide');
 require('dotenv').config();
-const rideData = require('./data.js');
+// const rideData = require('./data.js');
 const WeeklyRide = require('./models/WeeklyRide.js');
 
 const app = express();

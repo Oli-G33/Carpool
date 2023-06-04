@@ -69,7 +69,7 @@ const bookSeat = async (req, res) => {
 
 const fetchPassengers = async (req, res) => {
   try {
-    const desiredDate = new Date('2023-05-23'); // Example desired date
+    const desiredDate = new Date('2023-05-23');
 
     // Query the WeeklyRide collection for a specific date's passengers
     const ride = await WeeklyRide.findOne(
@@ -126,6 +126,14 @@ const cancelMyRide = async (req, res) => {
   try {
     const { passengerId: _id, date } = req.body;
 
+    const originalDate = new Date(date);
+    const year = originalDate.getFullYear();
+    const month = String(originalDate.getMonth() + 1).padStart(2, '0');
+    const day = String(originalDate.getDate()).padStart(2, '0');
+
+    const formattedDate = `${year}-${month}-${day}`;
+    console.log('Here=> ', formattedDate);
+
     // Find the ride in the database using the passengerId
     const ride = await WeeklyRide.findOne({
       'passengers._id': new ObjectId(_id)
@@ -150,10 +158,10 @@ const cancelMyRide = async (req, res) => {
     ride.passengers.splice(passengerIndex, 1);
 
     const query = {};
-    query[`availableSeats.${date}`] = { $exists: true };
+    query[`availableSeats.${formattedDate}`] = { $exists: true };
 
     const update = {};
-    update[`availableSeats.${date}`] = 1;
+    update[`availableSeats.${formattedDate}`] = 1;
 
     const updatedRide = await ride.save();
 

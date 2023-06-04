@@ -6,7 +6,8 @@ import {
   CircularProgress,
   Container,
   Grid,
-  Typography
+  Typography,
+  Divider
 } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -28,7 +29,7 @@ const BookingPage = () => {
       year: 'numeric'
     })
     .replace(/\//g, '-');
-  console.log(formattedTodayDate);
+
   const [selectedDate, setSelectedDate] = useState(dayjs());
 
   const [availableSeats, setAvailableSeats] = useState(null);
@@ -39,15 +40,6 @@ const BookingPage = () => {
 
   const date = selectedDate.toDate();
   const formattedDate = selectedDate.format('DD-MM-YYYY');
-  // const formattedDate = date
-  //   .toLocaleDateString('en-GB', {
-  //     day: '2-digit',
-  //     month: '2-digit',
-  //     year: 'numeric'
-  //   })
-  //   .replace(/\//g, '-');
-
-  console.log(formattedDate); // Output: 25-05-2023
 
   const presentDate = dayjs();
   const maxSelectableDate = presentDate.add(14, 'day');
@@ -62,7 +54,6 @@ const BookingPage = () => {
     if (formattedDate) {
       getAvailableSeats(formattedDate)
         .then(data => {
-          console.log(data);
           setAvailableSeats(data);
         })
         .catch(error => {
@@ -72,11 +63,16 @@ const BookingPage = () => {
   }, [formattedDate]);
 
   const renderSeatIcons = count => {
+    const seatIconSize = 34 / count;
+
     return Array.from({ length: count }, (_, index) => (
       <AirlineSeatReclineNormalIcon
         key={index}
         color="primary"
-        sx={{ fontSize: 48 }}
+        sx={{
+          fontSize: `${seatIconSize}vh`,
+          margin: '0 2px'
+        }}
       />
     ));
   };
@@ -96,96 +92,95 @@ const BookingPage = () => {
   return (
     <>
       <Navbar />
-      <Container sx={{ marginTop: '50px', minHeight: '80vh' }}>
+      <Container sx={{ marginTop: '30px', minHeight: '80vh' }}>
         <Box
           boxShadow={'2px 2px 4px rgba(0, 0, 0, 0.2)'}
           flexGrow={0}
           p={2}
           sx={{
-            marginTop: 8,
+            marginTop: 2,
             display: 'flex',
-            flexDirection: 'column',
             alignItems: 'center',
             backgroundColor: 'rgba(200, 200, 200, 0.6)',
             border: '1px solid #ccc',
             borderRadius: '8px',
             padding: '36px',
             maxWidth: '100%',
-            height: '50vh'
+            height: '40vh'
           }}
         >
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <Box>
-                <Typography variant="h4" sx={{ marginBottom: '20px' }}>
-                  Select a date
+          <Box width="50%">
+            <Typography
+              variant="h4"
+              sx={{ marginBottom: '20px', color: 'white' }}
+            >
+              Select a date
+            </Typography>
+            <LocalizationProvider
+              dateAdapter={AdapterDayjs}
+              adapterLocale="en-gb"
+            >
+              <DatePicker
+                value={selectedDate}
+                onChange={newDate => setSelectedDate(dayjs(newDate))}
+                inputVariant="outlined"
+                fullWidth
+                margin="normal"
+                disablePast
+                format="DD/MM/YYYY"
+                placeholder="Select a date"
+                shouldDisableDate={isWeekend}
+                defaultValue={selectedDate}
+                maxDate={maxSelectableDate}
+              />
+            </LocalizationProvider>
+          </Box>
+          <Divider orientation="vertical" sx={{ margin: '0 20px' }} />
+          <Box width="50%" justifyContent="center">
+            {availableSeats > 0 && (
+              <Box flexGrow={0} justifyItems={'center'}>
+                <Typography
+                  variant="h4"
+                  sx={{ marginBottom: '10px', color: 'white' }}
+                >
+                  Available Seats
                 </Typography>
-                <LocalizationProvider
-                  dateAdapter={AdapterDayjs}
-                  adapterLocale="en-gb"
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  sx={{
+                    borderColor: 'primary.main',
+                    borderRadius: '4px',
+                    padding: '4px',
+                    width: `${availableSeats * 4}%`,
+                    margin: '0 auto'
+                  }}
                 >
-                  <DatePicker
-                    value={selectedDate}
-                    onChange={newDate => setSelectedDate(dayjs(newDate))}
-                    inputVariant="outlined"
-                    fullWidth
-                    margin="normal"
-                    disablePast
-                    format="DD/MM/YYYY"
-                    placeholder="Select a date"
-                    shouldDisableDate={isWeekend}
-                    defaultValue={selectedDate}
-                    maxDate={maxSelectableDate}
-                  />
-                </LocalizationProvider>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              {availableSeats > 0 && (
-                <Box>
-                  <Typography variant="h4" sx={{ marginBottom: '20px' }}>
-                    Available Seats
-                  </Typography>
-                  <Box
-                    display="flex"
-                    alignItems="center"
-                    sx={{
-                      border: '1px solid',
-                      borderColor: 'primary.main',
-                      borderRadius: '4px',
-                      padding: '4px',
-                      maxWidth: '34%',
-                      margin: '0 auto'
-                    }}
-                  >
-                    {renderSeatIcons(availableSeats)}
-                  </Box>
+                  {renderSeatIcons(availableSeats)}
                 </Box>
-              )}
-            </Grid>
-            <Grid item xs={12}>
-              <Box display="flex" justifyContent="center" mt={2}>
-                <Button
-                  onClick={handleBookRide}
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  disabled={availableSeats <= 0 || isLoading}
-                  startIcon={isLoading ? <CircularProgress size={24} /> : null}
-                >
-                  Book Your Ride
-                </Button>
               </Box>
-              {availableSeats <= 0 && (
-                <Box display="flex" justifyContent="center" mt={1}>
-                  <Typography variant="body2" color="error">
-                    There are no available seats for the selected date :(
-                  </Typography>
-                </Box>
-              )}
-            </Grid>
-          </Grid>
+            )}
+          </Box>
         </Box>
+        <Box display="flex" justifyContent="center" mt={2}>
+          <Button
+            onClick={handleBookRide}
+            variant="contained"
+            color="primary"
+            size="large"
+            disabled={availableSeats <= 0 || isLoading}
+            startIcon={isLoading ? <CircularProgress size={24} /> : null}
+          >
+            Book Your Ride
+          </Button>
+        </Box>
+        {availableSeats <= 0 && (
+          <Box display="flex" justifyContent="center" mt={1}>
+            <Typography variant="body2" color="error">
+              There are no available seats for the selected date :(
+            </Typography>
+          </Box>
+        )}
       </Container>
     </>
   );
