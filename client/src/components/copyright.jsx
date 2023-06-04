@@ -6,7 +6,7 @@ export function Copyright(props) {
       {'Copyright © '}
       <Link color="inherit" href="https://www.linkedin.com/in/oliver-garcia3">
         Oliver Garcia
-      </Link>
+      </Link> {' '}
       {new Date().getFullYear()}
     </Typography>
   );

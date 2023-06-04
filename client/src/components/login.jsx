@@ -98,7 +98,7 @@ export default function Login({ isLogin, setIsLogin }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="lg">
+      <Container component="main" maxWidth="xl">
         <CssBaseline />
         <Box
           sx={{
@@ -106,7 +106,7 @@ export default function Login({ isLogin, setIsLogin }) {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            backgroundColor: 'rgba(255, 255, 255, 0.8)',
+            backgroundColor: 'rgba(255, 255, 255, 0.6)',
             border: '1px solid #ccc',
             borderRadius: '8px',
             padding: '36px'
