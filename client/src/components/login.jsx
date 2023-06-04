@@ -100,17 +100,16 @@ export default function Login({ isLogin, setIsLogin }) {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xl">
         <CssBaseline />
-        <Box
+        <Box xs={12} sm={6} md={4} xl="80%"
           sx={{
             marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            backgroundColor: 'rgba(200, 200, 200, 0.6)',
             border: '1px solid #ccc',
             borderRadius: '8px',
-            padding: '36px', 
-           width: "500px"
+            padding: '36px'
           }}
         >
           <Avatar
