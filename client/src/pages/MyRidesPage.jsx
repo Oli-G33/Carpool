@@ -48,7 +48,7 @@ const MyRidesPage = () => {
 
     // Call the fetchRides function
     fetchRides();
-  }, []);
+  }, [user._id]);
 
   const handleCancelRide = async (passengerId, date) => {
     try {

@@ -30,6 +30,9 @@ const Navbar = () => {
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
 
+  const isAdmin = user.isAdmin;
+  console.log(isAdmin);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -51,7 +54,7 @@ const Navbar = () => {
         </ListItemIcon>
         <ListItemText primary="Close" />
       </ListItemButton>
-      {user.isAdmin && (
+      {isAdmin && (
         <ListItemButton>
           <Link href="/dashboard" color="inherit" underline="none">
             <ListItemText primary="Dashboard" />
