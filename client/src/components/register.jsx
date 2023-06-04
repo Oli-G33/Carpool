@@ -139,7 +139,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="md">
+      <Container component="main" maxWidth="lg">
         <CssBaseline />
         <Box
           sx={{
@@ -147,7 +147,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            backgroundColor: 'white',
+            backgroundColor: 'rgba(255, 255, 255, 0.8)',
             border: '1px solid #ccc',
             borderRadius: '8px',
             padding: '36px'
