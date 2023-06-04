@@ -35,7 +35,7 @@ const BookingPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  const user = useSelector(state => state.user.user);
+  const user = useSelector(state => state.user);
 
   const date = selectedDate.toDate();
   const formattedDate = selectedDate.format('DD-MM-YYYY');
@@ -97,12 +97,28 @@ const BookingPage = () => {
     <>
       <Navbar />
       <Container sx={{ marginTop: '50px', minHeight: '80vh' }}>
-        <Box boxShadow={'2px 2px 4px rgba(0, 0, 0, 0.2)'} flexGrow={0} p={2}>
+        <Box
+          boxShadow={'2px 2px 4px rgba(0, 0, 0, 0.2)'}
+          flexGrow={0}
+          p={2}
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            backgroundColor: 'rgba(200, 200, 200, 0.6)',
+            border: '1px solid #ccc',
+            borderRadius: '8px',
+            padding: '36px',
+            maxWidth: '100%',
+            height: '50vh'
+          }}
+        >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Box>
                 <Typography variant="h4" sx={{ marginBottom: '20px' }}>
-                  Select a date:
+                  Select a date
                 </Typography>
                 <LocalizationProvider
                   dateAdapter={AdapterDayjs}
@@ -128,7 +144,7 @@ const BookingPage = () => {
               {availableSeats > 0 && (
                 <Box>
                   <Typography variant="h4" sx={{ marginBottom: '20px' }}>
-                    Available Seats:
+                    Available Seats
                   </Typography>
                   <Box
                     display="flex"

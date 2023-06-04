@@ -18,16 +18,16 @@ function App() {
     await loadFull(engine);
   }, []);
 
-  const particlesLoaded = useCallback(async container => {
-    await console.log(container);
-  }, []);
+  // const particlesLoaded = useCallback(async container => {
+  //   await console.log(container);
+  // }, []);
   return (
     <div className="app">
       <Particles
         id="tsparticles"
         className="particles-background"
         init={particlesInit}
-        loaded={particlesLoaded}
+        // loaded={particlesLoaded}
         options={{
           fullScreen: false,
           background: {

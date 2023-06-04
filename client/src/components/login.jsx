@@ -98,9 +98,13 @@ export default function Login({ isLogin, setIsLogin }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xl">
+      <Container component="main">
         <CssBaseline />
-        <Box xs={12} sm={6} md={4} xl="80%"
+        <Box
+          xs={12}
+          sm={6}
+          md={4}
+          xl="80%"
           sx={{
             marginTop: 8,
             display: 'flex',
@@ -109,7 +113,8 @@ export default function Login({ isLogin, setIsLogin }) {
             backgroundColor: 'rgba(200, 200, 200, 0.6)',
             border: '1px solid #ccc',
             borderRadius: '8px',
-            padding: '36px'
+            padding: '36px',
+            maxWidth: '100%'
           }}
         >
           <Avatar
@@ -117,7 +122,7 @@ export default function Login({ isLogin, setIsLogin }) {
           >
             <LockIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" color="#D3D3D2">
             Log in
           </Typography>
           <Box
@@ -163,6 +168,9 @@ export default function Login({ isLogin, setIsLogin }) {
                   onChange={event => setPassword(event.target.value)}
                   error={passwordError}
                   helperText={passwordErrorText}
+                  sx={{
+                    color: '#D3D3D2'
+                  }}
                 />
               </Grid>
             </Grid>

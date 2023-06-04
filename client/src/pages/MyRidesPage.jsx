@@ -30,7 +30,7 @@ const MyRidesPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const user = useSelector(state => state.user.user);
+  const user = useSelector(state => state.user);
   console.log(rides);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const MyRidesPage = () => {
     fetchRides();
   }, []); // Empty dependency array to run the effect only once
 
-  const handleCancelRide = rideId => {
+  const handleCancelRide = (rideId, date) => {
     setRides(prevRides =>
       prevRides.map(ride =>
         ride.id === rideId ? { ...ride, canceled: true } : ride

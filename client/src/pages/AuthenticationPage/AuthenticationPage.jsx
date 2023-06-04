@@ -8,12 +8,12 @@ const AuthForm = () => {
 
   return (
     <Container
-      maxWidth="xs"
+      maxWidth="sm"
       sx={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: '100vh',
+        minHeight: '100vh'
       }}
     >
       <Box flexGrow={0}>
