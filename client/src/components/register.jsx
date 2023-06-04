@@ -146,7 +146,11 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
             marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center'
+            alignItems: 'center',
+            backgroundColor: 'white',
+            border: '1px solid #ccc',
+            borderRadius: '8px',
+            padding: '36px'
           }}
         >
           <Avatar
