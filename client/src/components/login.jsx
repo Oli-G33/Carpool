@@ -110,7 +110,7 @@ export default function Login({ isLogin, setIsLogin }) {
             border: '1px solid #ccc',
             borderRadius: '8px',
             padding: '36px', 
-            minWidth: "500px"
+           width: "500px"
           }}
         >
           <Avatar

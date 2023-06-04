@@ -151,7 +151,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
             border: '1px solid #ccc',
             borderRadius: '8px',
             padding: '36px',
-            minWidth: '500px'
+            width: '500px'
           }}
         >
           <Avatar
