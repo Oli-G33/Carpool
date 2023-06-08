@@ -68,20 +68,20 @@ export default function Login({ isLogin, setIsLogin }) {
 
     try {
       const loggedInResponse = await logInUser({ email, password });
+      console.log(loggedInResponse);
 
       if (loggedInResponse) {
+        const { user } = loggedInResponse;
         dispatch(
           setLogin({
-            user: loggedInResponse.user,
-            token: loggedInResponse.token
+            user
           })
         );
       }
       navigate('/booking');
     } catch (err) {
-      console.error(err.response.data); // log the server error response
+      console.error(err.response.data);
 
-      // handle specific error messages
       if (err.response.data.msg === 'User does not exist') {
         setEmailError(true);
         setEmailErrorText(err.response.data.msg);

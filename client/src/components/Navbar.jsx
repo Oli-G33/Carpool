@@ -22,16 +22,11 @@ const colors = ['orange', 'pink', 'green', 'red', 'purple'];
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const [randomColor, setRandomColor] = useState(
-    colors[Math.floor(Math.random() * 6)]
-  );
+  const [randomColor] = useState(colors[Math.floor(Math.random() * 6)]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
-
-  const isAdmin = user.isAdmin;
-  console.log(isAdmin);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -54,7 +49,7 @@ const Navbar = () => {
         </ListItemIcon>
         <ListItemText primary="Close" />
       </ListItemButton>
-      {isAdmin && (
+      {user && user.isAdmin && (
         <ListItemButton>
           <Link href="/dashboard" color="inherit" underline="none">
             <ListItemText primary="Dashboard" />

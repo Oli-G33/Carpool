@@ -121,13 +121,12 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
         phoneNumber: phone
       });
 
-      const registeredUser = await registerResponse.json();
-      console.log(registeredUser.json());
+      const registeredUser = await registerResponse;
+      console.log(registeredUser);
       if (registeredUser) {
         dispatch(
           setLogin({
-            user: registeredUser.user,
-            token: registeredUser.token
+            user: registeredUser
           })
         );
       }

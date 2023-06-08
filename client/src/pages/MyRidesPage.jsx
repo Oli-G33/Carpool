@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   Container,
   Typography,
@@ -14,7 +14,6 @@ import {
   Box,
   Link,
   Stack,
-  // CircularProgress,
   Divider
 } from '@mui/material';
 import ModeIcon from '@mui/icons-material/Mode';

@@ -5,7 +5,6 @@ import {
   Button,
   CircularProgress,
   Container,
-  Grid,
   Typography,
   Divider
 } from '@mui/material';
@@ -21,15 +20,6 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const BookingPage = () => {
-  const today = new Date(); // Get the present date
-  const formattedTodayDate = today
-    .toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    })
-    .replace(/\//g, '-');
-
   const [selectedDate, setSelectedDate] = useState(dayjs());
 
   const [availableSeats, setAvailableSeats] = useState(null);
@@ -38,7 +28,6 @@ const BookingPage = () => {
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
 
-  const date = selectedDate.toDate();
   const formattedDate = selectedDate.format('DD-MM-YYYY');
 
   const presentDate = dayjs();
@@ -63,14 +52,14 @@ const BookingPage = () => {
   }, [formattedDate]);
 
   const renderSeatIcons = count => {
-    const seatIconSize = 16 / count;
+    const seatIconSize = 6;
 
     return Array.from({ length: count }, (_, index) => (
       <AirlineSeatReclineNormalIcon
         key={index}
         color="primary"
         sx={{
-          fontSize: `6vh`,
+          fontSize: `${seatIconSize}vh`,
           margin: '0 2px'
         }}
       />

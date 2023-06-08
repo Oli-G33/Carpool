@@ -7,19 +7,22 @@ const schema = new mongoose.Schema(
     firstName: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
+      max: 50
     },
     lastName: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
+      max: 50
     },
     email: {
       type: String,
       required: true,
       unique: true,
       lowercase: true,
-      trim: true
+      trim: true,
+      max: 50
     },
     phoneNumber: {
       type: String,
@@ -32,7 +35,9 @@ const schema = new mongoose.Schema(
     },
 
     password: {
-      type: String
+      type: String,
+      required: true,
+      min: 8
     },
     role: {
       type: String,
@@ -40,7 +45,7 @@ const schema = new mongoose.Schema(
       default: 'passenger'
     },
     isAdmin: {
-      type: String,
+      type: Boolean,
       default: false
     }
   },

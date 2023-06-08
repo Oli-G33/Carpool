@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+const User = require('../models/user.js');
 
 const register = async (req, res) => {
   try {
@@ -20,6 +20,7 @@ const register = async (req, res) => {
     });
 
     const savedUser = await newUser.save();
+    console.log(savedUser);
     res.status(201).json(savedUser);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -38,6 +39,7 @@ const login = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     delete user.password;
     res.status(200).json({ user, token });
+    console.log({ user, token });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
