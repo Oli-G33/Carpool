@@ -98,7 +98,14 @@ const BookingPage = () => {
             height: '40vh'
           }}
         >
-          <Box width="50%">
+          <Box
+            width="50%"
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center'
+            }}
+          >
             <Typography
               variant="h4"
               sx={{ marginBottom: '20px', color: 'white' }}
@@ -125,15 +132,28 @@ const BookingPage = () => {
             </LocalizationProvider>
           </Box>
           <Divider orientation="vertical" sx={{ margin: '0 20px' }} />
-          <Box width="50%" sx={{ justifyContent: 'center' }}>
+          <Box
+            width="50%"
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center'
+            }}
+          >
             {availableSeats > 0 && (
-              <Box flexGrow={0} sx={{ justifyContent: 'center' }}>
+              <Box
+                flexGrow={0}
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center'
+                }}
+              >
                 <Typography
                   variant="h4"
                   sx={{
                     marginBottom: '10px',
-                    color: 'white',
-                    ml: '25%'
+                    color: 'white'
                   }}
                 >
                   Available Seats
@@ -146,7 +166,7 @@ const BookingPage = () => {
                     borderRadius: '4px',
                     padding: '4px',
                     width: '100%',
-                    maxWidth: '400px', // Adjust the maximum width as needed
+                    maxWidth: '400px',
                     margin: '0 auto',
                     justifyContent: 'center',
                     '@media (min-width: 768px)': {
@@ -162,6 +182,7 @@ const BookingPage = () => {
         </Box>
         <Box display="flex" justifyContent="center" mt={2}>
           <Button
+            sx={{ mt: 6 }}
             onClick={handleBookRide}
             variant="contained"
             color="primary"
