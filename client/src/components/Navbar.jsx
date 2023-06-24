@@ -96,9 +96,14 @@ const Navbar = () => {
         {user && (
           <>
             <Avatar
-              alt={user.firstName}
               src={user.picture}
-              sx={{ ml: 2, mr: 1, bgcolor: randomColor }}
+              alt={user.firstName}
+              sx={{
+                ml: 2,
+                mr: 1,
+                bgcolor: randomColor,
+                border: '2px 	#d9dcde solid'
+              }}
             />
             <IconButton color="inherit" onClick={handleLogout}>
               <LogoutIcon />
