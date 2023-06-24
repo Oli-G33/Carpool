@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AuthenticationPage from './pages/AuthenticationPage/AuthenticationPage';
 import TermsPage from './pages/TermsPage';
 import BookingPage from './pages/BookingPage';
@@ -12,32 +12,30 @@ import { Copyright } from './components/copyright';
 import { useCallback } from 'react';
 import Particles from 'react-tsparticles';
 import { loadFull } from 'tsparticles';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const isAuth = Boolean(useSelector(state => state.user));
   const particlesInit = useCallback(async engine => {
     await loadFull(engine);
   }, []);
 
-  // const particlesLoaded = useCallback(async container => {
-  //   await console.log(container);
-  // }, []);
   return (
     <div className="app">
       <Particles
         id="tsparticles"
         className="particles-background"
         init={particlesInit}
-        // loaded={particlesLoaded}
         options={{
           fullScreen: false,
           background: {
             image: ' linear-gradient(19deg, #21D4FD 0%, #1c305c 100%)'
           },
           particles: {
-            number: { value: 15, density: { enable: true, value_area: 600 } },
+            number: { value: 20, density: { enable: true, value_area: 600 } },
             color: { value: '#ffffff' },
             shape: {
-              type: 'square',
+              type: 'circle',
               stroke: { width: 0, color: '#000000' },
               polygon: { nb_sides: 5 }
             },
@@ -96,12 +94,29 @@ function App() {
         <BrowserRouter>
           <div className="content">
             <Routes>
-              <Route path="/" element={<AuthenticationPage />} />
-              <Route path="/booking" element={<BookingPage />} />
+              <Route
+                path="/"
+                element={
+                  isAuth ? <Navigate to="/booking" /> : <AuthenticationPage />
+                }
+              />
+              <Route
+                path="/booking"
+                element={isAuth ? <BookingPage /> : <AuthenticationPage />}
+              />
               <Route path="/terms" element={<TermsPage />} />
-              <Route path="/success" element={<SuccessPage />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/myrides" element={<MyRidesPage />} />
+              <Route
+                path="/success"
+                element={isAuth ? <SuccessPage /> : <AuthenticationPage />}
+              />
+              <Route
+                path="/dashboard"
+                element={isAuth ? <DashboardPage /> : <AuthenticationPage />}
+              />
+              <Route
+                path="/myrides"
+                element={isAuth ? <MyRidesPage /> : <AuthenticationPage />}
+              />
             </Routes>
           </div>
         </BrowserRouter>
