@@ -16,7 +16,14 @@ const SuccessPage = () => {
       >
         <Container maxWidth="sm">
           <Box textAlign="center" py={10}>
-            <Typography variant="h4" component="h1" gutterBottom>
+            <Typography
+              variant="h4"
+              component="h1"
+              gutterBottom
+              sx={{
+                color: 'white'
+              }}
+            >
               Ride Booked Successfully!
             </Typography>
             <Box display="flex" justifyContent="center">
@@ -27,7 +34,12 @@ const SuccessPage = () => {
                 width={1500}
               />
             </Box>
-            <Typography variant="body1">
+            <Typography
+              variant="body1"
+              sx={{
+                color: 'white'
+              }}
+            >
               Thank you for booking your ride. We look forward to seeing you on
               the selected date.
             </Typography>

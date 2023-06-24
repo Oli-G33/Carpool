@@ -11,9 +11,9 @@ const ImageInput = props => {
 
   return (
     <>
-      {/* {props.image && (
+      {props.image && (
         <img src={props.image} alt="Selected" width="150" height="150" />
-      )} */}
+      )}
       <IKContext
         publicKey={process.env.REACT_APP_IMAGEIO_PUBLIC_KEY}
         authenticationEndpoint={process.env.REACT_APP_IMAGEIO_AUTH_ENDPOINT}

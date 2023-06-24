@@ -20,6 +20,7 @@ import ModeIcon from '@mui/icons-material/Mode';
 import Navbar from '../components/Navbar';
 import { getMyRides, cancelMyRide } from '../services/weeklyRides';
 import CircularProgress from '@mui/material/CircularProgress';
+import dayjs from 'dayjs';
 
 const MyRidesPage = () => {
   const [rides, setRides] = useState([]);
@@ -39,7 +40,20 @@ const MyRidesPage = () => {
       try {
         // Fetch the rides for the signed-in user
         const userRides = await getMyRides(user._id);
-        setRides(userRides);
+        // Sort the rides by date in ascending order
+        const sortedRides = userRides.sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          return dateA - dateB;
+        });
+
+        // Format the dates and update the state
+        const formattedRides = sortedRides.map(ride => {
+          const formattedDate = dayjs(ride.date).format('DD/MM/YYYY');
+          return { ...ride, date: formattedDate };
+        });
+
+        setRides(formattedRides);
       } catch (error) {
         console.error(error);
       }
@@ -94,7 +108,14 @@ const MyRidesPage = () => {
       <Container sx={{ marginTop: '50px' }}>
         <Grid container spacing={2} justifyContent="center">
           <Grid item xs={12}>
-            <Typography variant="h4">My Rides</Typography>
+            <Typography
+              variant="h4"
+              sx={{
+                color: 'white'
+              }}
+            >
+              My Rides
+            </Typography>
           </Grid>
           <Grid item xs={12}>
             <Paper
@@ -113,7 +134,12 @@ const MyRidesPage = () => {
                     {rides.map((ride, index) => (
                       <React.Fragment key={index}>
                         <ListItem>
-                          <ListItemText primary={ride.date} />
+                          <ListItemText
+                            sx={{
+                              color: '#5A5A5A'
+                            }}
+                            primary={ride.date}
+                          />
                           {!ride.canceled ? (
                             <Button
                               variant="outlined"

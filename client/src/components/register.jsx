@@ -13,8 +13,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { MuiTelInput, matchIsValidTel } from 'mui-tel-input';
-// import { IKImage, IKContext, IKUpload } from 'imagekitio-react';
-// import ImageInput from './ImageInput';
+import { IKImage, IKContext, IKUpload } from 'imagekitio-react';
+import ImageInput from './ImageInput';
 import { Snackbar } from '@mui/material';
 import { Alert } from '@mui/material';
 import { useState } from 'react';
@@ -136,6 +136,14 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
     }
   };
 
+  const handleError = err => {
+    console.log('Error', err);
+  };
+
+  const handleSuccess = res => {
+    console.log('Success', res);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main">
@@ -252,14 +260,29 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                   helperText={passwordErrorText}
                 />
               </Grid>
-              {/* <Grid item xs={12}>
-                <ImageInput
+              <Grid item xs={12}>
+                {/* <ImageInput
                   image={props.user.picture}
                   onImageChange={picture =>
                     props.onUserChange({ ...props.user, picture })
                   }
-                />
-              </Grid> */}
+                /> */}
+
+                <IKContext
+                  publicKey={process.env.REACT_APP_IMAGEIO_PUBLIC_KEY}
+                  urlEndpoint={process.env.REACT_APP_IMAGEIO_URL_ENDPOINT}
+                  authenticationEndpoint={
+                    process.env.REACT_APP_IMAGEIO_AUTH_ENDPOINT
+                  }
+                >
+                  <p>Upload an image</p>
+                  <IKUpload
+                    fileName="test-upload.png"
+                    onError={handleError}
+                    onSuccess={handleSuccess}
+                  />
+                </IKContext>
+              </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
