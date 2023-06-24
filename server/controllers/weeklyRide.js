@@ -4,6 +4,9 @@ const WeeklyRide = require('../models/WeeklyRide');
 const { availableSeats } = require('../data');
 const User = require('../models/user');
 const { ObjectId } = require('mongodb');
+const nodemailer = require('nodemailer');
+const nodemailerExpressHandlebars = require('nodemailer-express-handlebars');
+const path = require('path');
 
 const getSeats = async (req, res) => {
   const { date } = req.params;
@@ -58,6 +61,52 @@ const bookSeat = async (req, res) => {
 
     // Get the updated available seats count
     const availableSeats = ride.availableSeats[formattedDate];
+
+    // Send email notification to the user
+    const user = await User.findById(userId); // Assuming you have a User model
+    const userEmail = user.email; // Assuming the user's email is stored in the 'email' field of the User model
+
+    const transporter = nodemailer.createTransport({
+      host: process.env.OUTLOOK_SMTP,
+      port: 587,
+      auth: {
+        user: process.env.OUTLOOK_EMAIL,
+        pass: process.env.OUTLOOK_PASS
+      }
+    });
+
+    // Configure the Handlebars template engine
+    const hbsOptions = {
+      viewEngine: {
+        extname: '.hbs',
+        layoutsDir: path.resolve('./views/emails'),
+        defaultLayout: 'ride-confirmation',
+        partialsDir: path.resolve('./views/emails')
+      },
+      viewPath: path.resolve('./views/emails'),
+      extName: '.hbs'
+    };
+
+    transporter.use('compile', nodemailerExpressHandlebars(hbsOptions));
+
+    const mailOptions = {
+      from: process.env.OUTLOOK_EMAIL,
+      to: userEmail,
+      subject: 'Ride Booking Confirmation 🚗',
+      template: 'ride-confirmation',
+      context: {
+        formattedDate,
+        availableSeats
+      }
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Error sending email:', error);
+      } else {
+        console.log('Email sent:', info.response);
+      }
+    });
 
     // Return the updated available seats count
     res.json({ availableSeats });

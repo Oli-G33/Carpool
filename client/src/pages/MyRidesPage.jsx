@@ -166,7 +166,14 @@ const MyRidesPage = () => {
                   </Stack>
                 </List>
               ) : (
-                <Typography>No rides found</Typography>
+                <Typography
+                  sx={{
+                    color: 'white',
+                    padding: '1%'
+                  }}
+                >
+                  No rides found
+                </Typography>
               )}
             </Paper>
           </Grid>
