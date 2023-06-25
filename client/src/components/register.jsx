@@ -13,8 +13,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { MuiTelInput, matchIsValidTel } from 'mui-tel-input';
-import { IKImage, IKContext, IKUpload } from 'imagekitio-react';
-import ImageInput from './ImageInput';
 import { Snackbar } from '@mui/material';
 import { Alert } from '@mui/material';
 import { useState } from 'react';
@@ -22,7 +20,7 @@ import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../services/auth';
 import { setLogin } from '../state';
 import { useDispatch } from 'react-redux';
-import Dropzone from 'react-dropzone';
+import { IKContext, IKUpload } from 'imagekitio-react';
 
 const theme = createTheme();
 
@@ -32,6 +30,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [picture, setPicture] = useState('');
   const [alertMessage, setAlertMessage] = useState('');
   const [checked, setChecked] = useState(false);
   const [firstNameError, setFirstNameError] = useState();
@@ -61,6 +60,16 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
       setPhoneErrorText('');
     }
     setPhone(value);
+  };
+
+  const handleSuccess = result => {
+    const { url } = result;
+    setPicture(url);
+    console.log(picture);
+  };
+
+  const handleError = error => {
+    console.log(error);
   };
 
   const handleSubmit = async event => {
@@ -118,6 +127,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
         firstName,
         lastName,
         email,
+        picture,
         password,
         phoneNumber: phone
       });
@@ -135,14 +145,6 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
     } catch (error) {
       console.log(error.message);
     }
-  };
-
-  const handleError = err => {
-    console.log('Error', err);
-  };
-
-  const handleSuccess = res => {
-    console.log('Success', res);
   };
 
   return (
@@ -262,53 +264,18 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                 />
               </Grid>
               <Grid item xs={12}>
-                {/* <Dropzone
-                  acceptedFiles=".jpg,.jpeg,.png"
-                  multiple={false}
-                  onDrop={acceptedFiles =>
-                    setFieldValue('picture', acceptedFiles[0])
-                  }
-                >
-                  {({ getRootProps, getInputProps }) => (
-                    <Box
-                      {...getRootProps()}
-                      border={`2px dashed ${palette.primary.main}`}
-                      p="1rem"
-                      sx={{ '&:hover': { cursor: 'pointer' } }}
-                    >
-                      <input {...getInputProps()} />
-                      {!values.picture ? (
-                        <p>Add Picture Here</p>
-                      ) : (
-                        <FlexBetween>
-                          <Typography>{values.picture.name}</Typography>
-                          <EditOutlinedIcon />
-                        </FlexBetween>
-                      )}
-                    </Box>
-                  )}
-                </Dropzone> */}
-                {/* <ImageInput
-                  image={props.user.picture}
-                  onImageChange={picture =>
-                    props.onUserChange({ ...props.user, picture })
-                  }
-                /> */}
-
-                {/* <IKContext
+                {picture && (
+                  <img src={picture} alt="Selected" width="100" height="100" />
+                )}
+                <IKContext
                   publicKey={process.env.REACT_APP_IMAGEIO_PUBLIC_KEY}
-                  urlEndpoint={process.env.REACT_APP_IMAGEIO_URL_ENDPOINT}
                   authenticationEndpoint={
                     process.env.REACT_APP_IMAGEIO_AUTH_ENDPOINT
                   }
+                  urlEndpoint={process.env.REACT_APP_IMAGEIO_URL_ENDPOINT}
                 >
-                  <p>Upload an image</p>
-                  <IKUpload
-                    fileName="test-upload.png"
-                    onError={handleError}
-                    onSuccess={handleSuccess}
-                  />
-                </IKContext> */}
+                  <IKUpload onSuccess={handleSuccess} onError={handleError} />
+                </IKContext>
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
