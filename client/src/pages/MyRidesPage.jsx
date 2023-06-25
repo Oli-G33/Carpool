@@ -33,7 +33,6 @@ const MyRidesPage = () => {
   const [loading, setLoading] = useState(false);
 
   const user = useSelector(state => state.user);
-  console.log(rides);
 
   useEffect(() => {
     const fetchRides = async () => {
@@ -75,8 +74,21 @@ const MyRidesPage = () => {
           ride.passengerId === passengerId ? { ...ride, canceled: true } : ride
         )
       );
+
+      // Fetch the updated rides and apply sorting and formatting
       const updatedRides = await getMyRides(user._id);
-      setRides(updatedRides);
+      const sortedRides = updatedRides.sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateA - dateB;
+      });
+      const formattedRides = sortedRides.map(ride => {
+        const formattedDate = dayjs(ride.date).format('DD/MM/YYYY');
+        return { ...ride, date: formattedDate };
+      });
+
+      // Update the rides state with the formatted rides
+      setRides(formattedRides);
     } catch (error) {
       console.error(error);
     } finally {
