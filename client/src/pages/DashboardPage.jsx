@@ -9,16 +9,25 @@ import {
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Navbar from '../components/Navbar';
+import { getPassengers } from '../services/weeklyRides';
+import dayjs from 'dayjs';
 
 const DashboardPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [passengers, setPassengers] = useState([]);
 
-  const handleDateChange = date => {
-    setSelectedDate(date);
-    // Call an API or perform a database query to get the passengers for the selected date
-    // Update the 'passengers' state with the retrieved data
-    // setPassengers([...]);
+  const handleDateChange = async date => {
+    console.log(date);
+    const formattedDate = dayjs(date.$d).format('YYYY-MM-DD');
+    setSelectedDate(formattedDate);
+
+    try {
+      const retrievedPassengers = await getPassengers(formattedDate);
+      setPassengers(retrievedPassengers);
+    } catch (error) {
+      console.error(error);
+      // Handle any errors that occurred during the API call
+    }
   };
 
   return (

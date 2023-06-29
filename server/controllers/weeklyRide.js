@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
+require('dotenv').config();
 const WeeklyRide = require('../models/WeeklyRide');
 const { availableSeats } = require('../data');
 const User = require('../models/user');
 const { ObjectId } = require('mongodb');
-const nodemailer = require('nodemailer');
-const nodemailerExpressHandlebars = require('nodemailer-express-handlebars');
-const path = require('path');
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const fs = require('fs');
+const handlebars = require('handlebars');
 
 const getSeats = async (req, res) => {
   const { date } = req.params;
@@ -62,51 +64,25 @@ const bookSeat = async (req, res) => {
     // Get the updated available seats count
     const availableSeats = ride.availableSeats[formattedDate];
 
-    // Send email notification to the user
-    const user = await User.findById(userId); // Assuming you have a User model
-    const userEmail = user.email; // Assuming the user's email is stored in the 'email' field of the User model
+    // Send email notification
+    const user = await User.findById(userId);
+    const userEmail = user.email;
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.OUTLOOK_SMTP,
-      port: 587,
-      auth: {
-        user: process.env.OUTLOOK_EMAIL,
-        pass: process.env.OUTLOOK_PASS
-      }
-    });
+    const templateSource = fs.readFileSync(
+      './views/emails/bookingConfirmation.hbs',
+      'utf8'
+    );
+    const template = handlebars.compile(templateSource);
+    const htmlContent = template({ date });
 
-    // Configure the Handlebars template engine
-    const hbsOptions = {
-      viewEngine: {
-        extname: '.hbs',
-        layoutsDir: path.resolve('./views/emails'),
-        defaultLayout: 'ride-confirmation',
-        partialsDir: path.resolve('./views/emails')
-      },
-      viewPath: path.resolve('./views/emails'),
-      extName: '.hbs'
-    };
-
-    transporter.use('compile', nodemailerExpressHandlebars(hbsOptions));
-
-    const mailOptions = {
-      from: process.env.OUTLOOK_EMAIL,
+    const msg = {
       to: userEmail,
-      subject: 'Ride Booking Confirmation 🚗',
-      template: 'ride-confirmation',
-      context: {
-        formattedDate,
-        availableSeats
-      }
+      from: 'Export-Carpooler@outlook.com',
+      subject: 'Ride Confirmation 🚗',
+      html: htmlContent
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error('Error sending email:', error);
-      } else {
-        console.log('Email sent:', info.response);
-      }
-    });
+    await sgMail.send(msg);
 
     // Return the updated available seats count
     res.json({ availableSeats });
