@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material';
 
 const TermsPage = () => {
   return (
-    <Box sx={{ maxWidth: 600, mx: 'auto', p: 2 }}>
+    <Box sx={{ maxWidth: 600, mx: 'auto', p: 2, color: '#D3D3D2' }}>
       <Typography variant="h4" sx={{ mb: 2 }}>
         Terms and Conditions for Carpooling
       </Typography>
@@ -21,14 +21,14 @@ const TermsPage = () => {
 
       <Typography variant="body1" sx={{ mb: 2 }}>
         1.1 The meeting point and time for each carpool ride will be agreed upon
-        by the driver and the passengers before the ride is booked.
+        by the driver and the passengers before the ride.
       </Typography>
 
       <Typography variant="body1" sx={{ mb: 2 }}>
-        1.2 Passengers are expected to arrive at the meeting point on time. The
-        driver will wait for a maximum of five minutes after the agreed time. If
-        the passenger does not arrive within this time frame, the driver has the
-        right to leave without them.
+        1.2 Passengers are expected to arrive at the meeting point a few minutes
+        prior to the agreed time. The driver will wait for a maximum of five
+        minutes after the agreed time. If the passenger does not arrive within
+        this time frame, the driver has the right to leave without them.
       </Typography>
       <hr />
       <Typography variant="h5" sx={{ mb: 2 }}>
