@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Container,
-  Grid,
-  Typography,
-  Paper,
-  Button,
-  TextField
-} from '@mui/material';
+import { Container, Grid, Typography, Paper } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Navbar from '../components/Navbar';
 import { getPassengers } from '../services/weeklyRides';
@@ -22,7 +15,7 @@ const DashboardPage = () => {
   const handleDateChange = async date => {
     console.log(date);
     const formattedDate = dayjs(date.$d).format('YYYY-MM-DD');
-    const selectedDate = new Date(formattedDate);
+    // const selectedDate = new Date(formattedDate);
     setSelectedDate(formattedDate);
 
     try {

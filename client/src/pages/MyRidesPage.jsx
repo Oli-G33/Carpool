@@ -213,10 +213,11 @@ const MyRidesPage = () => {
             sx={{
               width: '100%',
               maxWidth: 400,
-              bgcolor: 'background.paper',
+              bgcolor: 'rgba(200, 200, 200, 0.6)',
               boxShadow: 24,
               p: 4,
-              borderRadius: '8px'
+              borderRadius: '8px',
+              color: 'white'
             }}
           >
             <Typography variant="h6" align="center" gutterBottom>
