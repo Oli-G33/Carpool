@@ -23,16 +23,16 @@ import CircularProgress from '@mui/material/CircularProgress';
 import dayjs from 'dayjs';
 
 const MyRidesPage = () => {
+  const user = useSelector(state => state.user);
+
   const [rides, setRides] = useState([]);
   const [openModal, setOpenModal] = useState(false);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState(user.firstName);
+  const [lastName, setLastName] = useState(user.lastName);
+  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
+  const [email, setEmail] = useState(user.email);
+  const [password, setPassword] = useState(user.password);
   const [loading, setLoading] = useState(false);
-
-  const user = useSelector(state => state.user);
 
   useEffect(() => {
     const fetchRides = async () => {
@@ -123,7 +123,7 @@ const MyRidesPage = () => {
             <Typography
               variant="h4"
               sx={{
-                color: 'white'
+                color: '#D3D3D2'
               }}
             >
               My Rides
@@ -148,7 +148,7 @@ const MyRidesPage = () => {
                         <ListItem>
                           <ListItemText
                             sx={{
-                              color: '#5A5A5A'
+                              color: 'white'
                             }}
                             primary={ride.date}
                           />
@@ -191,7 +191,7 @@ const MyRidesPage = () => {
           </Grid>
           <Grid item xs={12}>
             <Box mt={2} mb={12}>
-              <Link href="#" onClick={handleOpenModal}>
+              <Link href="#" onClick={handleOpenModal} color="#D3D3D2">
                 Modify Personal Details
                 <ModeIcon sx={{ ml: 1 }} />
               </Link>

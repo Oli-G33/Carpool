@@ -94,7 +94,8 @@ const bookSeat = async (req, res) => {
 
 const fetchPassengers = async (req, res) => {
   try {
-    const desiredDate = new Date('2023-05-23');
+    const { date } = req.params;
+    const desiredDate = new Date(date);
 
     // Query the WeeklyRide collection for a specific date's passengers
     const ride = await WeeklyRide.findOne(
