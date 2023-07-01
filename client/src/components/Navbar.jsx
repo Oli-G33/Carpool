@@ -15,8 +15,9 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { setLogout } from '../state';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 const colors = ['orange', 'pink', 'green', 'red', 'purple'];
 
@@ -40,6 +41,7 @@ const Navbar = () => {
     navigate('/');
     dispatch(setLogout());
   };
+  const phoneNumber = '+34609469176';
 
   const drawer = (
     <List>
@@ -50,30 +52,37 @@ const Navbar = () => {
         <ListItemText primary="Close" />
       </ListItemButton>
       {user && user.isAdmin && (
-        <ListItemButton>
+        <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
           <Link href="/dashboard" color="inherit" underline="none">
             <ListItemText primary="Dashboard" />
           </Link>
         </ListItemButton>
       )}
-      <ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
         <Link href="/booking" color="inherit" underline="none">
           <ListItemText primary="Book a ride" />
         </Link>
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
         <Link href="/myrides" color="inherit" underline="none">
           <ListItemText primary="My Rides" />
         </Link>
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
         <Link href="" color="inherit" underline="none">
           <ListItemText primary="About" />
         </Link>
       </ListItemButton>
       <ListItemButton>
-        <Link href="" color="inherit" underline="none">
-          <ListItemText primary="Contact" />
+        <Link
+          href={`https://wa.me/${phoneNumber}`}
+          color="inherit"
+          underline="none"
+          target="_blank"
+        >
+          <ListItemIcon sx={{ display: 'flex', justifyContent: 'center' }}>
+            <WhatsAppIcon sx={{ color: '#25D366' }} />
+          </ListItemIcon>
         </Link>
       </ListItemButton>
     </List>
@@ -90,21 +99,41 @@ const Navbar = () => {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Carpooler
+
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{ flexGrow: 1, textAlign: 'center' }}
+        >
+          <Link
+            component={RouterLink}
+            to="/booking"
+            color="inherit"
+            underline="none"
+          >
+            Export Carpooler
+          </Link>
         </Typography>
         {user && (
           <>
-            <Avatar
-              src={user.picture}
-              alt={user.firstName}
-              sx={{
-                ml: 2,
-                mr: 1,
-                bgcolor: randomColor,
-                border: '2px 	#d9dcde solid'
-              }}
-            />
+            {' '}
+            <Link
+              component={RouterLink}
+              to="/myrides"
+              color="inherit"
+              underline="none"
+            >
+              <Avatar
+                src={user.picture}
+                alt={user.firstName}
+                sx={{
+                  ml: 2,
+                  mr: 1,
+                  bgcolor: randomColor,
+                  border: '2px 	#d9dcde solid'
+                }}
+              />
+            </Link>
             <IconButton color="inherit" onClick={handleLogout}>
               <LogoutIcon />
             </IconButton>
