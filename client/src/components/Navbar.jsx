@@ -68,11 +68,6 @@ const Navbar = () => {
           <ListItemText primary="My Rides" />
         </Link>
       </ListItemButton>
-      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Link href="" color="inherit" underline="none">
-          <ListItemText primary="About" />
-        </Link>
-      </ListItemButton>
       <ListItemButton>
         <Link
           href={`https://wa.me/${phoneNumber}`}
@@ -80,9 +75,16 @@ const Navbar = () => {
           underline="none"
           target="_blank"
         >
-          <ListItemIcon sx={{ display: 'flex', justifyContent: 'center' }}>
+          <ListItemIcon
+            sx={{ display: 'flex', justifyContent: 'center', ml: 5 }}
+          >
             <WhatsAppIcon sx={{ color: '#25D366' }} />
           </ListItemIcon>
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText primary="Terms & Conditions" />
         </Link>
       </ListItemButton>
     </List>
