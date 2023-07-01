@@ -65,7 +65,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
   const handleSuccess = result => {
     const { url } = result;
     setPicture(url);
-    console.log(picture);
+    console.log(url);
   };
 
   const handleError = error => {
