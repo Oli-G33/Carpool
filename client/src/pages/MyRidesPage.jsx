@@ -31,7 +31,7 @@ const MyRidesPage = () => {
   const [lastName, setLastName] = useState(user.lastName);
   const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
   const [email, setEmail] = useState(user.email);
-  const [password, setPassword] = useState(user.password);
+  const [password, setPassword] = useState(user.picture);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -192,7 +192,7 @@ const MyRidesPage = () => {
           <Grid item xs={12}>
             <Box mt={2} mb={12}>
               <Link href="#" onClick={handleOpenModal} color="#D3D3D2">
-                Modify Personal Details
+                Edit Profile
                 <ModeIcon sx={{ ml: 1 }} />
               </Link>
             </Box>
@@ -200,14 +200,19 @@ const MyRidesPage = () => {
         </Grid>
 
         {/* Personal Details Modal */}
-        <Modal open={openModal} onClose={handleCloseModal}>
+        <Modal
+          open={openModal}
+          onClose={handleCloseModal}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
           <Box
             sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: 400,
+              width: '100%',
+              maxWidth: 400,
               bgcolor: 'background.paper',
               boxShadow: 24,
               p: 4,
