@@ -118,91 +118,93 @@ const MyRidesPage = () => {
   return (
     <>
       <Navbar />
-      <Container sx={{ marginTop: '50px' }}>
-        <Grid container spacing={2} justifyContent="center">
-          <Grid item xs={12}>
-            <Typography
-              variant="h4"
-              sx={{
-                color: '#D3D3D2'
-              }}
-            >
-              My Rides
-            </Typography>
+      <Box sx={{ textAlign: 'center' }}>
+        <Container sx={{ marginTop: '50px' }}>
+          <Grid container spacing={2} justifyContent="center">
+            <Grid item xs={12}>
+              <Typography
+                variant="h4"
+                sx={{
+                  color: '#D3D3D2'
+                }}
+              >
+                My Rides
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Paper
+                variant="outlined"
+                sx={{
+                  backgroundColor: 'rgba(200, 200, 200, 0.6)',
+                  border: '1px solid #ccc',
+                  borderRadius: '8px',
+                  padding: '2px',
+                  maxWidth: '50%'
+                }}
+              >
+                {rides.length > 0 ? (
+                  <List>
+                    <Stack spacing={1}>
+                      {rides.map((ride, index) => (
+                        <React.Fragment key={index}>
+                          <ListItem>
+                            <ListItemText
+                              sx={{
+                                color: 'white'
+                              }}
+                              primary={ride.date}
+                            />
+                            {!ride.canceled ? (
+                              <Button
+                                variant="outlined"
+                                color="error"
+                                size="small"
+                                onClick={() =>
+                                  handleCancelRide(ride.passengerId, ride.date)
+                                }
+                                disabled={loading}
+                              >
+                                {loading ? (
+                                  <CircularProgress size={25} />
+                                ) : (
+                                  'Cancel'
+                                )}
+                              </Button>
+                            ) : (
+                              ''
+                            )}
+                          </ListItem>
+                          {index !== rides.length - 1 && <Divider />}
+                        </React.Fragment>
+                      ))}
+                    </Stack>
+                  </List>
+                ) : (
+                  <Typography
+                    sx={{
+                      color: 'white',
+                      padding: '1%'
+                    }}
+                  >
+                    No rides found
+                  </Typography>
+                )}
+              </Paper>
+            </Grid>
+            <Grid item xs={12}>
+              <Box mt={2} mb={12}>
+                <Link href="#" onClick={handleOpenModal} color="#D3D3D2">
+                  Edit Profile
+                  <ModeIcon sx={{ ml: 1 }} />
+                </Link>
+              </Box>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <Paper
-              variant="outlined"
-              sx={{
-                backgroundColor: 'rgba(200, 200, 200, 0.6)',
-                border: '1px solid #ccc',
-                borderRadius: '8px',
-                padding: '2px',
-                maxWidth: '80%'
-              }}
-            >
-              {rides.length > 0 ? (
-                <List>
-                  <Stack spacing={1}>
-                    {rides.map((ride, index) => (
-                      <React.Fragment key={index}>
-                        <ListItem>
-                          <ListItemText
-                            sx={{
-                              color: 'white'
-                            }}
-                            primary={ride.date}
-                          />
-                          {!ride.canceled ? (
-                            <Button
-                              variant="outlined"
-                              color="error"
-                              size="small"
-                              onClick={() =>
-                                handleCancelRide(ride.passengerId, ride.date)
-                              }
-                              disabled={loading}
-                            >
-                              {loading ? (
-                                <CircularProgress size={25} />
-                              ) : (
-                                'Cancel'
-                              )}
-                            </Button>
-                          ) : (
-                            ''
-                          )}
-                        </ListItem>
-                        {index !== rides.length - 1 && <Divider />}
-                      </React.Fragment>
-                    ))}
-                  </Stack>
-                </List>
-              ) : (
-                <Typography
-                  sx={{
-                    color: 'white',
-                    padding: '1%'
-                  }}
-                >
-                  No rides found
-                </Typography>
-              )}
-            </Paper>
-          </Grid>
-          <Grid item xs={12}>
-            <Box mt={2} mb={12}>
-              <Link href="#" onClick={handleOpenModal} color="#D3D3D2">
-                Edit Profile
-                <ModeIcon sx={{ ml: 1 }} />
-              </Link>
-            </Box>
-          </Grid>
-        </Grid>
 
-        {/* Personal Details Modal */}
-        {/* <EditProfileModal user={user} /> */}
-      </Container>
+          {/* Personal Details Modal */}
+          {/* <EditProfileModal user={user} /> */}
+        </Container>
+      </Box>
     </>
   );
 };

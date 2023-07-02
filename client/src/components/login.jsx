@@ -103,7 +103,7 @@ export default function Login({ isLogin, setIsLogin }) {
           xs={12}
           sm={6}
           md={4}
-          xl="80%"
+          xl="100%"
           sx={{
             marginTop: 4,
             display: 'flex',

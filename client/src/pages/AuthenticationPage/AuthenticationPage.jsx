@@ -33,8 +33,8 @@ const AuthForm = () => {
       >
         <Box
           sx={{
-            width: '100%',
-            marginTop: 1,
+            width: '92%',
+            marginTop: 2,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',

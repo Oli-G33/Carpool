@@ -194,19 +194,6 @@ const BookingPage = () => {
             )}
           </Box>
         </Box>
-        <Box display="flex" justifyContent="center" mt={2}>
-          <Button
-            sx={{ mt: 6 }}
-            onClick={handleBookRide}
-            variant="contained"
-            color="primary"
-            size="large"
-            disabled={availableSeats <= 0 || isLoading || alertMessage}
-            startIcon={isLoading ? <CircularProgress size={24} /> : null}
-          >
-            Book Your Ride
-          </Button>
-        </Box>
         {alertMessage && (
           <Box display="flex" justifyContent="center" mt={2}>
             <Alert severity="error">{alertMessage}</Alert>
@@ -219,6 +206,19 @@ const BookingPage = () => {
             </Alert>
           </Box>
         )}
+        <Box display="flex" justifyContent="center" mt={2}>
+          <Button
+            sx={{ mt: 4 }}
+            onClick={handleBookRide}
+            variant="contained"
+            color="primary"
+            size="large"
+            disabled={availableSeats <= 0 || isLoading || alertMessage}
+            startIcon={isLoading ? <CircularProgress size={24} /> : null}
+          >
+            Book Your Ride
+          </Button>
+        </Box>
       </Container>
     </>
   );

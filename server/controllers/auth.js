@@ -44,4 +44,36 @@ const login = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-module.exports = { register, login };
+
+const updateUser = async (req, res) => {
+  try {
+    const { firstName, lastName, email, password, picture, phoneNumber } =
+      req.body;
+
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(password, salt);
+
+    const updatedUserInfo = {
+      firstName,
+      lastName,
+      email,
+      password: passwordHash,
+      picture,
+      phoneNumber
+    };
+
+    // Assuming you have the user's ID available in the request
+    const userId = req.params.id;
+
+    const updatedUser = await User.findByIdAndUpdate(userId, updatedUserInfo, {
+      new: true
+    });
+
+    console.log(updatedUser);
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = { register, login, updateUser };
