@@ -44,6 +44,17 @@ const bookSeat = async (req, res) => {
 
     const formattedDate = date.split('-').reverse().join('-');
 
+    // Check if the user has already booked a ride for the date
+    const existingBooking = await WeeklyRide.findOne({
+      passengers: { $elemMatch: { userId, date: formattedDate } }
+    });
+
+    if (existingBooking) {
+      return res
+        .status(400)
+        .json({ message: 'You already have a booking for the selected date' });
+    }
+
     // Find and update the WeeklyRide document for the specified date
     const ride = await WeeklyRide.findOneAndUpdate(
       { [`availableSeats.${formattedDate}`]: { $exists: true } },

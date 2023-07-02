@@ -41,7 +41,7 @@ const Navbar = () => {
     navigate('/');
     dispatch(setLogout());
   };
-  const phoneNumber = '+34609469176';
+  const phoneNumber = process.env.REACT_APP_WHATSAPP_NUMBER;
 
   const drawer = (
     <List>

@@ -19,12 +19,14 @@ import AirlineSeatReclineNormalIcon from '@mui/icons-material/AirlineSeatRecline
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { wakeApi } from '../services/api';
+import { Alert } from '@mui/material';
 
 const BookingPage = () => {
   const [selectedDate, setSelectedDate] = useState(dayjs());
 
   const [availableSeats, setAvailableSeats] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
@@ -46,6 +48,7 @@ const BookingPage = () => {
       getAvailableSeats(formattedDate)
         .then(data => {
           setAvailableSeats(data);
+          setAlertMessage('');
         })
         .catch(error => {
           console.error(error);
@@ -76,6 +79,15 @@ const BookingPage = () => {
       })
       .catch(error => {
         console.error(error);
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          setAlertMessage(error.response.data.message);
+        } else {
+          setAlertMessage('An error occurred while booking the ride.');
+        }
       })
       .finally(() => setIsLoading(false));
   };
@@ -189,17 +201,22 @@ const BookingPage = () => {
             variant="contained"
             color="primary"
             size="large"
-            disabled={availableSeats <= 0 || isLoading}
+            disabled={availableSeats <= 0 || isLoading || alertMessage}
             startIcon={isLoading ? <CircularProgress size={24} /> : null}
           >
             Book Your Ride
           </Button>
         </Box>
+        {alertMessage && (
+          <Box display="flex" justifyContent="center" mt={2}>
+            <Alert severity="error">{alertMessage}</Alert>
+          </Box>
+        )}
         {availableSeats <= 0 && (
-          <Box display="flex" justifyContent="center" mt={1}>
-            <Typography variant="body2" color="error">
-              There are no available seats for the selected date :(
-            </Typography>
+          <Box display="flex" justifyContent="center" mt={2}>
+            <Alert severity="error">
+              There are no available seats for the selected date
+            </Alert>
           </Box>
         )}
       </Container>

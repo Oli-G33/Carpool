@@ -28,6 +28,7 @@ const AuthForm = () => {
         minHeight: '100vh'
       }}
     >
+      <Box></Box>
       <Box flexGrow={0}>
         {isLogin ? (
           <Login isLogin={isLogin} setIsLogin={setIsLogin} />
