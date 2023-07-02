@@ -52,3 +52,18 @@ select:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
   box-shadow: 0 0 0px 1000px transparent inset !important;
 }
+
+input[type='file']::file-selector-button {
+  border: none;
+  box-shadow: 2px 8px 2px 1px rgba(0, 0, 0, 0.2);
+  padding: 0.4em 0.4em;
+  border-radius: 4px;
+  background-color: #1a77d2;
+  color: #d3d3d2;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+input[type='file']::file-selector-button:hover {
+  background-color: #1565c0;
+}

@@ -274,7 +274,11 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                   }
                   urlEndpoint={process.env.REACT_APP_IMAGEIO_URL_ENDPOINT}
                 >
-                  <IKUpload onSuccess={handleSuccess} onError={handleError} />
+                  <IKUpload
+                    onSuccess={handleSuccess}
+                    onError={handleError}
+                    className="fileUploadInput"
+                  />
                 </IKContext>
               </Grid>
               <Grid item xs={12}>
