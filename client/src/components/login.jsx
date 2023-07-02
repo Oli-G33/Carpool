@@ -68,7 +68,6 @@ export default function Login({ isLogin, setIsLogin }) {
 
     try {
       const loggedInResponse = await logInUser({ email, password });
-      console.log(loggedInResponse);
 
       if (loggedInResponse) {
         const { user } = loggedInResponse;

@@ -18,6 +18,7 @@ import { bookRide } from '../services/weeklyRides';
 import AirlineSeatReclineNormalIcon from '@mui/icons-material/AirlineSeatReclineNormal';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { wakeApi } from '../services/api';
 
 const BookingPage = () => {
   const [selectedDate, setSelectedDate] = useState(dayjs());
@@ -41,6 +42,7 @@ const BookingPage = () => {
 
   useEffect(() => {
     if (formattedDate) {
+      wakeApi();
       getAvailableSeats(formattedDate)
         .then(data => {
           setAvailableSeats(data);
