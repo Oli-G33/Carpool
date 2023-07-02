@@ -6,10 +6,10 @@ const api = axios.create({
 
 export const wakeApi = () => {
   return new Promise((resolve, reject) => {
-    axios
+    api
       .get('/')
       .then(response => {
-        resolve(response.data);
+        console.log(response.data);
       })
       .catch(error => {
         reject(new Error(error.message));
