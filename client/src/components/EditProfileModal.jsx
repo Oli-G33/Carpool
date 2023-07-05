@@ -93,6 +93,9 @@ const EditProfileModal = ({ user, handleCloseModal, openModal }) => {
       setPasswordErrorText('Passwords do not match');
       setIsLoading(false);
       return;
+    } else {
+      setPasswordError(false);
+      setPasswordErrorText('');
     }
 
     setIsLoading(true);
@@ -120,7 +123,11 @@ const EditProfileModal = ({ user, handleCloseModal, openModal }) => {
         setTimeout(() => {
           setAlertMessage('');
           handleCloseModal();
-          dispatch(setLogin({ user: { ...updatedUser, _id: user._id } }));
+          dispatch(
+            setLogin({
+              user: { ...updatedUser, _id: user._id, isAdmin: user.isAdmin }
+            })
+          );
         }, 3000);
       })
       .catch(error => {
@@ -141,7 +148,7 @@ const EditProfileModal = ({ user, handleCloseModal, openModal }) => {
 
   const onUploadStart = () => {
     setIsLoading(true);
-    console.log(isLoading);
+    console.log('Is Loading', isLoading);
   };
 
   const handleChange = value => {
@@ -260,7 +267,8 @@ const EditProfileModal = ({ user, handleCloseModal, openModal }) => {
                     {show ? <VisibilityOffIcon /> : <VisibilityIcon />}
                   </Button>
                 </InputAdornment>
-              )
+              ),
+              autoComplete: 'new-password'
             }}
           />
           <TextField
@@ -287,13 +295,12 @@ const EditProfileModal = ({ user, handleCloseModal, openModal }) => {
             publicKey={process.env.REACT_APP_IMAGEIO_PUBLIC_KEY}
             authenticationEndpoint={process.env.REACT_APP_IMAGEIO_AUTH_ENDPOINT}
             urlEndpoint={process.env.REACT_APP_IMAGEIO_URL_ENDPOINT}
-            onUploadStart={onUploadStart}
           >
             <IKUpload
               id="inputGroupFile"
               onSuccess={handleSuccess}
               onError={handleError}
-              className="fileUploadInput"
+              onUploadStart={onUploadStart}
             />
           </IKContext>
 

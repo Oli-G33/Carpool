@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { MuiTelInput, matchIsValidTel } from 'mui-tel-input';
-import { Snackbar } from '@mui/material';
+import { CircularProgress, Snackbar } from '@mui/material';
 import { Alert } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -43,6 +43,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
   const [emailErrorText, setEmailErrorText] = useState();
   const [passwordError, setPasswordError] = useState();
   const [passwordErrorText, setPasswordErrorText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -65,6 +66,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
   const handleSuccess = result => {
     const { url } = result;
     setPicture(url);
+    setIsLoading(false);
     console.log(url);
   };
 
@@ -145,6 +147,11 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
     } catch (error) {
       console.log(error.message);
     }
+  };
+
+  const onUploadStart = () => {
+    setIsLoading(true);
+    console.log('Is Loading', isLoading);
   };
 
   return (
@@ -264,6 +271,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                 />
               </Grid>
               <Grid item xs={12}>
+                {isLoading && <CircularProgress sx={{ my: 2 }} />}
                 {picture && (
                   <img src={picture} alt="Selected" width="100" height="100" />
                 )}
@@ -278,6 +286,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                     onSuccess={handleSuccess}
                     onError={handleError}
                     className="fileUploadInput"
+                    onUploadStart={onUploadStart}
                   />
                 </IKContext>
               </Grid>

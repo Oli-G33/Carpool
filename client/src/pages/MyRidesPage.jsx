@@ -125,7 +125,8 @@ const MyRidesPage = () => {
                   border: '1px solid #ccc',
                   borderRadius: '8px',
                   padding: '2px',
-                  maxWidth: '80%'
+                  maxWidth: '80%',
+                  margin: '0 auto'
                 }}
               >
                 {rides.length > 0 ? (
