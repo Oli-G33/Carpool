@@ -152,6 +152,11 @@ export default function Login({ isLogin, setIsLogin }) {
                   name="email"
                   autoComplete="email"
                   onChange={event => setEmail(event.target.value)}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      color: ' white'
+                    }
+                  }}
                 />
               </Grid>
 

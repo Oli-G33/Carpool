@@ -154,6 +154,11 @@ const BookingPage = () => {
                 shouldDisableDate={isWeekend}
                 defaultValue={selectedDate}
                 maxDate={maxSelectableDate}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    color: ' white'
+                  }
+                }}
               />
             </LocalizationProvider>
           </Box>
