@@ -22,7 +22,7 @@ import { wakeApi } from '../services/api';
 import { Alert } from '@mui/material';
 
 const BookingPage = () => {
-  const [selectedDate, setSelectedDate] = useState(dayjs());
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const [availableSeats, setAvailableSeats] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +31,7 @@ const BookingPage = () => {
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
 
-  const formattedDate = selectedDate.format('DD-MM-YYYY');
+  const formattedDate = selectedDate ? selectedDate.format('DD-MM-YYYY') : null;
 
   const presentDate = dayjs();
   const maxSelectableDate = presentDate.add(14, 'day');
@@ -48,7 +48,12 @@ const BookingPage = () => {
       getAvailableSeats(formattedDate)
         .then(data => {
           setAvailableSeats(data);
-          setAlertMessage('');
+          console.log(data);
+          if (data && data.error) {
+            setAlertMessage(data.error);
+          } else {
+            setAlertMessage('');
+          }
         })
         .catch(error => {
           console.error(error);
@@ -59,7 +64,7 @@ const BookingPage = () => {
   const renderSeatIcons = count => {
     const seatIconSize = 6;
 
-    return Array.from({ length: count }, (_, index) => (
+    return Array.from({ length: count.availableSeats }, (_, index) => (
       <AirlineSeatReclineNormalIcon
         key={index}
         color="primary"
@@ -96,6 +101,12 @@ const BookingPage = () => {
     <>
       <Navbar />
       <Container sx={{ marginTop: '30px', minHeight: '80vh' }}>
+        <Typography
+          variant="h3"
+          sx={{ marginBottom: '20px', color: '#D3D3D2', textAlign: 'center' }}
+        >
+          Book your ride
+        </Typography>
         <Box
           boxShadow={'2px 2px 4px rgba(0, 0, 0, 0.2)'}
           flexGrow={0}
@@ -107,7 +118,6 @@ const BookingPage = () => {
             backgroundColor: 'rgba(200, 200, 200, 0.6)',
             border: '1px solid #ccc',
             borderRadius: '8px',
-            padding: '36px',
             maxWidth: '100%',
             height: '40vh'
           }}
@@ -154,7 +164,7 @@ const BookingPage = () => {
               alignItems: 'center'
             }}
           >
-            {availableSeats > 0 && (
+            {availableSeats && (
               <Box
                 flexGrow={0}
                 sx={{
@@ -199,13 +209,7 @@ const BookingPage = () => {
             <Alert severity="error">{alertMessage}</Alert>
           </Box>
         )}
-        {availableSeats <= 0 && (
-          <Box display="flex" justifyContent="center" mt={2}>
-            <Alert severity="error">
-              There are no available seats for the selected date
-            </Alert>
-          </Box>
-        )}
+
         <Box display="flex" justifyContent="center" mt={2}>
           <Button
             sx={{ mt: 4 }}
@@ -213,7 +217,7 @@ const BookingPage = () => {
             variant="contained"
             color="primary"
             size="large"
-            disabled={availableSeats <= 0 || isLoading || alertMessage}
+            disabled={availableSeats <= 0 || isLoading || !!alertMessage}
             startIcon={isLoading ? <CircularProgress size={24} /> : null}
           >
             Book Your Ride

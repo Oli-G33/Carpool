@@ -28,11 +28,7 @@ const MyRidesPage = () => {
 
   const [rides, setRides] = useState([]);
   const [openModal, setOpenModal] = useState(false);
-  const [firstName, setFirstName] = useState(user.firstName);
-  const [lastName, setLastName] = useState(user.lastName);
-  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
-  const [email, setEmail] = useState(user.email);
-  const [password, setPassword] = useState(user.picture);
+
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -105,16 +101,6 @@ const MyRidesPage = () => {
     setOpenModal(false);
   };
 
-  const handleSavePersonalDetails = () => {
-    console.log('First Name:', firstName);
-    console.log('Last Name:', lastName);
-    console.log('Phone Number:', phoneNumber);
-    console.log('Email:', email);
-    console.log('Password:', password);
-
-    handleCloseModal();
-  };
-
   return (
     <>
       <Navbar />
@@ -139,7 +125,8 @@ const MyRidesPage = () => {
                   border: '1px solid #ccc',
                   borderRadius: '8px',
                   padding: '2px',
-                  maxWidth: '50%'
+                  maxWidth: '80%',
+                  margin: '0 auto'
                 }}
               >
                 {rides.length > 0 ? (
@@ -202,7 +189,12 @@ const MyRidesPage = () => {
           </Grid>
 
           {/* Personal Details Modal */}
-          {/* <EditProfileModal user={user} /> */}
+          <EditProfileModal
+            user={user}
+            handleCloseModal={handleCloseModal}
+            handleOpenModal={handleOpenModal}
+            openModal={openModal}
+          />
         </Container>
       </Box>
     </>

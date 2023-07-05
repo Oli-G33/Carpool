@@ -21,19 +21,32 @@ const getSeats = async (req, res) => {
     { [`availableSeats.${formattedDate}`]: 1 } // project only the available seats for that date
   ).exec((err, ride) => {
     if (err) {
-      res.status(503).json(err);
+      res
+        .status(503)
+        .json({ error: 'An error occurred while fetching available seats.' });
       console.error(err);
       // handle error
-    } else if (!ride || availableSeats === undefined) {
-      res.status(200).json(availableSeats.formattedDate);
+    } else if (!ride || ride.availableSeats === undefined) {
+      res
+        .status(200)
+        .json({ error: `No ride found for date ${formattedDate}` });
       console.error(`No ride found for date ${formattedDate}`);
       // handle no ride found
     } else {
       const availableSeats = ride.availableSeats.get(formattedDate);
-      res.status(200).json(availableSeats);
-      console.log(
-        `There are ${availableSeats} available seats for date ${formattedDate}`
-      );
+      if (availableSeats < 1) {
+        res
+          .status(200)
+          .json({
+            error: 'There are no available seats for the selected date'
+          });
+        console.log(`There are no available seats for date ${formattedDate}`);
+      } else {
+        res.status(200).json({ availableSeats });
+        console.log(
+          `There are ${availableSeats} available seats for date ${formattedDate}`
+        );
+      }
     }
   });
 };
