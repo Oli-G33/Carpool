@@ -6,7 +6,8 @@ import {
   CircularProgress,
   Container,
   Typography,
-  Divider
+  Divider,
+  useMediaQuery
 } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -32,6 +33,7 @@ const BookingPage = () => {
   const user = useSelector(state => state.user);
 
   const formattedDate = selectedDate ? selectedDate.format('DD-MM-YYYY') : null;
+  const isNonMobileScreens = useMediaQuery('(min-width:800px)');
 
   const presentDate = dayjs();
   const maxSelectableDate = presentDate.add(14, 'day');
@@ -62,7 +64,7 @@ const BookingPage = () => {
   }, [formattedDate]);
 
   const renderSeatIcons = count => {
-    const seatIconSize = 6;
+    const seatIconSize = isNonMobileScreens ? 6 : 5;
 
     return Array.from({ length: count.availableSeats }, (_, index) => (
       <AirlineSeatReclineNormalIcon
@@ -132,7 +134,7 @@ const BookingPage = () => {
           >
             <Typography
               variant="h4"
-              sx={{ marginBottom: '20px', color: 'white' }}
+              sx={{ marginBottom: '20px', color: 'white', textAlign: 'center' }}
             >
               Select a date
             </Typography>
@@ -177,7 +179,8 @@ const BookingPage = () => {
                   variant="h4"
                   sx={{
                     marginBottom: '10px',
-                    color: 'white'
+                    color: 'white',
+                    textAlign: 'center'
                   }}
                 >
                   Available Seats

@@ -125,8 +125,7 @@ const MyRidesPage = () => {
                   border: '1px solid #ccc',
                   borderRadius: '8px',
                   padding: '2px',
-                  maxWidth: '80%',
-                  margin: '0 auto'
+                  maxWidth: '80%'
                 }}
               >
                 {rides.length > 0 ? (
@@ -143,7 +142,7 @@ const MyRidesPage = () => {
                             />
                             {!ride.canceled ? (
                               <Button
-                                variant="outlined"
+                                variant="contained"
                                 color="error"
                                 size="small"
                                 onClick={() =>

@@ -49,27 +49,34 @@ const updateUser = async (req, res) => {
   try {
     const { firstName, lastName, email, password, picture, phoneNumber } =
       req.body;
-
-    const salt = await bcrypt.genSalt();
-    const passwordHash = await bcrypt.hash(password, salt);
-
-    const updatedUserInfo = {
-      firstName,
-      lastName,
-      email,
-      password: passwordHash,
-      picture,
-      phoneNumber
-    };
-
-    // Assuming you have the user's ID available in the request
     const userId = req.params.id;
 
-    const updatedUser = await User.findByIdAndUpdate(userId, updatedUserInfo, {
-      new: true
-    });
+    const user = await User.findById(userId);
 
-    console.log(updatedUser);
+    // Check if new data exists and update the corresponding fields
+    if (firstName) {
+      user.firstName = firstName;
+    }
+    if (lastName) {
+      user.lastName = lastName;
+    }
+    if (email) {
+      user.email = email;
+    }
+    if (password) {
+      const salt = await bcrypt.genSalt();
+      const passwordHash = await bcrypt.hash(password, salt);
+      user.password = passwordHash;
+    }
+    if (picture) {
+      user.picture = picture;
+    }
+    if (phoneNumber) {
+      user.phoneNumber = phoneNumber;
+    }
+
+    const updatedUser = await user.save();
+
     res.status(200).json(updatedUser);
   } catch (error) {
     res.status(500).json({ error: error.message });

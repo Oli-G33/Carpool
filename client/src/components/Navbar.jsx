@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   AppBar,
@@ -24,10 +24,15 @@ const colors = ['orange', 'pink', 'green', 'red', 'purple'];
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [randomColor] = useState(colors[Math.floor(Math.random() * 6)]);
+  const [avatarKey, setAvatarKey] = useState(0);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
+
+  useEffect(() => {
+    setAvatarKey(key => key + 1); // Update the Avatar key when user.picture changes
+  }, [user.picture]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -126,6 +131,7 @@ const Navbar = () => {
               underline="none"
             >
               <Avatar
+                key={avatarKey}
                 src={user.picture}
                 alt={user.firstName}
                 sx={{

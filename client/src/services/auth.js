@@ -6,5 +6,5 @@ export const registerUser = body =>
 export const logInUser = body =>
   api.post('/auth/login', body).then(response => response.data);
 
-export const updateUser = body =>
-  api.patch('auth/update/:id', body).then(response => response.data);
+export const updateUser = (userId, body) =>
+  api.patch(`auth/update/${userId}`, body).then(response => response.data);
