@@ -67,7 +67,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
 
   const handleTerms= ()=>{
     setTermsRead(!termsRead)
-    setAlertMessage("Please read the terms and conditions XD")
+   
   }
 
   const handleSuccess = result => {
@@ -129,6 +129,10 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
     } else {
       setPasswordError(false);
       setPasswordErrorText('');
+    }
+
+    if (!termsRead){
+      setAlertMessage("Please read the terms and conditions XD")
     }
 
     try {
