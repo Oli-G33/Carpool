@@ -41,7 +41,7 @@ const TermsPage = () => {
         </Typography>
 
         <Typography variant="body1" sx={{ mb: 2 }}>
-          2.1 Rides must be booked at least 8 hours in advance.
+          2.1 Rides must be booked at least 24 hours in advance.
         </Typography>
         <hr />
         <Typography variant="h5" sx={{ mb: 2 }}>

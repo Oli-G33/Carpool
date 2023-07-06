@@ -44,6 +44,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
   const [passwordError, setPasswordError] = useState();
   const [passwordErrorText, setPasswordErrorText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [termsRead, setTermsRead] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -61,6 +62,10 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
       setPhoneErrorText('');
     }
     setPhone(value);
+  };
+
+  const handleTerms = () => {
+    setTermsRead(!termsRead);
   };
 
   const handleSuccess = result => {
@@ -122,6 +127,13 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
     } else {
       setPasswordError(false);
       setPasswordErrorText('');
+    }
+
+    if (!termsRead) {
+      setAlertMessage('Please read the terms and conditions XD');
+      return;
+    } else {
+      setAlertMessage('');
     }
 
     try {
@@ -303,12 +315,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                     />
                   }
                 />
-                <Link
-                  href="https://carpooler.onrender.com/terms"
-                  variant="body2"
-                  underline="hover"
-                  target="_blank"
-                >
+                <Link variant="body2" underline="hover" href="/terms">
                   I accept the Terms & Conditions*
                 </Link>
               </Grid>

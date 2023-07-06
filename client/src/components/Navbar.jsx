@@ -20,11 +20,8 @@ import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
-const colors = ['orange', 'pink', 'green', 'red', 'purple'];
-
 const Navbar = ({ isNonMobile }) => {
   const [open, setOpen] = useState(false);
-  const [randomColor] = useState(colors[Math.floor(Math.random() * 6)]);
   const [avatarKey, setAvatarKey] = useState(0);
 
   const dispatch = useDispatch();
@@ -141,8 +138,7 @@ const Navbar = ({ isNonMobile }) => {
                 sx={{
                   ml: 2,
                   mr: 1,
-                  bgcolor: randomColor,
-                  border: '2px 	#d9dcde solid'
+                                   border: '2px 	#d9dcde solid'
                 }}
               />
             </Link>

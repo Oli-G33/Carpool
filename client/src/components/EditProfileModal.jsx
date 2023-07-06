@@ -58,7 +58,7 @@ const EditProfileModal = ({ user, handleCloseModal, openModal }) => {
     }
 
     // Check first name length
-    if (firstName.length < 2) {
+    if (firstName && firstName.length < 2) {
       setFirstNameError(true);
       setFirstNameErrorText('Please provide your full first name');
       return;
@@ -68,7 +68,7 @@ const EditProfileModal = ({ user, handleCloseModal, openModal }) => {
     }
 
     // Check last name length
-    if (lastName.length < 2) {
+    if (lastName && lastName.length < 2) {
       setLastNameError(true);
       setLastNameErrorText('Please provide your full last name');
       return;
@@ -112,13 +112,13 @@ const EditProfileModal = ({ user, handleCloseModal, openModal }) => {
     updateUser(user._id, updatedUser)
       .then(() => {
         setIsLoading(false);
-        setFirstName('');
-        setLastName('');
-        setEmail('');
-        setPhone('');
+        setFirstName(updatedUser.firstName);
+        setLastName(updatedUser.lastName);
+        setEmail(updatedUser.email);
+        setPhone(updatedUser.phoneNumber);
         setPassword('');
         setConfirmPassword('');
-        setPicture('');
+        setPicture("<img src={updatedUser.picture} alt={updatedUser.firstName}  width={100px} height={100px} />");
         setAlertMessage('User updated successfully.');
         setTimeout(() => {
           setAlertMessage('');

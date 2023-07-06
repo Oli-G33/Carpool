@@ -121,7 +121,7 @@ const BookingPage = () => {
             border: '1px solid #ccc',
             borderRadius: '8px',
             maxWidth: '100%',
-            height: '40vh'
+            height: '30vh'
           }}
         >
           <Box
@@ -228,7 +228,7 @@ const BookingPage = () => {
             disabled={availableSeats <= 0 || isLoading || !!alertMessage}
             startIcon={isLoading ? <CircularProgress size={24} /> : null}
           >
-            Book Your Ride
+           Book
           </Button>
         </Box>
       </Container>
