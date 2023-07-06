@@ -131,12 +131,12 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
       setPasswordErrorText('');
     }
 
-    if (!termsRead){
-      setAlertMessage("Please read the terms and conditions XD")
-      return;
-    } else{
-      setAlertMessage("")
-    }
+    // if (!termsRead){
+    //   setAlertMessage("Please read the terms and conditions XD")
+    //   return;
+    // } else{
+    //   setAlertMessage("")
+    // }
 
     try {
       const registerResponse = await registerUser({
