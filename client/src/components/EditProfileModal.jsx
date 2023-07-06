@@ -112,13 +112,13 @@ const EditProfileModal = ({ user, handleCloseModal, openModal }) => {
     updateUser(user._id, updatedUser)
       .then(() => {
         setIsLoading(false);
-        setFirstName(user.firstName);
-        setLastName(user.lastName);
-        setEmail(user.email);
-        setPhone(user.phoneNumber);
+        setFirstName(updatedUser.firstName);
+        setLastName(updatedUser.lastName);
+        setEmail(updatedUser.email);
+        setPhone(updatedUser.phoneNumber);
         setPassword('');
         setConfirmPassword('');
-        setPicture("<img src={user.picture} alt={user.firstName}  width={100px} height={100px} />");
+        setPicture("<img src={updatedUser.picture} alt={updatedUser.firstName}  width={100px} height={100px} />");
         setAlertMessage('User updated successfully.');
         setTimeout(() => {
           setAlertMessage('');
