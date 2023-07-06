@@ -65,7 +65,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
   };
 
   const handleTerms = () => {
-    setTermsRead(!termsRead);
+    setTermsRead(true);
   };
 
   const handleSuccess = result => {
@@ -96,6 +96,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
       setEmailError(false);
       setEmailErrorText('');
     }
+
     if (!checked) {
       setAlertMessage('Please accept the Terms & Conditions');
       return;
@@ -130,7 +131,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
     }
 
     if (!termsRead) {
-      setAlertMessage('Please read the terms and conditions XD');
+      setAlertMessage('Please read the terms and conditions :)');
       return;
     } else {
       setAlertMessage('');
@@ -157,7 +158,18 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
       }
       navigate('/booking');
     } catch (error) {
-      console.log(error.message);
+      if (error.response && error.response.data && error.response.data.error) {
+        const errorMessage = error.response.data.error;
+        console.log(errorMessage);
+        if (errorMessage.includes('E11000 duplicate key error collection')) {
+          setEmailError(true);
+          setEmailErrorText('This email address is already registered');
+          return;
+        }
+      } else {
+        setEmailError(false);
+        setEmailErrorText('');
+      }
     }
   };
 
@@ -315,7 +327,13 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                     />
                   }
                 />
-                <Link variant="body2" underline="hover" href="/terms">
+                <Link
+                  variant="body2"
+                  underline="hover"
+                  target="_blank"
+                  onClick={handleTerms}
+                  href="https://carpooler.onrender.com/terms"
+                >
                   I accept the Terms & Conditions*
                 </Link>
               </Grid>
