@@ -192,7 +192,7 @@ const EditProfileModal = ({ user, handleCloseModal, openModal }) => {
             sx={{
               position: 'absolute',
               top: '8px',
-              right: '8px',
+              left: '8px',
               padding: '4px',
               minWidth: 'unset',
               borderRadius: '50%',
@@ -304,7 +304,6 @@ const EditProfileModal = ({ user, handleCloseModal, openModal }) => {
             />
           </IKContext>
 
-          {isLoading && <CircularProgress sx={{ my: 2 }} />}
           {picture && (
             <img src={picture} alt="Selected" width="100" height="100" />
           )}
@@ -313,15 +312,21 @@ const EditProfileModal = ({ user, handleCloseModal, openModal }) => {
               <Alert severity="success">{alertMessage}</Alert>
             </Box>
           )}
-
-          <Button
-            variant="contained"
-            sx={{ mt: 2 }}
-            disabled={isLoading || !!alertMessage}
-            onClick={handleSavePersonalDetails}
-          >
-            Save
-          </Button>
+          {isLoading ? (
+            <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
+              {' '}
+              <CircularProgress sx={{ my: 2 }} />{' '}
+            </Box>
+          ) : (
+            <Button
+              variant="contained"
+              sx={{ mt: 2 }}
+              disabled={isLoading || !!alertMessage}
+              onClick={handleSavePersonalDetails}
+            >
+              Save
+            </Button>
+          )}
         </Box>
       </Modal>
     </>

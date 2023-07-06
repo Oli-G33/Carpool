@@ -271,7 +271,6 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                 />
               </Grid>
               <Grid item xs={12}>
-                {isLoading && <CircularProgress sx={{ my: 2 }} />}
                 {picture && (
                   <img src={picture} alt="Selected" width="100" height="100" />
                 )}
@@ -309,14 +308,21 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                 </Link>
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
+            {isLoading ? (
+              <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
+                <CircularProgress sx={{ my: 2 }} />
+              </Box>
+            ) : (
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign Up
+              </Button>
+            )}
+
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link

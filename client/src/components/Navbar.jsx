@@ -10,7 +10,8 @@ import {
   ListItemIcon,
   ListItemText,
   Avatar,
-  ListItemButton
+  ListItemButton,
+  useMediaQuery
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -21,7 +22,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 const colors = ['orange', 'pink', 'green', 'red', 'purple'];
 
-const Navbar = () => {
+const Navbar = ({ isNonMobile }) => {
   const [open, setOpen] = useState(false);
   const [randomColor] = useState(colors[Math.floor(Math.random() * 6)]);
   const [avatarKey, setAvatarKey] = useState(0);
@@ -29,13 +30,16 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
+  const isNonMobileScreens = useMediaQuery('(min-width:800px)');
 
   useEffect(() => {
-    setAvatarKey(key => key + 1); // Update the Avatar key when user.picture changes
+    setAvatarKey(key => key + 1);
   }, [user.picture]);
 
   const handleDrawerOpen = () => {
-    setOpen(true);
+    if (!isNonMobile) {
+      setOpen(true);
+    }
   };
 
   const handleDrawerClose = () => {
@@ -152,7 +156,9 @@ const Navbar = () => {
         anchor="left"
         open={open}
         onClose={handleDrawerClose}
-        sx={{ width: 250 }}
+        sx={{
+          width: isNonMobile ? 250 : '100vw'
+        }}
       >
         {drawer}
       </Drawer>
