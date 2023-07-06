@@ -24,7 +24,7 @@ const EditProfileModal = ({ user, handleCloseModal, openModal }) => {
   const [lastName, setLastName] = useState(user.lastName || '');
   const [phone, setPhone] = useState(user.phoneNumber || '');
   const [email, setEmail] = useState(user.email || '');
-  const [picture, setPicture] = useState('');
+  const [picture, setPicture] = useState(user.picture);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [firstNameError, setFirstNameError] = useState(false);
@@ -118,7 +118,6 @@ const EditProfileModal = ({ user, handleCloseModal, openModal }) => {
         setPhone(updatedUser.phoneNumber);
         setPassword('');
         setConfirmPassword('');
-        setPicture("<img src={updatedUser.picture} alt={updatedUser.firstName}  width={100px} height={100px} />");
         setAlertMessage('User updated successfully.');
         setTimeout(() => {
           setAlertMessage('');
