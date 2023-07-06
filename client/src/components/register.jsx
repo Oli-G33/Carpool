@@ -303,7 +303,12 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                     />
                   }
                 />
-                <Link variant="body2" underline="hover" href="/terms">
+                <Link
+                  href="https://carpooler.onrender.com/terms"
+                  variant="body2"
+                  underline="hover"
+                  target="_blank"
+                >
                   I accept the Terms & Conditions*
                 </Link>
               </Grid>
