@@ -133,6 +133,9 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
 
     if (!termsRead){
       setAlertMessage("Please read the terms and conditions XD")
+      return;
+    } else{
+      setAlertMessage("")
     }
 
     try {
