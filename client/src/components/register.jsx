@@ -44,6 +44,8 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
   const [passwordError, setPasswordError] = useState();
   const [passwordErrorText, setPasswordErrorText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [termsRead, setTermsRead]= useState(false)
+  
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -62,6 +64,11 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
     }
     setPhone(value);
   };
+
+  const handleTerms= ()=>{
+    setTermsRead(!termsRead)
+    setAlertMessage("Please read the terms and conditions XD")
+  }
 
   const handleSuccess = result => {
     const { url } = result;
@@ -303,7 +310,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                     />
                   }
                 />
-                <Link variant="body2" underline="hover" href="/terms">
+                <Link variant="body2" underline="hover" href="/terms" onClick={handleTerms}>
                   I accept the Terms & Conditions*
                 </Link>
               </Grid>
