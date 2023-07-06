@@ -317,7 +317,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                     />
                   }
                 />
-                <Link variant="body2" underline="hover" href="/terms" onClick={handleTerms}>
+                <Link variant="body2" underline="hover" href="/terms" target="_blank" onClick={handleTerms}>
                   I accept the Terms & Conditions*
                 </Link>
               </Grid>
