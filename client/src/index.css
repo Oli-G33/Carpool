@@ -66,6 +66,10 @@ input[type='file']::file-selector-button:hover {
   background-color: #1565c0;
 }
 
-.MuiFormLabel-root {
+.MuiSvgIcon-root,
+.MuiInputBase-colorPrimary,
+.MuiInputBase-formControl,
+.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root,
+.MuiOutlinedInput-root {
   color: white;
 }

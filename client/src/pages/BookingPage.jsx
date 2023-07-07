@@ -21,6 +21,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { wakeApi } from '../services/api';
 import { Alert } from '@mui/material';
+import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 
 const BookingPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -102,26 +103,44 @@ const BookingPage = () => {
   return (
     <>
       <Navbar />
-      <Container sx={{ marginTop: '30px', minHeight: '80vh' }}>
-        <Typography
-          variant="h3"
-          sx={{ marginBottom: '20px', color: '#D3D3D2', textAlign: 'center' }}
+      <Container sx={{ marginTop: '30px', minHeight: '70vh' }}>
+        <Box
+          sx={{
+            marginTop: 2,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'rgba(200, 200, 200, 0.6)',
+            border: '1px solid #ccc',
+            borderRadius: '8px',
+            maxWidth: '82.5%',
+            height: '10vh',
+            textAlign: 'center',
+            margin: '0 auto'
+          }}
         >
-          Book your ride
-        </Typography>
+          <Typography variant="h4" sx={{ color: 'white' }}>
+            Book your ride
+          </Typography>
+          <ConfirmationNumberIcon
+            sx={{ marginLeft: '10px', fontSize: '32px' }}
+          />
+        </Box>
+
         <Box
           boxShadow={'2px 2px 4px rgba(0, 0, 0, 0.2)'}
           flexGrow={0}
           p={2}
           sx={{
-            marginTop: 2,
             display: 'flex',
             alignItems: 'center',
             backgroundColor: 'rgba(200, 200, 200, 0.6)',
             border: '1px solid #ccc',
             borderRadius: '8px',
-            maxWidth: '100%',
-            height: '30vh'
+            maxWidth: '80%',
+            height: '30vh',
+            margin: '0 auto',
+            marginTop: 4
           }}
         >
           <Box
@@ -220,7 +239,7 @@ const BookingPage = () => {
 
         <Box display="flex" justifyContent="center" mt={2}>
           <Button
-            sx={{ mt: 4 }}
+            sx={{ mt: 4, width: '10rem' }}
             onClick={handleBookRide}
             variant="contained"
             color="primary"
@@ -228,7 +247,7 @@ const BookingPage = () => {
             disabled={availableSeats <= 0 || isLoading || !!alertMessage}
             startIcon={isLoading ? <CircularProgress size={24} /> : null}
           >
-           Book
+            Confirm ride
           </Button>
         </Box>
       </Container>
