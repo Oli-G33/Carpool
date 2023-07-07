@@ -65,3 +65,7 @@ input[type='file']::file-selector-button {
 input[type='file']::file-selector-button:hover {
   background-color: #1565c0;
 }
+
+.MuiFormLabel-root {
+  color: white;
+}

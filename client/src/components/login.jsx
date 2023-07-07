@@ -155,7 +155,8 @@ export default function Login({ isLogin, setIsLogin }) {
                   sx={{
                     '& .MuiOutlinedInput-root': {
                       color: ' white'
-                    }
+                    },
+                    '& .MuiInputLabel-root': { color: ' white' }
                   }}
                 />
               </Grid>
@@ -173,7 +174,10 @@ export default function Login({ isLogin, setIsLogin }) {
                   error={passwordError}
                   helperText={passwordErrorText}
                   sx={{
-                    color: '#D3D3D2'
+                    '& .MuiOutlinedInput-root': {
+                      color: ' white'
+                    },
+                    '& .MuiInputLabel-root': { color: ' white' }
                   }}
                 />
               </Grid>

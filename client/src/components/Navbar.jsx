@@ -138,7 +138,7 @@ const Navbar = ({ isNonMobile }) => {
                 sx={{
                   ml: 2,
                   mr: 1,
-                                   border: '2px 	#d9dcde solid'
+                  border: '2px 	#d9dcde solid'
                 }}
               />
             </Link>
@@ -153,7 +153,7 @@ const Navbar = ({ isNonMobile }) => {
         open={open}
         onClose={handleDrawerClose}
         sx={{
-          width: isNonMobile ? 250 : '100vw'
+          width: isNonMobile ? 500 : 1000
         }}
       >
         {drawer}
