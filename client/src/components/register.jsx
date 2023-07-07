@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { MuiTelInput, matchIsValidTel } from 'mui-tel-input';
-import { CircularProgress, Snackbar } from '@mui/material';
+import { CircularProgress, InputAdornment, Snackbar } from '@mui/material';
 import { Alert } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -21,6 +21,8 @@ import { registerUser } from '../services/auth';
 import { setLogin } from '../state';
 import { useDispatch } from 'react-redux';
 import { IKContext, IKUpload } from 'imagekitio-react';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const theme = createTheme();
 
@@ -45,6 +47,8 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
   const [passwordErrorText, setPasswordErrorText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [termsRead, setTermsRead] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [show, setShow] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -173,6 +177,8 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
     }
   };
 
+  const handleClick = () => setShow(!show);
+
   const onUploadStart = () => {
     setIsLoading(true);
     console.log('Is Loading', isLoading);
@@ -286,12 +292,42 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                   fullWidth
                   name="password"
                   label="Password"
-                  type="password"
+                  type={show ? 'text' : 'password'}
                   id="password"
                   autoComplete="new-password"
                   onChange={event => setPassword(event.target.value)}
                   error={passwordError}
                   helperText={passwordErrorText}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Button h="1.75rem" size="sm" onClick={handleClick}>
+                          {show ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                        </Button>
+                      </InputAdornment>
+                    )
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Confirm Password"
+                  type={show ? 'text' : 'password'}
+                  fullWidth
+                  value={confirmPassword}
+                  onChange={e => setConfirmPassword(e.target.value)}
+                  error={passwordError}
+                  helperText={passwordErrorText}
+                  sx={{ mb: 2 }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Button h="1.75rem" size="sm" onClick={handleClick}>
+                          {show ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                        </Button>
+                      </InputAdornment>
+                    )
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>

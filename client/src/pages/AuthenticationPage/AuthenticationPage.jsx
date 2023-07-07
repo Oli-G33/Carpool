@@ -47,7 +47,7 @@ const AuthForm = () => {
         >
           <Typography
             variant="h3"
-            color="#D3D3D2"
+            color="white"
             sx={{
               fontSize: { xs: '2rem', sm: '3rem', md: '4rem' },
               lineHeight: { xs: '2.5rem', sm: '3rem', md: '4.5rem' },
