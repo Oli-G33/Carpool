@@ -13,17 +13,22 @@ const DashboardPage = () => {
   const [passengers, setPassengers] = useState([]);
 
   const handleDateChange = async date => {
-    console.log(date);
-    const formattedDate = dayjs(date.$d).format('YYYY-MM-DD');
-    // const selectedDate = new Date(formattedDate);
+    const formattedDate = dayjs(date).format('YYYY-MM-DD');
     setSelectedDate(formattedDate);
 
     try {
       const retrievedPassengers = await getPassengers(formattedDate);
-      setPassengers(retrievedPassengers);
+      if (retrievedPassengers.length === 0) {
+        setPassengers([]);
+      } else {
+        setPassengers(retrievedPassengers);
+      }
     } catch (error) {
-      console.error(error);
-      // Handle any errors that occurred during the API call
+      console.error('Here', error);
+      if (error.message === 'No ride found for the date') {
+        setPassengers([]);
+        console.log(passengers);
+      }
     }
   };
 
@@ -67,7 +72,7 @@ const DashboardPage = () => {
               </Typography>
               {passengers.length > 0 ? (
                 passengers.map(passenger => (
-                  <Typography key={passenger.id} variant="body1" component="p">
+                  <Typography key={passenger._id} variant="body1" component="p">
                     {passenger.firstName} {passenger.lastName}
                   </Typography>
                 ))

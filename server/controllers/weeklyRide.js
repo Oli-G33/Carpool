@@ -35,11 +35,9 @@ const getSeats = async (req, res) => {
     } else {
       const availableSeats = ride.availableSeats.get(formattedDate);
       if (availableSeats < 1) {
-        res
-          .status(200)
-          .json({
-            error: 'There are no available seats for the selected date'
-          });
+        res.status(200).json({
+          error: 'There are no available seats for the selected date'
+        });
         console.log(`There are no available seats for date ${formattedDate}`);
       } else {
         res.status(200).json({ availableSeats });
@@ -129,7 +127,7 @@ const fetchPassengers = async (req, res) => {
 
     if (!ride) {
       // Handle case where no ride with passengers for the desired date is found
-      return res.status(404).json({ message: 'No ride found for the date' });
+      return res.status(500).json({ message: 'No ride found for the date' });
     }
 
     const passengerIds = ride.passengers.map((passenger) => passenger.userId);

@@ -253,9 +253,8 @@ const BookingPage = () => {
             color="primary"
             size="large"
             disabled={availableSeats <= 0 || isLoading || !!alertMessage}
-            startIcon={isLoading ? <CircularProgress size={24} /> : null}
           >
-            Confirm ride
+            {isLoading ? <CircularProgress size={24} /> : 'Confirm ride'}
           </Button>
         </Box>
       </Container>
