@@ -25,6 +25,7 @@ import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 
 const BookingPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDriver, setSelectedDriver] = useState('Oliver');
 
   const [availableSeats, setAvailableSeats] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -100,6 +101,10 @@ const BookingPage = () => {
       .finally(() => setIsLoading(false));
   };
 
+  const handleDriverChange = event => {
+    setSelectedDriver(event.target.value);
+  };
+
   return (
     <>
       <Navbar />
@@ -113,13 +118,16 @@ const BookingPage = () => {
             backgroundColor: 'rgba(200, 200, 200, 0.6)',
             border: '1px solid #ccc',
             borderRadius: '8px',
-            maxWidth: '82.5%',
+            maxWidth: '80%',
             height: '10vh',
             textAlign: 'center',
             margin: '0 auto'
           }}
         >
-          <Typography variant="h4" sx={{ color: 'white' }}>
+          <Typography
+            variant={isNonMobileScreens ? 'h4' : 'h5'}
+            sx={{ color: 'white', textAlign: 'center' }}
+          >
             Book your ride
           </Typography>
           <ConfirmationNumberIcon
@@ -152,7 +160,7 @@ const BookingPage = () => {
             }}
           >
             <Typography
-              variant="h4"
+              variant={isNonMobileScreens ? 'h4' : 'h5'}
               sx={{ marginBottom: '20px', color: 'white', textAlign: 'center' }}
             >
               Select a date

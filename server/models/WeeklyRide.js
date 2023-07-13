@@ -6,8 +6,18 @@ const weeklyRideSchema = new mongoose.Schema(
     driver: {
       type: mongoose.Schema.Types.ObjectId,
       ref: User,
-      default: mongoose.Types.ObjectId('645797f641f1b01e735339ae'),
+      enum: ['648189ae50ce4d80bbf6fba4', '64a8176b97a9b10bb6fca106'],
+      default: '648189ae50ce4d80bbf6fba4',
       required: true
+    },
+    status: {
+      type: [
+        {
+          type: String,
+          enum: ['pending', 'confirmed']
+        }
+      ],
+      default: ['pending']
     },
     passengers: [
       {
@@ -22,6 +32,12 @@ const weeklyRideSchema = new mongoose.Schema(
         }
       }
     ],
+    location: {
+      type: String
+    },
+    pickupTime: {
+      type: String
+    },
     availableSeats: {
       type: Map,
       of: {
