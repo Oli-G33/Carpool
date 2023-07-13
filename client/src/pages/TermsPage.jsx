@@ -1,12 +1,9 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
-import Navbar from '../components/Navbar';
+import { Box, Link, Typography } from '@mui/material';
 
 const TermsPage = () => {
   return (
     <>
-      {' '}
-      <Navbar />
       <Box sx={{ maxWidth: 600, mx: 'auto', p: 2, color: '#D3D3D2' }}>
         <Typography variant="h4" sx={{ mb: 2 }}>
           Terms and Conditions for Carpooling
@@ -25,7 +22,7 @@ const TermsPage = () => {
 
         <Typography variant="body1" sx={{ mb: 2 }}>
           1.1 The meeting point and time for each carpool ride will be agreed
-          upon by the driver and the passengers before the ride.
+          upon by the driver and the passengers before the ride via WhatsApp.
         </Typography>
 
         <Typography variant="body1" sx={{ mb: 2 }}>
