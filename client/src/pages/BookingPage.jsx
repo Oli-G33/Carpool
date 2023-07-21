@@ -184,6 +184,12 @@ const BookingPage = () => {
                 sx={{
                   '& .MuiOutlinedInput-root': {
                     color: ' white'
+                  },
+                  '& .MuiInput-underline:before': {
+                    borderBottomColor: 'white', 
+                  },
+                  '& .MuiInput-underline:after': {
+                    borderBottomColor: 'white', 
                   }
                 }}
               />
