@@ -49,11 +49,7 @@ const Navbar = ({ isNonMobile }) => {
   };
   const phoneNumber = process.env.REACT_APP_WHATSAPP_NUMBER;
 
-  const bottomListItemStyles = {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-  };
+  
 
   const drawer = (
     <List>
@@ -94,7 +90,7 @@ const Navbar = ({ isNonMobile }) => {
           </ListItemIcon>
         </Link>
       </ListItemButton>
-      <ListItemButton  sx={{ ...bottomListItemStyles, display: 'flex', justifyContent: 'center' }}>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
         <Link href="/terms" color="inherit" underline="none">
           <ListItemText primary="Terms & Conditions" />
         </Link>
@@ -158,7 +154,7 @@ const Navbar = ({ isNonMobile }) => {
         anchor="left"
         open={open}
         onClose={handleDrawerClose}
-        PaperProps={{ style: { width: isNonMobile? '100%' : "" } }}
+        PaperProps={{ style: { width: isNonMobile ? '100%' : "" } }}
       >
         {drawer}
       </Drawer>
