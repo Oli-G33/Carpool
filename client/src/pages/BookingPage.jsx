@@ -208,12 +208,8 @@ const BookingPage = () => {
                 }}
               >
                 <Typography
-                 variant={isNonMobileScreens ? 'h4' : 'h5'}
-                  sx={{
-                    marginBottom: '10px',
-                    color: 'white',
-                    textAlign: 'center'
-                  }}
+             variant={isNonMobileScreens ? 'h4' : 'h5'}
+             sx={{ marginBottom: '20px', color: 'white', textAlign: 'center' }}
                 >
                   Available Seats
                 </Typography>
