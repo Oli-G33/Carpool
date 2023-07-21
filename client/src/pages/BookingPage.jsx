@@ -66,7 +66,7 @@ const BookingPage = () => {
   }, [formattedDate]);
 
   const renderSeatIcons = count => {
-    const seatIconSize = isNonMobileScreens ? 6 : 5;
+    const seatIconSize = isNonMobileScreens ? 6 : 4;
 
     return Array.from({ length: count.availableSeats }, (_, index) => (
       <AirlineSeatReclineNormalIcon
@@ -208,7 +208,7 @@ const BookingPage = () => {
                 }}
               >
                 <Typography
-                  variant="h4"
+                 variant={isNonMobileScreens ? 'h4' : 'h5'}
                   sx={{
                     marginBottom: '10px',
                     color: 'white',
