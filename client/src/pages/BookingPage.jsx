@@ -118,7 +118,7 @@ const BookingPage = () => {
             backgroundColor: 'rgba(200, 200, 200, 0.6)',
             border: '1px solid #ccc',
             borderRadius: '8px',
-            maxWidth: '80%',
+            maxWidth: '82%',
             height: '10vh',
             textAlign: 'center',
             margin: '0 auto'
