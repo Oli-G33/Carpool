@@ -154,7 +154,7 @@ const Navbar = ({ isNonMobile }) => {
         anchor="left"
         open={open}
         onClose={handleDrawerClose}
-        PaperProps={{ style: { width: isNonMobile ? '100%' : "" } }}
+        sx={{ width: isNonMobile ? 500 : 250 }}
       >
         {drawer}
       </Drawer>
