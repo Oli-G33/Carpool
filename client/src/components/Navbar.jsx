@@ -20,7 +20,7 @@ import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
-const Navbar = () => {
+const Navbar = ({ isNonMobileScreens }) => {
   const [open, setOpen] = useState(false);
   const [avatarKey, setAvatarKey] = useState(0);
 
@@ -154,7 +154,7 @@ const Navbar = () => {
         anchor="left"
         open={open}
         onClose={handleDrawerClose}
-        PaperProps={{ style: { width: isNonMobileScreens ? '100%' : "" } }}
+        sx={{ width: isNonMobileScreens ? 500 : 250 }}
       >
         {drawer}
       </Drawer>
