@@ -20,14 +20,14 @@ import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
-const Navbar = () => {
+const Navbar = ({ isNonMobileScreens }) => {
   const [open, setOpen] = useState(false);
   const [avatarKey, setAvatarKey] = useState(0);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
-  const isNonMobileScreens = useMediaQuery('(min-width:800px)');
+  
 
   useEffect(() => {
     setAvatarKey(key => key + 1);
