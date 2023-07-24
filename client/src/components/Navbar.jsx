@@ -20,7 +20,7 @@ import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
-const Navbar = ({ isNonMobileScreens }) => {
+const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [avatarKey, setAvatarKey] = useState(0);
 
