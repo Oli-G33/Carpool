@@ -242,6 +242,12 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                   label="First Name"
                   autoFocus
                   onChange={event => setFirstName(event.target.value)}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      color: ' white'
+                    },
+                    '& .MuiInputLabel-root': { color: ' white' }
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -255,6 +261,12 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                   onChange={event => setLastName(event.target.value)}
                   error={lastNameError}
                   helperText={lastNameErrorText}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      color: ' white'
+                    },
+                    '& .MuiInputLabel-root': { color: ' white' }
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -268,6 +280,12 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                   name="email"
                   autoComplete="email"
                   onChange={event => setEmail(event.target.value)}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      color: ' white'
+                    },
+                    '& .MuiInputLabel-root': { color: ' white' }
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -307,6 +325,12 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                       </InputAdornment>
                     )
                   }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      color: ' white'
+                    },
+                    '& .MuiInputLabel-root': { color: ' white' }
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -318,7 +342,10 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                   onChange={e => setConfirmPassword(e.target.value)}
                   error={passwordError}
                   helperText={passwordErrorText}
-                  sx={{ mb: 2 }}
+                  sx={{ mb: 2,  '& .MuiOutlinedInput-root': {
+                    color: ' white'
+                  },
+                  '& .MuiInputLabel-root': { color: ' white' } }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -328,6 +355,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                       </InputAdornment>
                     )
                   }}
+                  
                 />
               </Grid>
               <Grid item xs={12}>
