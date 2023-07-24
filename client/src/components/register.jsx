@@ -302,6 +302,12 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                   focusOnSelectCountry
                   disableFormatting
                   onlyCountries={['ES', 'DE', 'FR', 'IT', 'US', 'CA', 'PT']}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      color: ' white'
+                    },
+                    '& .MuiInputLabel-root': { color: ' white' }
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>

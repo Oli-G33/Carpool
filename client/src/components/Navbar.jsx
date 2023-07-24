@@ -154,7 +154,7 @@ const Navbar = () => {
         anchor="left"
         open={open}
         onClose={handleDrawerClose}
-        sx={{ width: isNonMobileScreens ? 500 : 250 }}
+        PaperProps={{ style: { width: isNonMobileScreens ? '100%' : "" } }}
       >
         {drawer}
       </Drawer>
