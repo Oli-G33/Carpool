@@ -20,21 +20,21 @@ import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
-const Navbar = ({ isNonMobile }) => {
+const Navbar = ({ isNonMobileScreens }) => {
   const [open, setOpen] = useState(false);
   const [avatarKey, setAvatarKey] = useState(0);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
-  const isNonMobileScreens = useMediaQuery('(min-width:800px)');
+  
 
   useEffect(() => {
     setAvatarKey(key => key + 1);
   }, [user.picture]);
 
   const handleDrawerOpen = () => {
-    if (!isNonMobile) {
+    if (!isNonMobileScreens) {
       setOpen(true);
     }
   };
@@ -48,6 +48,8 @@ const Navbar = ({ isNonMobile }) => {
     dispatch(setLogout());
   };
   const phoneNumber = process.env.REACT_APP_WHATSAPP_NUMBER;
+
+  
 
   const drawer = (
     <List>
@@ -152,9 +154,7 @@ const Navbar = ({ isNonMobile }) => {
         anchor="left"
         open={open}
         onClose={handleDrawerClose}
-        sx={{
-          width: isNonMobile ? 500 : 1000
-        }}
+        sx={{ width: isNonMobileScreens ? 500 : 250 }}
       >
         {drawer}
       </Drawer>
