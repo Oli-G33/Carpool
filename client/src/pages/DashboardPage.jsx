@@ -35,7 +35,7 @@ const DashboardPage = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar isMobileScreen={isMobileScreen} />
       <Container maxWidth="lg" sx={{ marginTop: '50px' }}>
         <Grid container spacing={3}>
           <Grid item xs={12}>

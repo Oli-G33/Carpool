@@ -14,7 +14,8 @@ import {
   Box,
   Link,
   Stack,
-  Divider
+  Divider,
+  useMediaQuery
 } from '@mui/material';
 import ModeIcon from '@mui/icons-material/Mode';
 import Navbar from '../components/Navbar';
@@ -102,9 +103,11 @@ const MyRidesPage = () => {
     setOpenModal(false);
   };
 
+  const isMobileScreen = useMediaQuery('(max-width:600px)');
+
   return (
     <>
-      <Navbar />
+      <Navbar isMobileScreen={isMobileScreen} />
       <Box sx={{ textAlign: 'center' }}>
         <Container sx={{ marginTop: '50px' }}>
           <Grid container spacing={2} justifyContent="center">

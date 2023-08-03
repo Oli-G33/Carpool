@@ -20,14 +20,13 @@ import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
-const Navbar = ({ isNonMobileScreens }) => {
+const Navbar = ({ isNonMobileScreens, isMobileScreen }) => {
   const [open, setOpen] = useState(false);
   const [avatarKey, setAvatarKey] = useState(0);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
-  
 
   useEffect(() => {
     setAvatarKey(key => key + 1);
@@ -48,8 +47,6 @@ const Navbar = ({ isNonMobileScreens }) => {
     dispatch(setLogout());
   };
   const phoneNumber = process.env.REACT_APP_WHATSAPP_NUMBER;
-
-  
 
   const drawer = (
     <List>
@@ -99,7 +96,16 @@ const Navbar = ({ isNonMobileScreens }) => {
   );
 
   return (
-    <AppBar position="sticky">
+    <AppBar
+      position={isMobileScreen ? 'fixed' : 'sticky'}
+      sx={{
+        bottom: isMobileScreen ? 0 : 'unset',
+        top: isMobileScreen ? 'unset' : 0,
+        left: 0,
+        width: '100%',
+        zIndex: 1000
+      }}
+    >
       <Toolbar>
         <IconButton
           color="inherit"
@@ -111,7 +117,7 @@ const Navbar = ({ isNonMobileScreens }) => {
         </IconButton>
 
         <Typography
-          variant="h6"
+          variant={isMobileScreen ? 'h7' : 'h6'}
           component="div"
           sx={{ flexGrow: 1, textAlign: 'center' }}
         >

@@ -7,7 +7,8 @@ import {
   Modal,
   TextField,
   Typography,
-  Alert
+  Alert,
+  useMediaQuery
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import ModeIcon from '@mui/icons-material/Mode';
@@ -19,7 +20,12 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useDispatch } from 'react-redux';
 import { setLogin } from '../state';
 
-const EditProfileModal = ({ user, handleCloseModal, openModal }) => {
+const EditProfileModal = ({
+  user,
+  handleCloseModal,
+  openModal,
+  isMobileScreen
+}) => {
   const [firstName, setFirstName] = useState(user.firstName || '');
   const [lastName, setLastName] = useState(user.lastName || '');
   const [phone, setPhone] = useState(user.phoneNumber || '');
@@ -42,6 +48,7 @@ const EditProfileModal = ({ user, handleCloseModal, openModal }) => {
   const [alertMessage, setAlertMessage] = useState('');
 
   const dispatch = useDispatch();
+  // const isMobileScreen = useMediaQuery('(max-width:600px)');
 
   const handleClick = () => setShow(!show);
 
@@ -190,23 +197,28 @@ const EditProfileModal = ({ user, handleCloseModal, openModal }) => {
             onClick={handleCloseModal}
             sx={{
               position: 'absolute',
-              top: '8px',
+              top: isMobileScreen ? 'unset' : '8px', // Set to 'unset' for mobile screens, '8px' for non-mobile screens
+              bottom: isMobileScreen ? '8px' : 'unset', // Set to '8px' for mobile screens, 'unset' for non-mobile screens
               left: '8px',
               padding: '4px',
               minWidth: 'unset',
               borderRadius: '50%',
-              color: 'gray',
+              '& .MuiSvgIcon-root': {
+                color: 'black'
+              },
               '&:hover': {
                 background: 'none',
-                color: 'black'
+                '& .MuiSvgIcon-root': {
+                  color: 'black'
+                }
               }
             }}
           >
             <CloseIcon />
           </Button>
-          <Typography variant="h6" align="center" gutterBottom>
+          <Typography variant="h6" align="center" gutterBottom color="black">
             Modify Personal Details
-            <ModeIcon sx={{ ml: 1 }} />
+            <ModeIcon sx={{ ml: 1, color: 'black' }} />
           </Typography>
           <TextField
             label="First Name"

@@ -22,6 +22,7 @@ import { useSelector } from 'react-redux';
 import { wakeApi } from '../services/api';
 import { Alert } from '@mui/material';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import MobileNavbar from '../components/MobileNavbar';
 
 const BookingPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -105,9 +106,12 @@ const BookingPage = () => {
     setSelectedDriver(event.target.value);
   };
 
+  const isMobileScreen = useMediaQuery('(max-width:600px)');
+
   return (
     <>
-      <Navbar />
+      <Navbar isMobileScreen={isMobileScreen} />
+
       <Container sx={{ marginTop: '30px', minHeight: '70vh' }}>
         <Box
           sx={{

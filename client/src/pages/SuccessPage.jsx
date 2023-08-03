@@ -1,13 +1,20 @@
 import React from 'react';
-import { Box, Container, Typography, Button } from '@mui/material';
+import {
+  Box,
+  Container,
+  Typography,
+  Button,
+  useMediaQuery
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 import ConfettiExplosion from 'react-confetti-explosion';
 import Navbar from '../components/Navbar';
 
 const SuccessPage = () => {
+  const isMobileScreen = useMediaQuery('(max-width:600px)');
   return (
     <>
-      <Navbar />
+      <Navbar isMobileScreen={isMobileScreen} />
       <Box
         minHeight="100vh"
         display="flex"
