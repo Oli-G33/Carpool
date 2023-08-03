@@ -123,10 +123,11 @@ const MyRidesPage = () => {
                 backgroundColor: 'rgba(200, 200, 200, 0.6)',
                 border: '1px solid #ccc',
                 borderRadius: '8px',
-                width: isNonMobileScreens ? '78%' : '78%',
                 height: '10vh',
                 textAlign: 'center',
-                margin: '0 auto'
+                margin: '0 auto',
+                pl: 10,
+                pr: 13
               }}
             >
               <Typography

@@ -114,7 +114,7 @@ const BookingPage = () => {
 
       <Container
         sx={{
-          marginTop: isMobileScreen ? '60px' : '30px',
+          marginTop: isMobileScreen ? '50px' : '30px',
           minHeight: isMobileScreen ? '60vh' : '70vh'
         }}
       >
@@ -156,7 +156,7 @@ const BookingPage = () => {
             border: '1px solid #ccc',
             borderRadius: '8px',
             maxWidth: '80%',
-            height: isMobileScreen ? '35vh' : '30vh',
+            height: isMobileScreen ? '45vh' : '30vh',
             margin: '0 auto',
             marginTop: 4
           }}
@@ -174,7 +174,7 @@ const BookingPage = () => {
               variant={isNonMobileScreens ? 'h4' : 'h5'}
               sx={{ marginBottom: '20px', color: 'white', textAlign: 'center' }}
             >
-              Select a date
+              Select date
             </Typography>
             <LocalizationProvider
               dateAdapter={AdapterDayjs}
@@ -211,9 +211,7 @@ const BookingPage = () => {
             orientation={isMobileScreen ? 'horizontal' : 'vertical'}
             sx={{
               margin: '0 20px',
-              backgroundColor: 'rgba(0, 0, 0, 0.2)', // Add a visible background color
-              height: isMobileScreen ? '1px' : 'auto', // Adjust the height for mobile
-              width: isMobileScreen ? 'auto' : '1px' // Adjust the width for mobile
+              backgroundColor: 'gray'
             }}
           />
           <Box
