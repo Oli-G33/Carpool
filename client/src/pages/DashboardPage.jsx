@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Container, Grid, Typography, Paper, Link } from '@mui/material';
+import {
+  Container,
+  Grid,
+  Typography,
+  Paper,
+  Link,
+  useMediaQuery
+} from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Navbar from '../components/Navbar';
 import { getPassengers } from '../services/weeklyRides';
@@ -32,6 +39,8 @@ const DashboardPage = () => {
       }
     }
   };
+
+  const isMobileScreen = useMediaQuery('(max-width:600px)');
 
   return (
     <>

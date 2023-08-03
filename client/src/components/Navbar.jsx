@@ -10,8 +10,7 @@ import {
   ListItemIcon,
   ListItemText,
   Avatar,
-  ListItemButton,
-  useMediaQuery
+  ListItemButton
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -19,6 +18,7 @@ import { setLogout } from '../state';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Navbar = ({ isNonMobileScreens, isMobileScreen }) => {
   const [open, setOpen] = useState(false);
@@ -52,44 +52,146 @@ const Navbar = ({ isNonMobileScreens, isMobileScreen }) => {
     <List>
       <ListItemButton onClick={handleDrawerClose}>
         <ListItemIcon>
-          <MenuIcon />
+          <CloseIcon />
         </ListItemIcon>
-        <ListItemText primary="Close" />
       </ListItemButton>
       {user && user.isAdmin && (
         <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
           <Link href="/dashboard" color="inherit" underline="none">
-            <ListItemText primary="Dashboard" />
+            <ListItemText primary="Dashboard" sx={{ color: 'white' }} />
           </Link>
         </ListItemButton>
       )}
       <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
         <Link href="/booking" color="inherit" underline="none">
-          <ListItemText primary="Book a ride" />
+          <ListItemText primary="Book a ride" sx={{ color: 'white' }} />
         </Link>
       </ListItemButton>
       <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
         <Link href="/myrides" color="inherit" underline="none">
-          <ListItemText primary="My Rides" />
+          <ListItemText primary="My Rides" sx={{ color: 'white' }} />
         </Link>
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
         <Link
           href={`https://wa.me/${phoneNumber}`}
           color="inherit"
           underline="none"
           target="_blank"
         >
-          <ListItemIcon
-            sx={{ display: 'flex', justifyContent: 'center', ml: 5 }}
-          >
+          <ListItemIcon sx={{ display: 'flex', justifyContent: 'center' }}>
             <WhatsAppIcon sx={{ color: '#25D366' }} />
           </ListItemIcon>
         </Link>
       </ListItemButton>
       <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
         <Link href="/terms" color="inherit" underline="none">
-          <ListItemText primary="Terms & Conditions" />
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText sx={{ color: 'white' }} />
+        </Link>
+      </ListItemButton>
+      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Link href="/terms" color="inherit" underline="none">
+          <ListItemText primary="Terms & Conditions" sx={{ color: 'white' }} />
         </Link>
       </ListItemButton>
     </List>
@@ -160,7 +262,13 @@ const Navbar = ({ isNonMobileScreens, isMobileScreen }) => {
         anchor="left"
         open={open}
         onClose={handleDrawerClose}
-        sx={{ width: isNonMobileScreens ? 500 : 250 }}
+        PaperProps={{
+          sx: {
+            width: isMobileScreen ? '100vw' : 250,
+            height: '100%',
+            backgroundColor: '#1976D2'
+          }
+        }}
       >
         {drawer}
       </Drawer>
