@@ -25,9 +25,11 @@ import dayjs from 'dayjs';
 import EditProfileModal from '../components/EditProfileModal';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import MobileNavbar from '../components/MobileNavbar';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 
 const MyRidesPage = () => {
   const user = useSelector(state => state.user);
+  const isNonMobileScreens = useMediaQuery('(min-width:800px)');
 
   const [rides, setRides] = useState([]);
   const [openModal, setOpenModal] = useState(false);
@@ -112,16 +114,31 @@ const MyRidesPage = () => {
       <Box sx={{ textAlign: 'center' }}>
         <Container sx={{ marginTop: '50px' }}>
           <Grid container spacing={2} justifyContent="center">
-            <Grid item xs={12}>
+            <Box
+              sx={{
+                marginTop: 2,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: 'rgba(200, 200, 200, 0.6)',
+                border: '1px solid #ccc',
+                borderRadius: '8px',
+                width: isNonMobileScreens ? '78%' : '78%',
+                height: '10vh',
+                textAlign: 'center',
+                margin: '0 auto'
+              }}
+            >
               <Typography
-                variant="h4"
-                sx={{
-                  color: '#D3D3D2'
-                }}
+                variant={isNonMobileScreens ? 'h4' : 'h5'}
+                sx={{ color: 'white', textAlign: 'center' }}
               >
                 My Rides
               </Typography>
-            </Grid>
+              <DirectionsCarIcon
+                sx={{ marginLeft: '10px', fontSize: '32px' }}
+              />
+            </Box>
             <Grid item xs={12}>
               <Paper
                 variant="outlined"

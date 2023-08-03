@@ -51,7 +51,7 @@ const MobileNavbar = () => {
       sx={{
         top: 'auto',
         bottom: 0,
-        backgroundColor: '#c0c0c0',
+        backgroundColor: 'white',
         zIndex: 1000,
         display: { xs: 'block', md: 'none' },
         flexGrow: 1
@@ -80,8 +80,12 @@ const MobileNavbar = () => {
                 alignItems: 'center'
               }}
             >
-              <ListItemIcon>
-                <HomeIcon />
+              <ListItemIcon
+                sx={{
+                  color: 'linear-gradient(19deg, #21D4FD 0%, #1c305c 100%)'
+                }}
+              >
+                <HomeIcon sx={{ color: '#21D4FD' }} />
               </ListItemIcon>
             </Box>
           </ListItemButton>
@@ -101,7 +105,7 @@ const MobileNavbar = () => {
                   }}
                 >
                   <ListItemIcon>
-                    <DashboardIcon />
+                    <DashboardIcon sx={{ color: '#21D4FD' }} />
                   </ListItemIcon>
                 </Box>
               </ListItemButton>
@@ -120,7 +124,7 @@ const MobileNavbar = () => {
               }}
             >
               <ListItemIcon>
-                <DirectionsCarIcon />
+                <DirectionsCarIcon sx={{ color: '#21D4FD' }} />
               </ListItemIcon>
             </Box>
           </ListItemButton>
@@ -139,7 +143,7 @@ const MobileNavbar = () => {
               }}
             >
               <ListItemIcon>
-                <WhatsAppIcon />
+                <WhatsAppIcon sx={{ color: '#25d366' }} />
               </ListItemIcon>
             </Box>
           </ListItemButton>
@@ -158,7 +162,7 @@ const MobileNavbar = () => {
                 sx={{
                   ml: 2,
                   mr: 1,
-                  border: '2px solid #d9dcde',
+                  border: '2px solid #21D4FD',
                   cursor: 'pointer'
                 }}
               />

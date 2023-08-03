@@ -8,7 +8,8 @@ import {
   TextField,
   Typography,
   Alert,
-  useMediaQuery
+  useMediaQuery,
+  Avatar
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import ModeIcon from '@mui/icons-material/Mode';
@@ -315,9 +316,7 @@ const EditProfileModal = ({
             />
           </IKContext>
 
-          {picture && (
-            <img src={picture} alt="Selected" width="100" height="100" />
-          )}
+          {picture && <Avatar src={picture} alt="Selected" sx={{ mt: 1 }} />}
           {alertMessage && (
             <Box mt={2}>
               <Alert severity="success">{alertMessage}</Alert>

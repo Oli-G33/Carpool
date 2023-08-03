@@ -112,11 +112,9 @@ const BookingPage = () => {
     <>
       {isMobileScreen ? <MobileNavbar /> : <Navbar />}
 
-      {/* <Navbar isMobileScreen={isMobileScreen} /> */}
-
       <Container
         sx={{
-          marginTop: isMobileScreen ? '90px' : '30px',
+          marginTop: isMobileScreen ? '60px' : '30px',
           minHeight: isMobileScreen ? '60vh' : '70vh'
         }}
       >
@@ -152,12 +150,13 @@ const BookingPage = () => {
           p={2}
           sx={{
             display: 'flex',
+            flexDirection: isMobileScreen ? 'column' : 'row',
             alignItems: 'center',
             backgroundColor: 'rgba(200, 200, 200, 0.6)',
             border: '1px solid #ccc',
             borderRadius: '8px',
             maxWidth: '80%',
-            height: '30vh',
+            height: isMobileScreen ? '35vh' : '30vh',
             margin: '0 auto',
             marginTop: 4
           }}
@@ -167,7 +166,8 @@ const BookingPage = () => {
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center'
+              alignItems: 'center',
+              mb: 2
             }}
           >
             <Typography
@@ -207,7 +207,15 @@ const BookingPage = () => {
               />
             </LocalizationProvider>
           </Box>
-          <Divider orientation="vertical" sx={{ margin: '0 20px' }} />
+          <Divider
+            orientation={isMobileScreen ? 'horizontal' : 'vertical'}
+            sx={{
+              margin: '0 20px',
+              backgroundColor: 'rgba(0, 0, 0, 0.2)', // Add a visible background color
+              height: isMobileScreen ? '1px' : 'auto', // Adjust the height for mobile
+              width: isMobileScreen ? 'auto' : '1px' // Adjust the width for mobile
+            }}
+          />
           <Box
             width="50%"
             sx={{
