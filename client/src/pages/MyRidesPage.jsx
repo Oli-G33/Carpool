@@ -22,6 +22,7 @@ import { getMyRides, cancelMyRide } from '../services/weeklyRides';
 import CircularProgress from '@mui/material/CircularProgress';
 import dayjs from 'dayjs';
 import EditProfileModal from '../components/EditProfileModal';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 const MyRidesPage = () => {
   const user = useSelector(state => state.user);
@@ -141,6 +142,20 @@ const MyRidesPage = () => {
                               }}
                               primary={ride.date}
                             />
+                            <Link
+                              href={`https://wa.me/${process.env.REACT_APP_WHATSAPP_NUMBER}`}
+                              color="inherit"
+                              underline="none"
+                              target="_blank"
+                              mr={3}
+                            >
+                              <WhatsAppIcon
+                                sx={{
+                                  color: '#25D366',
+                                  fontSize: '30px'
+                                }}
+                              />
+                            </Link>
                             {!ride.canceled ? (
                               <Button
                                 variant="contained"

@@ -135,7 +135,7 @@ const fetchPassengers = async (req, res) => {
     // Query the Users collection to get the user documents for the passengerIds
     const passengers = await User.find(
       { _id: { $in: passengerIds } },
-      'firstName lastName'
+      'firstName lastName phoneNumber email'
     );
 
     res.json(passengers);

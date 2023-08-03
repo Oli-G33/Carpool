@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Grid, Typography, Paper } from '@mui/material';
+import { Container, Grid, Typography, Paper, Link } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Navbar from '../components/Navbar';
 import { getPassengers } from '../services/weeklyRides';
@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import 'dayjs/locale/en-gb';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 const DashboardPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -74,6 +75,15 @@ const DashboardPage = () => {
                 passengers.map(passenger => (
                   <Typography key={passenger._id} variant="body1" component="p">
                     {passenger.firstName} {passenger.lastName}
+                    <Link
+                      href={`https://wa.me/${passenger.phoneNumber}`}
+                      color="inherit"
+                      underline="none"
+                      target="_blank"
+                      m={2}
+                    >
+                      <WhatsAppIcon sx={{ color: '#25D366' }} />
+                    </Link>{' '}
                   </Typography>
                 ))
               ) : (

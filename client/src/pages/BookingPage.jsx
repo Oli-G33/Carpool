@@ -66,7 +66,7 @@ const BookingPage = () => {
   }, [formattedDate]);
 
   const renderSeatIcons = count => {
-    const seatIconSize = isNonMobileScreens ? 6 : 5;
+    const seatIconSize = isNonMobileScreens ? 6 : 4.5;
 
     return Array.from({ length: count.availableSeats }, (_, index) => (
       <AirlineSeatReclineNormalIcon
@@ -118,7 +118,7 @@ const BookingPage = () => {
             backgroundColor: 'rgba(200, 200, 200, 0.6)',
             border: '1px solid #ccc',
             borderRadius: '8px',
-            maxWidth: '80%',
+            maxWidth: isNonMobileScreens ? '82.5%' : '90%',
             height: '10vh',
             textAlign: 'center',
             margin: '0 auto'
@@ -186,6 +186,7 @@ const BookingPage = () => {
                     color: ' white'
                   }
                 }}
+                views={['month', 'year', 'day']}
               />
             </LocalizationProvider>
           </Box>
@@ -208,9 +209,9 @@ const BookingPage = () => {
                 }}
               >
                 <Typography
-                  variant="h4"
+                  variant={isNonMobileScreens ? 'h4' : 'h5'}
                   sx={{
-                    marginBottom: '10px',
+                    marginBottom: '20px',
                     color: 'white',
                     textAlign: 'center'
                   }}
