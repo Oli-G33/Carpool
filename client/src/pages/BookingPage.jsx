@@ -110,9 +110,16 @@ const BookingPage = () => {
 
   return (
     <>
-      <Navbar isMobileScreen={isMobileScreen} />
+      {isMobileScreen ? <MobileNavbar /> : <Navbar />}
 
-      <Container sx={{ marginTop: '30px', minHeight: '70vh' }}>
+      {/* <Navbar isMobileScreen={isMobileScreen} /> */}
+
+      <Container
+        sx={{
+          marginTop: isMobileScreen ? '90px' : '30px',
+          minHeight: isMobileScreen ? '60vh' : '70vh'
+        }}
+      >
         <Box
           sx={{
             marginTop: 2,

@@ -24,6 +24,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import dayjs from 'dayjs';
 import EditProfileModal from '../components/EditProfileModal';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import MobileNavbar from '../components/MobileNavbar';
 
 const MyRidesPage = () => {
   const user = useSelector(state => state.user);
@@ -107,7 +108,7 @@ const MyRidesPage = () => {
 
   return (
     <>
-      <Navbar isMobileScreen={isMobileScreen} />
+      {isMobileScreen ? <MobileNavbar /> : <Navbar />}
       <Box sx={{ textAlign: 'center' }}>
         <Container sx={{ marginTop: '50px' }}>
           <Grid container spacing={2} justifyContent="center">

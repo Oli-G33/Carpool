@@ -15,6 +15,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import 'dayjs/locale/en-gb';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import MobileNavbar from '../components/MobileNavbar';
 
 const DashboardPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -44,7 +45,7 @@ const DashboardPage = () => {
 
   return (
     <>
-      <Navbar isMobileScreen={isMobileScreen} />
+      {isMobileScreen ? <MobileNavbar /> : <Navbar />}
       <Container maxWidth="lg" sx={{ marginTop: '50px' }}>
         <Grid container spacing={3}>
           <Grid item xs={12}>

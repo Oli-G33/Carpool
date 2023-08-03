@@ -119,16 +119,7 @@ const Navbar = ({ isNonMobileScreens, isMobileScreen }) => {
           <ListItemText sx={{ color: 'white' }} />
         </Link>
       </ListItemButton>
-      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Link href="/terms" color="inherit" underline="none">
-          <ListItemText sx={{ color: 'white' }} />
-        </Link>
-      </ListItemButton>
-      <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Link href="/terms" color="inherit" underline="none">
-          <ListItemText sx={{ color: 'white' }} />
-        </Link>
-      </ListItemButton>
+
       <ListItemButton sx={{ display: 'flex', justifyContent: 'center' }}>
         <Link href="/terms" color="inherit" underline="none">
           <ListItemText sx={{ color: 'white' }} />
