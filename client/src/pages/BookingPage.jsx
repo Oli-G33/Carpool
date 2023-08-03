@@ -156,7 +156,7 @@ const BookingPage = () => {
             border: '1px solid #ccc',
             borderRadius: '8px',
             maxWidth: '80%',
-            height: isMobileScreen ? '45vh' : '30vh',
+            height: isMobileScreen ? '40vh' : '30vh',
             margin: '0 auto',
             marginTop: 4
           }}
