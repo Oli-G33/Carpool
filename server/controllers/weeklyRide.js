@@ -125,12 +125,21 @@ const fetchPassengers = async (req, res) => {
       'passengers'
     );
 
-    if (!ride) {
+    if (!ride || !ride.passengers || ride.passengers.length === 0) {
       // Handle case where no ride with passengers for the desired date is found
-      return res.status(500).json({ message: 'No ride found for the date' });
+      return res.json([]); // Respond with an empty array
     }
 
-    const passengerIds = ride.passengers.map((passenger) => passenger.userId);
+    // Filter passengers based on the desired date
+    const passengersWithRideOnDate = ride.passengers.filter(
+      (passenger) => passenger.date.getTime() === desiredDate.getTime()
+    );
+
+    console.log('passengers =>', passengersWithRideOnDate);
+
+    const passengerIds = passengersWithRideOnDate.map(
+      (passenger) => passenger.userId
+    );
 
     // Query the Users collection to get the user documents for the passengerIds
     const passengers = await User.find(

@@ -9,12 +9,13 @@ import {
 import { Link } from 'react-router-dom';
 import ConfettiExplosion from 'react-confetti-explosion';
 import Navbar from '../components/Navbar';
+import MobileNavbar from '../components/MobileNavbar';
 
 const SuccessPage = () => {
   const isMobileScreen = useMediaQuery('(max-width:600px)');
   return (
     <>
-      <Navbar isMobileScreen={isMobileScreen} />
+      {isMobileScreen ? <MobileNavbar /> : <Navbar />}
       <Box
         minHeight="100vh"
         display="flex"
