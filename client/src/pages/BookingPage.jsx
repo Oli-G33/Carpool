@@ -26,7 +26,9 @@ import MobileNavbar from '../components/MobileNavbar';
 
 const BookingPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
+  const [isLoadingSeats, setIsLoadingSeats] = useState(false);
   const [selectedDriver, setSelectedDriver] = useState('Oliver');
+  console.log(isLoadingSeats);
 
   const [availableSeats, setAvailableSeats] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -50,6 +52,7 @@ const BookingPage = () => {
   useEffect(() => {
     if (formattedDate) {
       wakeApi();
+      setIsLoadingSeats(true);
       getAvailableSeats(formattedDate)
         .then(data => {
           setAvailableSeats(data);
@@ -62,6 +65,9 @@ const BookingPage = () => {
         })
         .catch(error => {
           console.error(error);
+        })
+        .finally(() => {
+          setIsLoadingSeats(false);
         });
     }
   }, [formattedDate]);
@@ -222,6 +228,17 @@ const BookingPage = () => {
               alignItems: 'center'
             }}
           >
+            <Typography
+              variant={isNonMobileScreens ? 'h4' : 'h5'}
+              sx={{
+                marginBottom: '10px',
+                color: 'white',
+                textAlign: 'center'
+              }}
+            >
+              Availability
+            </Typography>
+
             {availableSeats && (
               <Box
                 flexGrow={0}
@@ -231,16 +248,6 @@ const BookingPage = () => {
                   alignItems: 'center'
                 }}
               >
-                <Typography
-                  variant={isNonMobileScreens ? 'h4' : 'h5'}
-                  sx={{
-                    marginBottom: '20px',
-                    color: 'white',
-                    textAlign: 'center'
-                  }}
-                >
-                  Available Seats
-                </Typography>
                 <Box
                   display="flex"
                   alignItems="center"
@@ -257,7 +264,11 @@ const BookingPage = () => {
                     }
                   }}
                 >
-                  {renderSeatIcons(availableSeats)}
+                  {isLoadingSeats ? (
+                    <CircularProgress size={isMobileScreen ? 48 : 36} />
+                  ) : (
+                    renderSeatIcons(availableSeats)
+                  )}
                 </Box>
               </Box>
             )}
