@@ -68,7 +68,7 @@ const BookingPage = () => {
 
   const renderSeatIcons = count => {
     const seatIconSize = isMobileScreen ? 4 : 6;
-    console.log(seatIconSize);
+
     return Array.from({ length: count.availableSeats }, (_, index) => (
       <AirlineSeatReclineNormalIcon
         key={index}

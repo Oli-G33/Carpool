@@ -126,8 +126,7 @@ const MyRidesPage = () => {
                 height: '10vh',
                 textAlign: 'center',
                 margin: '0 auto',
-                pl: 10,
-                pr: 13
+                maxWidth: '80%'
               }}
             >
               <Typography

@@ -53,7 +53,7 @@ const bookSeat = async (req, res) => {
   try {
     const { date, userId } = req.body;
 
-    const formattedDate = date.split('-').reverse().join('.');
+    const formattedDate = date.split('-').reverse().join('-');
 
     // Check if the user has already booked a ride for the date
     const existingBooking = await WeeklyRide.findOne({
