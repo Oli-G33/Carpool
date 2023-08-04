@@ -3,13 +3,14 @@
     <meta charset="utf-8" />
     <title>Booking Confirmation</title>
     <style>
-      /* Add your custom styles here */ body { font-family: Arial, sans-serif; }
-      .container { color: whitesmoke; font-weight: bold; max-width: 600px;
-      margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 4px;
-      background: linear-gradient(19deg, #21D4FD 0%, #1c305c 100%); } .header {
-      text-align: center; margin-bottom: 20px; } .content { text-align: center;
-      margin-bottom: 20px; } .footer { text-align: center; } a {
-      text-decoration: none; }
+      body { font-family: Arial, sans-serif; } .container { color: whitesmoke;
+      font-weight: bold; max-width: 600px; margin: 0 auto; padding: 20px;
+      border: 1px solid #ccc; border-radius: 4px; background:
+      linear-gradient(19deg, #21D4FD 0%, #1c305c 100%); } .header { text-align:
+      center; margin-bottom: 20px; } .content { text-align: center;
+      margin-bottom: 20px; } .footer { text-align: center; display: flex;
+      justify-content: center; / align-items: center; flex-wrap: wrap; } .footer
+      a { text-decoration: none; margin: 5px; }
     </style>
   </head>
   <body>
@@ -25,14 +26,16 @@
           height="200"
         />
         <p>Your ride for the date {{date}} is confirmed.</p>
-
       </div>
       <div class="footer">
         <p>Thank you for booking with us!</p>
-        <small><a
-            target="”_blank”"
-            href="https://carpooler.onrender.com/terms"
-          >Terms & Conditions</a></small>
+        <small>
+          <a target="_blank" href="https://carpooler.onrender.com/myrides">My
+            Rides</a>
+          |
+          <a target="_blank" href="https://carpooler.onrender.com/terms">Terms &
+            Conditions</a>
+        </small>
       </div>
     </div>
   </body>

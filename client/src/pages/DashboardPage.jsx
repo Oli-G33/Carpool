@@ -43,6 +43,17 @@ const DashboardPage = () => {
 
   const isMobileScreen = useMediaQuery('(max-width:600px)');
 
+  const boxStyle = {
+    backgroundColor: 'rgba(200, 200, 200, 0.6)',
+    border: '1px solid #ccc',
+    borderRadius: '8px',
+    padding: '16px'
+  };
+
+  const whiteFontStyle = {
+    color: 'white'
+  };
+
   return (
     <>
       {isMobileScreen ? <MobileNavbar /> : <Navbar />}
@@ -59,8 +70,13 @@ const DashboardPage = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Paper elevation={3} sx={{ p: 2 }}>
-              <Typography variant="h6" component="h2" mb={2}>
+            <Paper elevation={3} sx={{ ...boxStyle }}>
+              <Typography
+                variant="h6"
+                component="h2"
+                mb={2}
+                sx={{ ...whiteFontStyle }}
+              >
                 Select a Date
               </Typography>
               <LocalizationProvider
@@ -72,32 +88,56 @@ const DashboardPage = () => {
                   value={selectedDate}
                   onChange={handleDateChange}
                   fullWidth
+                  sx={{ ...whiteFontStyle }}
                 />
               </LocalizationProvider>
             </Paper>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Paper elevation={3} sx={{ p: 2 }}>
-              <Typography variant="h6" component="h2" mb={2}>
+            <Paper elevation={3} sx={{ ...boxStyle }}>
+              <Typography
+                variant="h6"
+                component="h2"
+                mb={2}
+                sx={{ ...whiteFontStyle }}
+              >
                 Passengers for {selectedDate}
               </Typography>
               {passengers.length > 0 ? (
                 passengers.map(passenger => (
-                  <Typography key={passenger._id} variant="body1" component="p">
-                    {passenger.firstName} {passenger.lastName}
-                    <Link
-                      href={`https://wa.me/${passenger.phoneNumber}`}
-                      color="inherit"
-                      underline="none"
-                      target="_blank"
-                      m={2}
+                  <Paper
+                    elevation={1}
+                    key={passenger._id}
+                    sx={{ ...boxStyle, marginBottom: '8px' }}
+                  >
+                    <Typography
+                      variant="body1"
+                      component="p"
+                      sx={{ ...whiteFontStyle }}
                     >
-                      <WhatsAppIcon sx={{ color: '#25D366' }} />
-                    </Link>{' '}
-                  </Typography>
+                      {passenger.firstName} {passenger.lastName}
+                      <Link
+                        href={`https://wa.me/${passenger.phoneNumber}`}
+                        color="inherit"
+                        underline="none"
+                        target="_blank"
+                        m={2}
+                      >
+                        <WhatsAppIcon
+                          sx={{
+                            color: '#128c7e'
+                          }}
+                        />
+                      </Link>{' '}
+                    </Typography>
+                  </Paper>
                 ))
               ) : (
-                <Typography variant="body1" component="p">
+                <Typography
+                  variant="body1"
+                  component="p"
+                  sx={{ ...whiteFontStyle }}
+                >
                   No passengers found for the selected date.
                 </Typography>
               )}
@@ -108,4 +148,5 @@ const DashboardPage = () => {
     </>
   );
 };
+
 export default DashboardPage;
