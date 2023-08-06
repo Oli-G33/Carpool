@@ -28,7 +28,6 @@ const BookingPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [isLoadingSeats, setIsLoadingSeats] = useState(false);
   const [selectedDriver, setSelectedDriver] = useState('Oliver');
-  console.log(isLoadingSeats);
 
   const [availableSeats, setAvailableSeats] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,6 +52,7 @@ const BookingPage = () => {
     if (formattedDate) {
       wakeApi();
       setIsLoadingSeats(true);
+      console.log('Load 1 =>', isLoadingSeats);
       getAvailableSeats(formattedDate)
         .then(data => {
           setAvailableSeats(data);
@@ -68,6 +68,7 @@ const BookingPage = () => {
         })
         .finally(() => {
           setIsLoadingSeats(false);
+          console.log('Load 2 =>', isLoadingSeats);
         });
     }
   }, [formattedDate]);

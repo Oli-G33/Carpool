@@ -47,6 +47,14 @@ const schema = new mongoose.Schema(
     isAdmin: {
       type: Boolean,
       default: false
+    },
+    resetToken: {
+      type: String,
+      default: null
+    },
+    resetTokenExpiration: {
+      type: Date,
+      default: null
     }
   },
   { timestamps: true }

@@ -8,3 +8,7 @@ export const logInUser = body =>
 
 export const updateUser = (userId, body) =>
   api.patch(`auth/update/${userId}`, body).then(response => response.data);
+
+export const forgotPassword = body => {
+  api.post(`/auth/forgot-password`, body).then(response => response.data);
+};

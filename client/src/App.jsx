@@ -13,6 +13,8 @@ import { useCallback } from 'react';
 import Particles from 'react-tsparticles';
 import { loadFull } from 'tsparticles';
 import { useSelector } from 'react-redux';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
 
 function App() {
   const isAuth = Boolean(useSelector(state => state.user));
@@ -116,6 +118,11 @@ function App() {
               <Route
                 path="/myrides"
                 element={isAuth ? <MyRidesPage /> : <AuthenticationPage />}
+              />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route
+                path="/reset-password/:resetToken"
+                element={<ResetPassword />}
               />
             </Routes>
           </div>

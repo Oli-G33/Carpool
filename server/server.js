@@ -6,6 +6,8 @@ const ImageKit = require('imagekit');
 const AuthRouter = require('./routes/auth');
 const BookingRouter = require('./routes/weeklyRide');
 require('dotenv').config();
+const exphbs = require('express-handlebars');
+const path = require('path');
 // const rideData = require('./data.js');
 // const WeeklyRide = require('./models/WeeklyRide.js');
 
@@ -28,6 +30,11 @@ app.use(
     credentials: true
   })
 );
+
+// Handlebars configuration
+app.engine('handlebars', exphbs.engine);
+app.set('view engine', 'handlebars');
+app.set('views', './views');
 
 app.get('/', (req, res) => {
   res.send('hello world!');
