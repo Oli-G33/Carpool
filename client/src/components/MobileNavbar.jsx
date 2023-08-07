@@ -23,6 +23,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import EditProfileModal from './EditProfileModal';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 const MobileNavbar = () => {
   const [avatarKey, setAvatarKey] = useState(0);
@@ -45,6 +46,11 @@ const MobileNavbar = () => {
     setOpenModal(false);
   };
 
+  const handleLogout = () => {
+    navigate('/');
+    dispatch(setLogout());
+  };
+
   return (
     <AppBar
       position="fixed"
@@ -64,7 +70,7 @@ const MobileNavbar = () => {
             flexDirection: 'row',
             gap: '16px',
             alignItems: 'center',
-            justifyContent: 'space-evenly',
+            justifyContent: 'space-between',
             width: '100%'
           }}
         >
@@ -90,26 +96,25 @@ const MobileNavbar = () => {
             </Box>
           </ListItemButton>
 
-          {user &&
-            user.isAdmin && ( // Conditionally render for admin user
-              <ListItemButton
-                component={Link}
-                to="/dashboard"
-                sx={{ alignItems: 'center', flexDirection: 'column' }}
+          {user && user.isAdmin && (
+            <ListItemButton
+              component={Link}
+              to="/dashboard"
+              sx={{ alignItems: 'center', flexDirection: 'column' }}
+            >
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center'
+                }}
               >
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center'
-                  }}
-                >
-                  <ListItemIcon>
-                    <DashboardIcon sx={{ color: '#21D4FD' }} />
-                  </ListItemIcon>
-                </Box>
-              </ListItemButton>
-            )}
+                <ListItemIcon>
+                  <DashboardIcon sx={{ color: '#21D4FD' }} />
+                </ListItemIcon>
+              </Box>
+            </ListItemButton>
+          )}
 
           <ListItemButton
             component={Link}
@@ -149,25 +154,47 @@ const MobileNavbar = () => {
           </ListItemButton>
 
           {user && (
-            <Link
-              component="button"
+            <ListItemButton
               onClick={handleOpenModal}
-              color="inherit"
-              underline="none"
+              sx={{ alignItems: 'center', flexDirection: 'column' }}
             >
-              <Avatar
-                key={avatarKey}
-                src={user.picture}
-                alt={user.firstName}
+              <Box
                 sx={{
-                  ml: 2,
-                  mr: 1,
-                  border: '2px solid #21D4FD',
-                  cursor: 'pointer'
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center'
                 }}
-              />
-            </Link>
+              >
+                <ListItemIcon>
+                  <Avatar
+                    key={avatarKey}
+                    src={user.picture}
+                    alt={user.firstName}
+                    sx={{
+                      ml: 2,
+                      mr: 1,
+                      border: '2px solid #21D4FD',
+                      cursor: 'pointer'
+                    }}
+                  />
+                </ListItemIcon>
+              </Box>
+            </ListItemButton>
           )}
+
+          <ListItemButton onClick={handleLogout}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center'
+              }}
+            >
+              <ListItemIcon>
+                <ExitToAppIcon sx={{ color: '#21D4FD' }} />
+              </ListItemIcon>
+            </Box>
+          </ListItemButton>
         </List>
       </Toolbar>
       <EditProfileModal
