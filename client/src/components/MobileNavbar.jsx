@@ -171,8 +171,6 @@ const MobileNavbar = () => {
                     src={user.picture}
                     alt={user.firstName}
                     sx={{
-                      ml: 2,
-                      mr: 1,
                       border: '2px solid #21D4FD',
                       cursor: 'pointer'
                     }}
