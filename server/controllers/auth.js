@@ -109,7 +109,7 @@ const forgotPassword = async (req, res) => {
     await user.save();
 
     // Send password reset email to user with resetToken in the URL
-    const resetUrl = `http://localhost:3000/reset-password/${resetToken}`;
+    const resetUrl = `https://carpooler.onrender.com/reset-password/${resetToken}`;
     const msg = {
       to: user.email,
       from: 'Export-Carpooler@outlook.com', // Replace with your sending email address

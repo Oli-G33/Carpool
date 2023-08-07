@@ -18,7 +18,7 @@ function ResetPassword() {
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/auth/reset-password/${resetToken}`,
+        `https://carpooler-backend.onrender.com/auth/reset-password/${resetToken}`,
         {
           password
         }

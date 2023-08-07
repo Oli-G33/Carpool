@@ -10,7 +10,7 @@ function ForgotPassword() {
 
     try {
       const response = await axios.post(
-        'http://localhost:5000/auth/forgot-password',
+        'https://carpooler-backend.onrender.com/auth/forgot-password',
         { email }
       );
       setMessage(response.data.message);
