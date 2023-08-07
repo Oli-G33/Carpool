@@ -76,7 +76,6 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
     const { url } = result;
     setPicture(url);
     setIsLoading(false);
-    console.log(url);
   };
 
   const handleError = error => {
@@ -348,10 +347,13 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                   onChange={e => setConfirmPassword(e.target.value)}
                   error={passwordError}
                   helperText={passwordErrorText}
-                  sx={{ mb: 2,  '& .MuiOutlinedInput-root': {
-                    color: ' white'
-                  },
-                  '& .MuiInputLabel-root': { color: ' white' } }}
+                  sx={{
+                    mb: 2,
+                    '& .MuiOutlinedInput-root': {
+                      color: ' white'
+                    },
+                    '& .MuiInputLabel-root': { color: ' white' }
+                  }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -361,7 +363,6 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                       </InputAdornment>
                     )
                   }}
-                  
                 />
               </Grid>
               <Grid item xs={12}>

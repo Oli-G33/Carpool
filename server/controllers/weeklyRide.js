@@ -12,7 +12,6 @@ const handlebars = require('handlebars');
 
 const getSeats = async (req, res) => {
   const { date } = req.params;
-  console.log('Here===>', date);
   const formattedDate = date.split('-').reverse().join('-');
   console.log(formattedDate);
 
