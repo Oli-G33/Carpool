@@ -114,31 +114,33 @@ const MyRidesPage = () => {
       <Box sx={{ textAlign: 'center' }}>
         <Container sx={{ marginTop: '50px' }}>
           <Grid container spacing={2} justifyContent="center">
-            <Box
-              sx={{
-                marginTop: 2,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: 'rgba(200, 200, 200, 0.6)',
-                border: '1px solid #ccc',
-                borderRadius: '8px',
-                height: '10vh',
-                textAlign: 'center',
-                margin: '0 auto',
-                maxWidth: '80%'
-              }}
-            >
-              <Typography
-                variant={isNonMobileScreens ? 'h4' : 'h5'}
-                sx={{ color: 'white', textAlign: 'center' }}
+            <Grid item xs={12}>
+              <Box
+                sx={{
+                  marginTop: 2,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: 'rgba(200, 200, 200, 0.6)',
+                  border: '1px solid #ccc',
+                  borderRadius: '8px',
+                  height: '10vh',
+                  maxWidth: '80%',
+                  textAlign: 'center',
+                  margin: '0 auto'
+                }}
               >
-                My Rides
-              </Typography>
-              <DirectionsCarIcon
-                sx={{ marginLeft: '10px', fontSize: '32px' }}
-              />
-            </Box>
+                <Typography
+                  variant={isNonMobileScreens ? 'h4' : 'h5'}
+                  sx={{ color: 'white', textAlign: 'center' }}
+                >
+                  My Rides
+                </Typography>
+                <DirectionsCarIcon
+                  sx={{ marginLeft: '10px', fontSize: '32px' }}
+                />
+              </Box>
+            </Grid>
             <Grid item xs={12}>
               <Paper
                 variant="outlined"

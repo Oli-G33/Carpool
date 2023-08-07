@@ -51,8 +51,6 @@ const BookingPage = () => {
   useEffect(() => {
     if (formattedDate) {
       wakeApi();
-      setIsLoadingSeats(true);
-      console.log('Load 1 =>', isLoadingSeats);
       getAvailableSeats(formattedDate)
         .then(data => {
           setAvailableSeats(data);
@@ -189,7 +187,10 @@ const BookingPage = () => {
             >
               <DatePicker
                 value={selectedDate}
-                onChange={newDate => setSelectedDate(dayjs(newDate))}
+                onChange={newDate => {
+                  setSelectedDate(dayjs(newDate));
+                  setIsLoadingSeats(true);
+                }}
                 inputVariant="outlined"
                 fullWidth
                 margin="normal"
