@@ -61,7 +61,9 @@ const MobileNavbar = () => {
         zIndex: 1000,
         display: { xs: 'block', md: 'none' },
         flexGrow: 1,
-        boxShadow: '0px -4px 8px rgba(0, 0, 0, 0.1)'
+        boxShadow: '0px -4px 8px rgba(0, 0, 0, 0.1)',
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15
       }}
     >
       <Toolbar>

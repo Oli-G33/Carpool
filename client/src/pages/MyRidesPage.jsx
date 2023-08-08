@@ -125,7 +125,7 @@ const MyRidesPage = () => {
                   border: '1px solid #ccc',
                   borderRadius: '8px',
                   height: '10vh',
-                  maxWidth: '80%',
+                  maxWidth: isMobileScreen ? '90%' : '80%',
                   textAlign: 'center',
                   margin: '0 auto'
                 }}
@@ -149,7 +149,7 @@ const MyRidesPage = () => {
                   border: '1px solid #ccc',
                   borderRadius: '8px',
                   padding: '2px',
-                  maxWidth: '80%',
+                  maxWidth: isMobileScreen ? '90%' : '80%',
                   margin: '0 auto'
                 }}
               >

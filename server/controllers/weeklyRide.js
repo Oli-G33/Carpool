@@ -70,7 +70,9 @@ const bookSeat = async (req, res) => {
       { [`availableSeats.${formattedDate}`]: { $exists: true } },
       {
         $inc: { [`availableSeats.${formattedDate}`]: -1 },
-        $push: { passengers: { userId, date: formattedDate } }
+        $push: {
+          passengers: { userId, date: formattedDate, status: 'pending' }
+        }
       },
       { new: true }
     );

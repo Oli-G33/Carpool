@@ -200,6 +200,9 @@ export default function Login({ isLogin, setIsLogin }) {
             </Grid>
           </Box>
         </Box>
+        <Link href="/forgot-password" variant="body2">
+          Forgot your password?
+        </Link>
       </Container>
     </ThemeProvider>
   );
