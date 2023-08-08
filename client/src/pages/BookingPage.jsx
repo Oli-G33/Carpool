@@ -48,10 +48,11 @@ const BookingPage = () => {
     return day === 6 || day === 0;
   };
 
+  wakeApi();
+
   useEffect(() => {
     if (formattedDate) {
-      setIsLoadingSeats(true)
-      wakeApi();
+      setIsLoadingSeats(true)     
       getAvailableSeats(formattedDate)
         .then(data => {
           setAvailableSeats(data);
