@@ -51,29 +51,38 @@ const BookingPage = () => {
 
 
   useEffect(() => {
+    setIsLoadingSeats(true);
     if (formattedDate) {
-      setIsLoadingSeats(true) 
-      wakeApi();    
-      getAvailableSeats(formattedDate)
-        .then(data => {
-          setAvailableSeats(data);
-          console.log(data);
-          if (data && data.error) {
-            setAlertMessage(data.error);
-          } else {
-            setAlertMessage('');
-          }
-        })
-        .catch(error => {
-          console.error(error);
-        })
-        .finally(() => {
-          setTimeout(() => {
+      wakeApi();
+      const retryInterval = 10000;
+      const maxRetries = 4;
+      let retryCount = 0;
+  
+      const fetchSeatsWithRetry = () => {
+        getAvailableSeats(formattedDate)
+          .then(data => {
+            setAvailableSeats(data);
+            if (data && data.error) {
+              setAlertMessage(data.error)}
+          })
+          .catch(error => {
+            // Retry if not exceeding max retries
+            if (retryCount < maxRetries) {
+              retryCount++;
+              setTimeout(fetchSeatsWithRetry, retryInterval);
+            } else {
+              setAlertMessage('Server is loading');
+            }
+          })
+          .finally(() => {
             setIsLoadingSeats(false);
-          }, 20000); 
-        });
+          });
+      };
+  
+      fetchSeatsWithRetry();
     }
   }, [formattedDate]);
+  
 
   const renderSeatIcons = count => {
     const seatIconSize = isMobileScreen ? 4 : 6;
