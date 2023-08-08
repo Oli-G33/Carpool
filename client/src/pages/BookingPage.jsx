@@ -48,11 +48,12 @@ const BookingPage = () => {
     return day === 6 || day === 0;
   };
 
-  wakeApi();
+
 
   useEffect(() => {
     if (formattedDate) {
-      setIsLoadingSeats(true)     
+      setIsLoadingSeats(true) 
+      wakeApi();    
       getAvailableSeats(formattedDate)
         .then(data => {
           setAvailableSeats(data);
@@ -71,7 +72,7 @@ const BookingPage = () => {
           console.log('Load 2 =>', isLoadingSeats);
         });
     }
-  }, [formattedDate]);
+  },[isLoadingSeats], [formattedDate]);
 
   const renderSeatIcons = count => {
     const seatIconSize = isMobileScreen ? 4 : 6;
