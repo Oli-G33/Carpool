@@ -48,41 +48,29 @@ const BookingPage = () => {
     return day === 6 || day === 0;
   };
 
-
-
   useEffect(() => {
-    setIsLoadingSeats(true);
     if (formattedDate) {
+      setIsLoadingSeats(true)
       wakeApi();
-      const retryInterval = 10000;
-      const maxRetries = 4;
-      let retryCount = 0;
-  
-      const fetchSeatsWithRetry = () => {
-        getAvailableSeats(formattedDate)
-          .then(data => {
-            setAvailableSeats(data);
-            if (data && data.error) {
-              setAlertMessage(data.error)}
-          })
-          .catch(error => {
-            // Retry if not exceeding max retries
-            if (retryCount < maxRetries) {
-              retryCount++;
-              setTimeout(fetchSeatsWithRetry, retryInterval);
-            } else {
-              setAlertMessage('Server is loading');
-            }
-          })
-          .finally(() => {
-            setIsLoadingSeats(false);
-          });
-      };
-  
-      fetchSeatsWithRetry();
+      getAvailableSeats(formattedDate)
+        .then(data => {
+          setAvailableSeats(data);
+          console.log(data);
+          if (data && data.error) {
+            setAlertMessage(data.error);
+          } else {
+            setAlertMessage('');
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        })
+        .finally(() => {
+          setIsLoadingSeats(false);
+          console.log('Load 2 =>', isLoadingSeats);
+        });
     }
   }, [formattedDate]);
-  
 
   const renderSeatIcons = count => {
     const seatIconSize = isMobileScreen ? 4 : 6;
