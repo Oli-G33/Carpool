@@ -68,11 +68,12 @@ const BookingPage = () => {
           console.error(error);
         })
         .finally(() => {
-          setIsLoadingSeats(false);
-          console.log('Load 2 =>', isLoadingSeats);
+          setTimeout(() => {
+            setIsLoadingSeats(false);
+          }, 20000); 
         });
     }
-  },[isLoadingSeats], [formattedDate]);
+  }, [formattedDate]);
 
   const renderSeatIcons = count => {
     const seatIconSize = isMobileScreen ? 4 : 6;
