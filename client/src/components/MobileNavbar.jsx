@@ -13,11 +13,9 @@ import {
   ListItemIcon,
   ListItemText
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
 import { useSelector, useDispatch } from 'react-redux';
 import { setLogout } from '../state';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
-import LogoutIcon from '@mui/icons-material/Logout';
 import HomeIcon from '@mui/icons-material/Home';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
@@ -28,7 +26,6 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 const MobileNavbar = () => {
   const [avatarKey, setAvatarKey] = useState(0);
   const [openModal, setOpenModal] = useState(false);
-  const isMobileScreen = useMediaQuery('(max-width:600px)');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

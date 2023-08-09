@@ -50,7 +50,7 @@ const BookingPage = () => {
 
   useEffect(() => {
     if (formattedDate) {
-      setIsLoadingSeats(true)
+      setIsLoadingSeats(true);
       wakeApi();
       getAvailableSeats(formattedDate)
         .then(data => {
@@ -158,6 +158,7 @@ const BookingPage = () => {
             display: 'flex',
             flexDirection: isMobileScreen ? 'column' : 'row',
             alignItems: 'center',
+            justifyContent: 'center',
             backgroundColor: 'rgba(200, 200, 200, 0.6)',
             border: '1px solid #ccc',
             borderRadius: '8px',
