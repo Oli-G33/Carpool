@@ -153,10 +153,18 @@ export default function Login({ isLogin, setIsLogin }) {
                   autoComplete="email"
                   onChange={event => setEmail(event.target.value)}
                   sx={{
-                    '& .MuiOutlinedInput-root': {
-                      color: ' white'
+                    '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'white', 
                     },
-                    '& .MuiInputLabel-root': { color: ' white' }
+                    '& .MuiInputLabel-root': {
+                      color: 'white', 
+                    },
+                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'white', 
+                    },
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'white', 
+                    },
                   }}
                 />
               </Grid>
@@ -174,10 +182,18 @@ export default function Login({ isLogin, setIsLogin }) {
                   error={passwordError}
                   helperText={passwordErrorText}
                   sx={{
-                    '& .MuiOutlinedInput-root': {
-                      color: ' white'
+                    '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'white', 
                     },
-                    '& .MuiInputLabel-root': { color: ' white' }
+                    '& .MuiInputLabel-root': {
+                      color: 'white', 
+                    },
+                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'white', 
+                    },
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'white', 
+                    },
                   }}
                 />
               </Grid>
