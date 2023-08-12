@@ -76,6 +76,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
     const { url } = result;
     setPicture(url);
     setIsLoading(false);
+    console.log(url);
   };
 
   const handleError = error => {
@@ -180,7 +181,6 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
 
   const onUploadStart = () => {
     setIsLoading(true);
-    console.log('Is Loading', isLoading);
   };
 
   return (
@@ -209,7 +209,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
           >
             <AppRegistrationIcon />
           </Avatar>
-          <Typography component="h1" variant="h5" color="#D3D3D2">
+          <Typography component="h1" variant="h5" color="white">
             Sign up
           </Typography>
           <Box
@@ -456,9 +456,6 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                 />
               </Grid>
               <Grid item xs={12}>
-                {picture && (
-                  <img src={picture} alt="Selected" width="100" height="100" />
-                )}
                 <IKContext
                   publicKey={process.env.REACT_APP_IMAGEIO_PUBLIC_KEY}
                   authenticationEndpoint={
@@ -466,14 +463,69 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                   }
                   urlEndpoint={process.env.REACT_APP_IMAGEIO_URL_ENDPOINT}
                 >
-                  <IKUpload
-                    onSuccess={handleSuccess}
-                    onError={handleError}
-                    className="fileUploadInput"
-                    onUploadStart={onUploadStart}
-                  />
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <label
+                      htmlFor="fileInput"
+                      style={{
+                        marginBottom: '8px',
+                        textAlign: 'center',
+                        color: 'white'
+                      }}
+                    >
+                      Profile Picture:
+                    </label>
+                    <div
+                      style={{
+                        position: 'relative',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: '50px',
+                        height: '50px',
+                        border: '1px dashed #ccc',
+                        borderRadius: '8px',
+                        padding: '8px',
+                        textAlign: 'center',
+                        width: '150px',
+                        margin: '0 auto'
+                      }}
+                    >
+                      <IKUpload
+                        onSuccess={handleSuccess}
+                        onError={handleError}
+                        className="fileUploadInput"
+                        onUploadStart={onUploadStart}
+                        style={{
+                          opacity: 0,
+                          position: 'absolute',
+                          left: 0,
+                          top: 0,
+                          width: '100%',
+                          height: '100%'
+                        }}
+                      />
+                      {picture ? (
+                        <Avatar
+                          src={picture}
+                          alt="Selected"
+                          sx={{ mt: 1, mb: 1 }}
+                        />
+                      ) : (
+                        <Typography variant="body2" color="white">
+                          Click to Upload
+                        </Typography>
+                      )}
+                    </div>
+                  </div>
                 </IKContext>
               </Grid>
+
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
