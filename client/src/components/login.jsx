@@ -121,7 +121,7 @@ export default function Login({ isLogin, setIsLogin }) {
           >
             <LockIcon />
           </Avatar>
-          <Typography component="h1" variant="h5" color="#D3D3D2">
+          <Typography component="h1" variant="h5" color="white">
             Log in
           </Typography>
           <Box
@@ -152,19 +152,27 @@ export default function Login({ isLogin, setIsLogin }) {
                   name="email"
                   autoComplete="email"
                   onChange={event => setEmail(event.target.value)}
+                  InputProps={{
+                    sx: {
+                      color: 'white'
+                    }
+                  }}
                   sx={{
-                    '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'white', 
-                    },
+                    '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: '#D3D3D2'
+                      },
                     '& .MuiInputLabel-root': {
-                      color: 'white', 
+                      color: 'white'
                     },
-                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'white', 
-                    },
-                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'white', 
-                    },
+                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: 'white'
+                      },
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: 'white'
+                      }
                   }}
                 />
               </Grid>
@@ -181,19 +189,27 @@ export default function Login({ isLogin, setIsLogin }) {
                   onChange={event => setPassword(event.target.value)}
                   error={passwordError}
                   helperText={passwordErrorText}
+                  InputProps={{
+                    sx: {
+                      color: 'white'
+                    }
+                  }}
                   sx={{
-                    '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'white', 
-                    },
+                    '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: '#D3D3D2'
+                      },
                     '& .MuiInputLabel-root': {
-                      color: 'white', 
+                      color: 'white'
                     },
-                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'white', 
-                    },
-                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'white', 
-                    },
+                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: 'white'
+                      },
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: 'white'
+                      }
                   }}
                 />
               </Grid>
@@ -217,17 +233,17 @@ export default function Login({ isLogin, setIsLogin }) {
           </Box>
         </Box>
         <Link
-  href="/forgot-password"
-  variant="body2"
-  sx={{
-    color: 'white',
-    textAlign: 'center',
-    marginTop: '1rem', 
-    display: 'block', 
-  }}
->
-  Forgot your password?
-</Link>
+          href="/forgot-password"
+          variant="body2"
+          sx={{
+            color: 'white',
+            textAlign: 'center',
+            marginTop: '1rem',
+            display: 'block'
+          }}
+        >
+          Forgot your password?
+        </Link>
       </Container>
     </ThemeProvider>
   );

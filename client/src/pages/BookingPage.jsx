@@ -211,7 +211,21 @@ const BookingPage = () => {
                   },
                   '& .MuiInput-underline:after': {
                     borderBottomColor: 'white'
-                  }
+                  },
+                  '& .MuiInputLabel-root': {
+                    color: 'white'
+                  },
+                  '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#D3D3D2'
+                  },
+                  '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                    {
+                      borderColor: 'white'
+                    },
+                  '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                    {
+                      borderColor: 'white'
+                    }
                 }}
                 views={['month', 'year', 'day']}
               />
@@ -221,7 +235,7 @@ const BookingPage = () => {
             orientation={isMobileScreen ? 'horizontal' : 'vertical'}
             sx={{
               margin: '0 20px',
-              backgroundColor: 'gray'
+              backgroundColor: 'white'
             }}
           />
           <Box

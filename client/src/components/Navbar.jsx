@@ -10,7 +10,8 @@ import {
   ListItemIcon,
   ListItemText,
   Avatar,
-  ListItemButton
+  ListItemButton,
+  Box
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -19,6 +20,7 @@ import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import CloseIcon from '@mui/icons-material/Close';
+import MinorCrashTwoToneIcon from '@mui/icons-material/MinorCrashTwoTone';
 
 const Navbar = ({ isNonMobileScreens, isMobileScreen }) => {
   const [open, setOpen] = useState(false);
@@ -208,21 +210,36 @@ const Navbar = ({ isNonMobileScreens, isMobileScreen }) => {
         >
           <MenuIcon />
         </IconButton>
-
-        <Typography
-          variant={isMobileScreen ? 'h7' : 'h6'}
-          component="div"
-          sx={{ flexGrow: 1, textAlign: 'center' }}
+        <Box
+          sx={{
+            flexGrow: 1,
+            textAlign: 'center',
+            display: 'flex',
+            alignItems: 'center'
+          }}
         >
-          <Link
-            component={RouterLink}
-            to="/booking"
-            color="inherit"
-            underline="none"
+          <Typography
+            variant={isMobileScreen ? 'h7' : 'h6'}
+            component="div"
+            sx={{ flexGrow: 1, textAlign: 'center' }}
           >
-            Export Carpooler
-          </Link>
-        </Typography>
+            <Link
+              component={RouterLink}
+              to="/booking"
+              color="inherit"
+              underline="none"
+            >
+              Carpooler{' '}
+              <MinorCrashTwoToneIcon
+                htmlColor="#A0A0A0"
+                sx={{
+                  fontSize: '1.5rem',
+                  marginLeft: '0.5rem'
+                }}
+              />
+            </Link>
+          </Typography>
+        </Box>
         {user && (
           <>
             {' '}

@@ -239,7 +239,6 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                   fullWidth
                   id="firstName"
                   label="First Name"
-                  autoFocus
                   onChange={event => setFirstName(event.target.value)}
                   sx={{
                     '& .MuiOutlinedInput-root': {
