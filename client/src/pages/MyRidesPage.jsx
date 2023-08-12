@@ -12,7 +12,8 @@ import {
   Link,
   Divider,
   useMediaQuery,
-  Avatar
+  Avatar,
+  Tooltip
 } from '@mui/material';
 import ModeIcon from '@mui/icons-material/Mode';
 import Navbar from '../components/Navbar';
@@ -200,22 +201,29 @@ const MyRidesPage = () => {
                                   alignItems: 'center'
                                 }}
                               >
-                                <Avatar
-                                  src={ride.driverPicture}
-                                  alt="Driver"
-                                  sx={{
-                                    width: 30,
-                                    height: 30,
-                                    marginRight: isMobileScreen ? 1 : 2
-                                  }}
-                                />
+                                <Tooltip
+                                  title={`${ride.driverFirstName} ${ride.driverLastName}`}
+                                  arrow
+                                  placement="top-start"
+                                >
+                                  <Avatar
+                                    src={ride.driverPicture}
+                                    alt="Driver"
+                                    sx={{
+                                      width: isMobileScreen ? 30 : 36,
+                                      height: isMobileScreen ? 30 : 36,
+                                      marginRight: isMobileScreen ? 1 : 2,
+                                      cursor: 'pointer'
+                                    }}
+                                  />
+                                </Tooltip>
                                 <Link
                                   href={`https://wa.me/${ride.driverPhoneNumber}`}
                                   color="inherit"
                                   underline="none"
                                   target="_blank"
                                   sx={{
-                                    marginRight: isMobileScreen ? 1 : 2
+                                    marginRight: isMobileScreen ? 2 : 3
                                   }}
                                 >
                                   <WhatsAppIcon
