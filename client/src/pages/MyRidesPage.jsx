@@ -7,15 +7,12 @@ import {
   Paper,
   List,
   ListItem,
-  ListItemText,
   Button,
-  Modal,
-  TextField,
   Box,
   Link,
-  Stack,
   Divider,
-  useMediaQuery
+  useMediaQuery,
+  Avatar
 } from '@mui/material';
 import ModeIcon from '@mui/icons-material/Mode';
 import Navbar from '../components/Navbar';
@@ -26,6 +23,8 @@ import EditProfileModal from '../components/EditProfileModal';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import MobileNavbar from '../components/MobileNavbar';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const MyRidesPage = () => {
   const user = useSelector(state => state.user);
@@ -55,6 +54,7 @@ const MyRidesPage = () => {
         });
 
         setRides(formattedRides);
+        console.log(formattedRides);
       } catch (error) {
         console.error(error);
       }
@@ -112,7 +112,7 @@ const MyRidesPage = () => {
     <>
       {isMobileScreen ? <MobileNavbar /> : <Navbar />}
       <Box sx={{ textAlign: 'center' }}>
-        <Container sx={{ marginTop: '50px' }}>
+        <Container sx={{ marginTop: '40px' }}>
           <Grid container spacing={2} justifyContent="center">
             <Grid item xs={12}>
               <Box
@@ -125,7 +125,7 @@ const MyRidesPage = () => {
                   border: '1px solid #ccc',
                   borderRadius: '8px',
                   height: '10vh',
-                  maxWidth: isMobileScreen ? '90%' : '80%',
+                  maxWidth: isMobileScreen ? '95%' : '80%',
                   textAlign: 'center',
                   margin: '0 auto'
                 }}
@@ -141,68 +141,116 @@ const MyRidesPage = () => {
                 />
               </Box>
             </Grid>
+
             <Grid item xs={12}>
               <Paper
+                elevation={3}
                 variant="outlined"
                 sx={{
                   backgroundColor: 'rgba(200, 200, 200, 0.6)',
                   border: '1px solid #ccc',
                   borderRadius: '8px',
-                  padding: '2px',
-                  maxWidth: isMobileScreen ? '90%' : '80%',
+
+                  maxWidth: isMobileScreen ? '95%' : '80%',
                   margin: '0 auto'
                 }}
               >
                 {rides.length > 0 ? (
                   <List>
-                    <Stack spacing={1}>
-                      {rides.map((ride, index) => (
-                        <React.Fragment key={index}>
-                          <ListItem>
-                            <ListItemText
+                    {rides.map((ride, index) => (
+                      <React.Fragment key={index}>
+                        <ListItem>
+                          <Paper
+                            elevation={1}
+                            variant="outlined"
+                            sx={{
+                              backgroundColor: 'rgba(200, 200, 200, 0.6)',
+                              border: '1px solid #ccc',
+                              borderRadius: '8px',
+                              padding: '8px',
+                              width: '95%',
+                              display: 'flex',
+                              alignItems: 'center'
+                            }}
+                          >
+                            <Box
                               sx={{
-                                color: 'white'
+                                flex: '0 0 40%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                marginLeft: '8px',
+                                marginRight: isMobileScreen ? '4px' : '8px'
                               }}
-                              primary={ride.date}
-                            />
-                            <Link
-                              href={`https://wa.me/${process.env.REACT_APP_WHATSAPP_NUMBER}`}
-                              color="inherit"
-                              underline="none"
-                              target="_blank"
-                              mr={3}
                             >
-                              <WhatsAppIcon
+                              <Typography sx={{ color: 'white' }}>
+                                {ride.date}
+                              </Typography>
+                            </Box>
+                            <Box
+                              sx={{
+                                flex: '0 0 60%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between'
+                              }}
+                            >
+                              <Box
                                 sx={{
-                                  color: '#25D366',
-                                  fontSize: '30px'
+                                  display: 'flex',
+                                  alignItems: 'center'
                                 }}
-                              />
-                            </Link>
-                            {!ride.canceled ? (
-                              <Button
-                                variant="contained"
-                                color="error"
-                                size="small"
-                                onClick={() =>
-                                  handleCancelRide(ride.passengerId, ride.date)
-                                }
-                                disabled={loading}
                               >
-                                {loading ? (
-                                  <CircularProgress size={25} />
-                                ) : (
-                                  'Cancel'
-                                )}
-                              </Button>
-                            ) : (
-                              ''
-                            )}
-                          </ListItem>
-                          {index !== rides.length - 1 && <Divider />}
-                        </React.Fragment>
-                      ))}
-                    </Stack>
+                                <Avatar
+                                  src={ride.driverPicture}
+                                  alt="Driver"
+                                  sx={{
+                                    width: 30,
+                                    height: 30,
+                                    marginRight: isMobileScreen ? 1 : 2
+                                  }}
+                                />
+                                <Link
+                                  href={`https://wa.me/${ride.driverPhoneNumber}`}
+                                  color="inherit"
+                                  underline="none"
+                                  target="_blank"
+                                  sx={{
+                                    marginRight: isMobileScreen ? 1 : 2
+                                  }}
+                                >
+                                  <WhatsAppIcon
+                                    sx={{
+                                      color: '#128c7e',
+                                      fontSize: '20px'
+                                    }}
+                                  />
+                                </Link>
+
+                                <Button
+                                  variant="contained"
+                                  color="error"
+                                  size="small"
+                                  onClick={() =>
+                                    handleCancelRide(
+                                      ride.passengerId,
+                                      ride.date
+                                    )
+                                  }
+                                  disabled={loading}
+                                >
+                                  {loading ? (
+                                    <CircularProgress size={20} />
+                                  ) : (
+                                    <DeleteIcon />
+                                  )}
+                                </Button>
+                              </Box>
+                            </Box>
+                          </Paper>
+                        </ListItem>
+                        {index !== rides.length - 1 && <Divider />}
+                      </React.Fragment>
+                    ))}
                   </List>
                 ) : (
                   <Typography
@@ -216,6 +264,7 @@ const MyRidesPage = () => {
                 )}
               </Paper>
             </Grid>
+
             <Grid item xs={12}>
               <Box mt={2} mb={12}>
                 <Link href="#" onClick={handleOpenModal} color="#D3D3D2">

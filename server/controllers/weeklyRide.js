@@ -160,15 +160,19 @@ const fetchMyRides = async (req, res) => {
     const userId = req.params.userId;
 
     // Query the WeeklyRide collection for rides where the user is a passenger
-    const rides = await WeeklyRide.find({ 'passengers.userId': userId });
+    const rides = await WeeklyRide.find({
+      'passengers.userId': userId
+    }).populate('driver', 'phoneNumber picture'); // Populate driver's data with phoneNumber and picture fields
 
-    // Extract the dates and passenger IDs where the user is a passenger
+    // Extract the dates, passenger IDs, driver's phone number, and driver's picture where the user is a passenger
     const passengerData = rides.reduce((result, ride) => {
       const passengerDates = ride.passengers
         .filter((passenger) => passenger.userId.toString() === userId)
         .map((passenger) => ({
           date: passenger.date,
-          passengerId: passenger._id
+          passengerId: passenger._id,
+          driverPhoneNumber: ride.driver.phoneNumber,
+          driverPicture: ride.driver.picture // Add driver's picture URL
         }));
       return [...result, ...passengerDates];
     }, []);

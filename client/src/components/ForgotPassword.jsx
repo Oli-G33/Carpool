@@ -15,7 +15,7 @@ function ForgotPassword() {
         'https://carpooler-backend.onrender.com/auth/forgot-password',
         { email }
       );
-      setMessage(response.data.message);
+      setMessage(response.message);
     } catch (error) {
       setMessage('An error occurred. Please try again.');
     }
