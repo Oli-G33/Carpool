@@ -237,7 +237,11 @@ export default function Login({ isLogin, setIsLogin }) {
             color: 'white',
             textAlign: 'center',
             marginTop: '1rem',
-            display: 'block'
+            display: 'block',
+            textDecoration: 'none',
+            '&:hover': {
+              textDecoration: 'underline'
+            }
           }}
         >
           Forgot your password?

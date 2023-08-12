@@ -26,7 +26,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: process.env.CLIENT_APP_ORIGINS,
+    ...(process.env.CLIENT_APP_ORIGINS && {
+      origin: process.env.CLIENT_APP_ORIGINS.split(',')
+    }),
     credentials: true
   })
 );
