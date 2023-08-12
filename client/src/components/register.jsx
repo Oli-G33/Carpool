@@ -76,7 +76,6 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
     const { url } = result;
     setPicture(url);
     setIsLoading(false);
-    console.log(url);
   };
 
   const handleError = error => {
@@ -127,7 +126,6 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
     if (password.length < 8) {
       setPasswordError(true);
       setPasswordErrorText('Password should be at least 8 characters long');
-      console.log(password.length);
       return;
     } else {
       setPasswordError(false);
@@ -152,7 +150,6 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
       });
 
       const registeredUser = await registerResponse;
-      console.log(registeredUser);
       if (registeredUser) {
         dispatch(
           setLogin({
@@ -204,9 +201,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
             maxWidth: '100%'
           }}
         >
-          <Avatar
-            sx={{ m: 1, bgcolor: 'secondary.main', width: 62, height: 62 }}
-          >
+          <Avatar sx={{ m: 1, bgcolor: 'orange', width: 62, height: 62 }}>
             <AppRegistrationIcon />
           </Avatar>
           <Typography component="h1" variant="h5" color="white">
