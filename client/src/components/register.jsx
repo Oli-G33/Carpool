@@ -209,7 +209,7 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
           >
             <AppRegistrationIcon />
           </Avatar>
-          <Typography component="h1" variant="h5" color="#D3D3D2">
+          <Typography component="h1" variant="h5" color="white">
             Sign up
           </Typography>
           <Box
@@ -240,11 +240,27 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                   id="firstName"
                   label="First Name"
                   onChange={event => setFirstName(event.target.value)}
+                  InputProps={{
+                    sx: {
+                      color: 'white'
+                    }
+                  }}
                   sx={{
-                    '& .MuiOutlinedInput-root': {
-                      color: ' white'
+                    '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: '#D3D3D2'
+                      },
+                    '& .MuiInputLabel-root': {
+                      color: 'white'
                     },
-                    '& .MuiInputLabel-root': { color: ' white' }
+                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: 'white'
+                      },
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: 'white'
+                      }
                   }}
                 />
               </Grid>
@@ -259,11 +275,27 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                   onChange={event => setLastName(event.target.value)}
                   error={lastNameError}
                   helperText={lastNameErrorText}
+                  InputProps={{
+                    sx: {
+                      color: 'white'
+                    }
+                  }}
                   sx={{
-                    '& .MuiOutlinedInput-root': {
-                      color: ' white'
+                    '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: '#D3D3D2'
+                      },
+                    '& .MuiInputLabel-root': {
+                      color: 'white'
                     },
-                    '& .MuiInputLabel-root': { color: ' white' }
+                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: 'white'
+                      },
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: 'white'
+                      }
                   }}
                 />
               </Grid>
@@ -278,11 +310,27 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                   name="email"
                   autoComplete="email"
                   onChange={event => setEmail(event.target.value)}
+                  InputProps={{
+                    sx: {
+                      color: 'white'
+                    }
+                  }}
                   sx={{
-                    '& .MuiOutlinedInput-root': {
-                      color: ' white'
+                    '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: '#D3D3D2'
+                      },
+                    '& .MuiInputLabel-root': {
+                      color: 'white'
                     },
-                    '& .MuiInputLabel-root': { color: ' white' }
+                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: 'white'
+                      },
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: 'white'
+                      }
                   }}
                 />
               </Grid>
@@ -300,11 +348,27 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                   focusOnSelectCountry
                   disableFormatting
                   onlyCountries={['ES', 'DE', 'FR', 'IT', 'US', 'CA', 'PT']}
+                  InputProps={{
+                    sx: {
+                      color: 'white'
+                    }
+                  }}
                   sx={{
-                    '& .MuiOutlinedInput-root': {
-                      color: ' white'
+                    '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: '#D3D3D2'
+                      },
+                    '& .MuiInputLabel-root': {
+                      color: 'white'
                     },
-                    '& .MuiInputLabel-root': { color: ' white' }
+                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: 'white'
+                      },
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: 'white'
+                      }
                   }}
                 />
               </Grid>
@@ -327,13 +391,27 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                           {show ? <VisibilityOffIcon /> : <VisibilityIcon />}
                         </Button>
                       </InputAdornment>
-                    )
+                    ),
+                    sx: {
+                      color: 'white'
+                    }
                   }}
                   sx={{
-                    '& .MuiOutlinedInput-root': {
-                      color: ' white'
+                    '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: '#D3D3D2'
+                      },
+                    '& .MuiInputLabel-root': {
+                      color: 'white'
                     },
-                    '& .MuiInputLabel-root': { color: ' white' }
+                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: 'white'
+                      },
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: 'white'
+                      }
                   }}
                 />
               </Grid>
@@ -347,11 +425,21 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                   error={passwordError}
                   helperText={passwordErrorText}
                   sx={{
-                    mb: 2,
-                    '& .MuiOutlinedInput-root': {
-                      color: ' white'
+                    '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: '#D3D3D2'
+                      },
+                    '& .MuiInputLabel-root': {
+                      color: 'white'
                     },
-                    '& .MuiInputLabel-root': { color: ' white' }
+                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: 'white'
+                      },
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: 'white'
+                      }
                   }}
                   InputProps={{
                     endAdornment: (
@@ -360,29 +448,70 @@ export default function SignUp({ isLogin, setIsLogin, props }) {
                           {show ? <VisibilityOffIcon /> : <VisibilityIcon />}
                         </Button>
                       </InputAdornment>
-                    )
+                    ),
+                    sx: {
+                      color: 'white'
+                    }
                   }}
                 />
               </Grid>
               <Grid item xs={12}>
-                {picture && (
-                  <img src={picture} alt="Selected" width="100" height="100" />
-                )}
-                <IKContext
-                  publicKey={process.env.REACT_APP_IMAGEIO_PUBLIC_KEY}
-                  authenticationEndpoint={
-                    process.env.REACT_APP_IMAGEIO_AUTH_ENDPOINT
-                  }
-                  urlEndpoint={process.env.REACT_APP_IMAGEIO_URL_ENDPOINT}
-                >
-                  <IKUpload
-                    onSuccess={handleSuccess}
-                    onError={handleError}
-                    className="fileUploadInput"
-                    onUploadStart={onUploadStart}
-                  />
-                </IKContext>
+                <Box sx={{ mt: 2 }}>
+                  <Typography variant="body1" color="white" sx={{ mb: 1 }}>
+                    Upload Profile Picture:
+                  </Typography>
+                  <label
+                    htmlFor="fileInput"
+                    style={{ display: 'flex', justifyContent: 'center' }}
+                  >
+                    <input
+                      type="file"
+                      id="fileInput"
+                      style={{
+                        opacity: 0,
+                        position: 'absolute',
+                        left: 0,
+                        top: 0,
+                        width: '100%',
+                        height: '100%',
+                        cursor: 'pointer'
+                      }}
+                      onChange={event => {
+                        const file = event.target.files[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onload = e => {
+                            handleSuccess({ url: e.target.result });
+                          };
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                    />
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        border: '1px dashed #ccc',
+                        borderRadius: '8px',
+                        padding: '8px',
+                        textAlign: 'center',
+                        width: '150px', // Set a specific width if needed
+                        margin: '0 auto' // Center horizontally
+                      }}
+                    >
+                      {picture ? (
+                        <Avatar src={picture} alt="Selected" sx={{ mt: 1 }} />
+                      ) : (
+                        <Typography variant="body2" color="white">
+                          Click to Upload
+                        </Typography>
+                      )}
+                    </div>
+                  </label>
+                </Box>
               </Grid>
+
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
