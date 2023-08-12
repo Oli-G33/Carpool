@@ -49,7 +49,8 @@ function ForgotPassword() {
           <LockResetIcon
             sx={{
               fontSize: '1.2em',
-              verticalAlign: 'middle'
+              verticalAlign: 'middle',
+              marginLeft: '8px'
             }}
           />
         </Typography>
