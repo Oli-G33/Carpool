@@ -30,3 +30,12 @@ export const cancelMyRide = async (passengerId, date) => {
       throw error;
     });
 };
+
+export const fetchPendingRides = async driverId => {
+  try {
+    const response = await api.get(`/booking/pending-rides/${driverId}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

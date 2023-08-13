@@ -13,7 +13,9 @@ import {
   Divider,
   useMediaQuery,
   Avatar,
-  Tooltip
+  Tooltip,
+  Tabs,
+  Tab
 } from '@mui/material';
 import ModeIcon from '@mui/icons-material/Mode';
 import Navbar from '../components/Navbar';
@@ -33,8 +35,13 @@ const MyRidesPage = () => {
 
   const [rides, setRides] = useState([]);
   const [openModal, setOpenModal] = useState(false);
-
   const [loading, setLoading] = useState(false);
+
+  const [currentTab, setCurrentTab] = useState(0);
+
+  const handleTabChange = (event, newValue) => {
+    setCurrentTab(newValue);
+  };
 
   useEffect(() => {
     const fetchRides = async () => {
@@ -108,6 +115,16 @@ const MyRidesPage = () => {
   };
 
   const isMobileScreen = useMediaQuery('(max-width:600px)');
+  const boxStyle = {
+    backgroundColor: 'rgba(200, 200, 200, 0.6)',
+    border: '1px solid #ccc',
+    borderRadius: '8px',
+    padding: '16px'
+  };
+
+  const whiteFontStyle = {
+    color: 'white'
+  };
 
   return (
     <>
@@ -142,137 +159,161 @@ const MyRidesPage = () => {
                 />
               </Box>
             </Grid>
-
             <Grid item xs={12}>
-              <Paper
-                elevation={3}
-                variant="outlined"
+              <Box
                 sx={{
+                  marginTop: 2,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'flex-start',
                   backgroundColor: 'rgba(200, 200, 200, 0.6)',
                   border: '1px solid #ccc',
                   borderRadius: '8px',
-
-                  maxWidth: isMobileScreen ? '95%' : '80%',
-                  margin: '0 auto'
+                  height: '10vh',
+                  textAlign: 'center',
+                  margin: '0 auto',
+                  marginBottom: '2%',
+                  maxWidth: isMobileScreen ? '95%' : '80%'
                 }}
               >
-                {rides.length > 0 ? (
-                  <List>
-                    {rides.map((ride, index) => (
-                      <React.Fragment key={index}>
-                        <ListItem>
-                          <Paper
-                            elevation={1}
-                            variant="outlined"
-                            sx={{
-                              backgroundColor: 'rgba(200, 200, 200, 0.6)',
-                              border: '1px solid #ccc',
-                              borderRadius: '8px',
-                              padding: '8px',
-                              width: '95%',
-                              display: 'flex',
-                              alignItems: 'center'
-                            }}
-                          >
-                            <Box
+                <Tabs value={currentTab} onChange={handleTabChange}>
+                  <Tab label="Confirmed rides" sx={{ ...whiteFontStyle }} />
+                  <Tab label="Pending rides" sx={{ ...whiteFontStyle }} />
+                </Tabs>
+              </Box>
+            </Grid>
+
+            {currentTab === 0 && (
+              <Grid item xs={12}>
+                <Paper
+                  elevation={3}
+                  variant="outlined"
+                  sx={{
+                    backgroundColor: 'rgba(200, 200, 200, 0.6)',
+                    border: '1px solid #ccc',
+                    borderRadius: '8px',
+
+                    maxWidth: isMobileScreen ? '95%' : '80%',
+                    margin: '0 auto'
+                  }}
+                >
+                  {rides.length > 0 ? (
+                    <List>
+                      {rides.map((ride, index) => (
+                        <React.Fragment key={index}>
+                          <ListItem>
+                            <Paper
+                              elevation={1}
+                              variant="outlined"
                               sx={{
-                                flex: '0 0 40%',
+                                backgroundColor: 'rgba(200, 200, 200, 0.6)',
+                                border: '1px solid #ccc',
+                                borderRadius: '8px',
+                                padding: '8px',
+                                width: '95%',
                                 display: 'flex',
-                                alignItems: 'center',
-                                marginLeft: '8px',
-                                marginRight: isMobileScreen ? '4px' : '8px'
-                              }}
-                            >
-                              <Typography sx={{ color: 'white' }}>
-                                {ride.date}
-                              </Typography>
-                            </Box>
-                            <Box
-                              sx={{
-                                flex: '0 0 60%',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between'
+                                alignItems: 'center'
                               }}
                             >
                               <Box
                                 sx={{
+                                  flex: '0 0 40%',
                                   display: 'flex',
-                                  alignItems: 'center'
+                                  alignItems: 'center',
+                                  marginLeft: '8px',
+                                  marginRight: isMobileScreen ? '4px' : '8px'
                                 }}
                               >
-                                <Tooltip
-                                  title={`${ride.driverFirstName} ${ride.driverLastName}`}
-                                  arrow
-                                  placement="top-start"
-                                >
-                                  <Avatar
-                                    src={ride.driverPicture}
-                                    alt="Driver"
-                                    sx={{
-                                      width: isMobileScreen ? 30 : 36,
-                                      height: isMobileScreen ? 30 : 36,
-                                      marginRight: isMobileScreen ? 1 : 2,
-                                      cursor: 'pointer'
-                                    }}
-                                  />
-                                </Tooltip>
-                                <Link
-                                  href={`https://wa.me/${ride.driverPhoneNumber}`}
-                                  color="inherit"
-                                  underline="none"
-                                  target="_blank"
+                                <Typography sx={{ color: 'white' }}>
+                                  {ride.date}
+                                </Typography>
+                              </Box>
+                              <Box
+                                sx={{
+                                  flex: '0 0 60%',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'space-between'
+                                }}
+                              >
+                                <Box
                                   sx={{
-                                    marginRight: isMobileScreen ? 2 : 3
+                                    display: 'flex',
+                                    alignItems: 'center'
                                   }}
                                 >
-                                  <WhatsAppIcon
+                                  <Tooltip
+                                    title={`${ride.driverFirstName} ${ride.driverLastName}`}
+                                    arrow
+                                    placement="top-start"
+                                  >
+                                    <Avatar
+                                      src={ride.driverPicture}
+                                      alt="Driver"
+                                      sx={{
+                                        width: isMobileScreen ? 30 : 36,
+                                        height: isMobileScreen ? 30 : 36,
+                                        marginRight: isMobileScreen ? 1 : 2,
+                                        cursor: 'pointer'
+                                      }}
+                                    />
+                                  </Tooltip>
+                                  <Link
+                                    href={`https://wa.me/${ride.driverPhoneNumber}`}
+                                    color="inherit"
+                                    underline="none"
+                                    target="_blank"
                                     sx={{
-                                      color: '#128c7e',
-                                      fontSize: '20px'
+                                      marginRight: isMobileScreen ? 2 : 3
                                     }}
-                                  />
-                                </Link>
+                                  >
+                                    <WhatsAppIcon
+                                      sx={{
+                                        color: '#128c7e',
+                                        fontSize: '20px'
+                                      }}
+                                    />
+                                  </Link>
 
-                                <Button
-                                  variant="contained"
-                                  color="error"
-                                  size="small"
-                                  onClick={() =>
-                                    handleCancelRide(
-                                      ride.passengerId,
-                                      ride.date
-                                    )
-                                  }
-                                  disabled={loading}
-                                >
-                                  {loading ? (
-                                    <CircularProgress size={20} />
-                                  ) : (
-                                    <DeleteIcon />
-                                  )}
-                                </Button>
+                                  <Button
+                                    variant="contained"
+                                    color="error"
+                                    size="small"
+                                    onClick={() =>
+                                      handleCancelRide(
+                                        ride.passengerId,
+                                        ride.date
+                                      )
+                                    }
+                                    disabled={loading}
+                                  >
+                                    {loading ? (
+                                      <CircularProgress size={20} />
+                                    ) : (
+                                      <DeleteIcon />
+                                    )}
+                                  </Button>
+                                </Box>
                               </Box>
-                            </Box>
-                          </Paper>
-                        </ListItem>
-                        {index !== rides.length - 1 && <Divider />}
-                      </React.Fragment>
-                    ))}
-                  </List>
-                ) : (
-                  <Typography
-                    sx={{
-                      color: 'white',
-                      padding: '1%'
-                    }}
-                  >
-                    No rides found
-                  </Typography>
-                )}
-              </Paper>
-            </Grid>
-
+                            </Paper>
+                          </ListItem>
+                          {index !== rides.length - 1 && <Divider />}
+                        </React.Fragment>
+                      ))}
+                    </List>
+                  ) : (
+                    <Typography
+                      sx={{
+                        color: 'white',
+                        padding: '1%'
+                      }}
+                    >
+                      No rides found
+                    </Typography>
+                  )}
+                </Paper>
+              </Grid>
+            )}
             <Grid item xs={12}>
               <Box mt={2} mb={12}>
                 <Link href="#" onClick={handleOpenModal} color="#D3D3D2">

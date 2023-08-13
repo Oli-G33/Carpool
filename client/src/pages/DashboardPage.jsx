@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Container,
   Grid,
@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Navbar from '../components/Navbar';
-import { getPassengers } from '../services/weeklyRides';
+import { getPassengers, fetchPendingRides } from '../services/weeklyRides';
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -22,12 +22,33 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import MobileNavbar from '../components/MobileNavbar';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import EmailIcon from '@mui/icons-material/Email';
+import { useSelector } from 'react-redux';
 
 const DashboardPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [passengers, setPassengers] = useState([]);
+  const [pendingPassengers, setPendingPassengers] = useState([]);
   const isNonMobileScreens = useMediaQuery('(min-width:800px)');
   const [currentTab, setCurrentTab] = useState(0);
+
+  const user = useSelector(state => state.user);
+
+  const driverId = user._id;
+
+  useEffect(() => {
+    if (currentTab === 1) {
+      // Assuming 1 corresponds to the "Pending rides" tab
+      // Call the API function here with the driver's ID
+      fetchPendingRides(driverId)
+        .then(data => {
+          setPendingPassengers(data);
+          console.log(pendingPassengers);
+        })
+        .catch(error => {
+          console.error('Error fetching pending passengers:', error);
+        });
+    }
+  }, [currentTab, driverId]);
 
   const handleTabChange = (event, newValue) => {
     setCurrentTab(newValue);
@@ -140,6 +161,7 @@ const DashboardPage = () => {
                     label="Choose a date"
                     value={selectedDate}
                     onChange={handleDateChange}
+                    className="custom-calendar"
                     fullWidth
                     sx={{
                       '& .MuiOutlinedInput-root': {
@@ -173,8 +195,8 @@ const DashboardPage = () => {
             )}
           </Grid>
 
-          <Grid item xs={12} md={6}>
-            {currentTab === 0 && (
+          {currentTab === 0 && (
+            <Grid item xs={12} md={6}>
               <Paper elevation={3} sx={{ ...boxStyle, minHeight: '14.75vh' }}>
                 <Typography
                   variant="h6"
@@ -254,6 +276,93 @@ const DashboardPage = () => {
                     sx={{ ...whiteFontStyle }}
                   >
                     No passengers found for the selected date.
+                  </Typography>
+                )}
+              </Paper>
+            </Grid>
+          )}
+
+          <Grid item xs={12} md={12}>
+            {currentTab === 1 && (
+              <Paper elevation={3} sx={{ ...boxStyle, minHeight: '14.75vh' }}>
+                <Typography
+                  variant="h6"
+                  component="h2"
+                  mb={2}
+                  sx={{ ...whiteFontStyle }}
+                >
+                  Pending confirmation:
+                </Typography>
+                {pendingPassengers.length > 0 ? (
+                  pendingPassengers.map(passenger => (
+                    <Paper
+                      elevation={1}
+                      key={passenger._id}
+                      sx={{
+                        ...boxStyle,
+                        marginBottom: '8px',
+                        display: 'flex',
+                        alignItems: 'center'
+                      }}
+                    >
+                      <Avatar
+                        src={passenger.userId.picture}
+                        alt={`${passenger.userId.firstName} ${passenger.userId.lastName}`}
+                        sx={{ marginRight: '24px' }}
+                      />
+                      <div
+                        style={{
+                          flex: 1,
+                          display: 'flex',
+                          alignItems: 'center'
+                        }}
+                      >
+                        <Typography
+                          variant="body1"
+                          component="p"
+                          sx={{ ...whiteFontStyle }}
+                        >
+                          {passenger.userId.firstName}{' '}
+                          {passenger.userId.lastName}{' '}
+                          {dayjs(passenger.date).format('DD/MM/YYYY')}
+                        </Typography>
+                        <Link
+                          href={`https://wa.me/${passenger.userId.phoneNumber}`}
+                          color="inherit"
+                          underline="none"
+                          target="_blank"
+                          ml={2}
+                          sx={{ marginLeft: 'auto' }}
+                        >
+                          <WhatsAppIcon
+                            sx={{
+                              color: '#128c7e'
+                            }}
+                          />
+                        </Link>
+                        <Link
+                          href={`mailto:${passenger.email}`}
+                          color="inherit"
+                          underline="none"
+                          target="_blank"
+                          ml={2}
+                        >
+                          <EmailIcon
+                            sx={{
+                              color: '#FF5722'
+                            }}
+                          />
+                        </Link>
+                      </div>
+                    </Paper>
+                  ))
+                ) : (
+                  <Typography
+                    variant="body1"
+                    component="p"
+                    sx={{ ...whiteFontStyle }}
+                  >
+                    No pending rides.
                   </Typography>
                 )}
               </Paper>

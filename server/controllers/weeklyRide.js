@@ -131,9 +131,11 @@ const fetchPassengers = async (req, res) => {
       return res.json([]); // Respond with an empty array
     }
 
-    // Filter passengers based on the desired date
+    // Filter passengers based on the desired date and status
     const passengersWithRideOnDate = ride.passengers.filter(
-      (passenger) => passenger.date.getTime() === desiredDate.getTime()
+      (passenger) =>
+        passenger.date.getTime() === desiredDate.getTime() &&
+        passenger.status === 'confirmed'
     );
 
     console.log('passengers =>', passengersWithRideOnDate);
@@ -238,21 +240,66 @@ const cancelMyRide = async (req, res) => {
 };
 
 const getPendingPassengers = async (req, res) => {
-  const loggedInDriverId = req.params;
+  const { id } = req.params;
+
   try {
     const pendingPassengers = await WeeklyRide.find({
-      driver: loggedInDriverId,
+      driver: id,
       'passengers.status': 'pending'
     })
       .select('passengers')
-      .populate('passengers.userId', 'firstName lastName');
+      .populate(
+        'passengers.userId',
+        'firstName lastName picture phoneNumber email'
+      );
 
-    res.json(pendingPassengers);
+    const formattedPendingPassengers = pendingPassengers.map((ride) =>
+      ride.passengers
+        .filter((passenger) => passenger.status === 'pending')
+        .map((passenger) => ({
+          userId: passenger.userId,
+          _id: passenger._id,
+          date: passenger.date,
+          status: passenger.status,
+          location: passenger.location,
+          pickupTime: passenger.pickupTime
+        }))
+    );
+
+    res.json(formattedPendingPassengers.flat());
   } catch (error) {
     console.error('Error fetching pending passengers:', error);
     res
       .status(500)
       .json({ error: 'An error occurred while fetching pending passengers.' });
+  }
+};
+
+const confirmRide = async (req, res) => {
+  const { location, pickupTime, rideId } = req.body;
+
+  try {
+    const updatedRide = await WeeklyRide.findOneAndUpdate(
+      {
+        'passengers._id': rideId
+      },
+      {
+        $set: {
+          'passengers.$.status': 'confirmed',
+          'passengers.$.location': location,
+          'passengers.$.pickupTime': pickupTime
+        }
+      },
+      { new: true }
+    );
+
+    if (!updatedRide) {
+      return res.status(404).json({ message: 'Ride not found' });
+    }
+
+    res.json(updatedRide);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -262,5 +309,6 @@ module.exports = {
   fetchPassengers,
   fetchMyRides,
   cancelMyRide,
-  getPendingPassengers
+  getPendingPassengers,
+  confirmRide
 };
