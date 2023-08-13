@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   Typography,
   TextField,
@@ -8,7 +8,8 @@ import {
   Container,
   Box,
   InputAdornment,
-  IconButton
+  IconButton,
+  Alert
 } from '@mui/material';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -22,6 +23,7 @@ function ResetPassword() {
   const [passwordError, setPasswordError] = useState();
   const [passwordErrorText, setPasswordErrorText] = useState('');
   const { resetToken } = useParams();
+  const navigate = useNavigate();
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -48,8 +50,12 @@ function ResetPassword() {
           password
         }
       );
-
-      setMessage(response.data.message);
+      if (response.data.message === 'Password reset successful') {
+        setMessage(response.data.message);
+        setTimeout(() => {
+          navigate('/');
+        }, '5000');
+      }
     } catch (error) {
       setMessage('An error occurred');
     }
@@ -76,7 +82,7 @@ function ResetPassword() {
           backgroundColor: 'rgba(200, 200, 200, 0.6)',
           border: '1px solid #ccc',
           borderRadius: '8px',
-          width: '100%',
+          width: '80%',
           maxWidth: '400px',
           padding: '16px',
           textAlign: 'center'
@@ -176,7 +182,9 @@ function ResetPassword() {
           </Button>
         </form>
         <Typography variant="body1" color="textSecondary" mt={2}>
-          {message}
+          {message && (
+            <Alert severity="success">Password reset successfully!</Alert>
+          )}
         </Typography>
       </Box>
     </Container>

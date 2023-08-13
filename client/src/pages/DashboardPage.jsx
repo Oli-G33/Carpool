@@ -7,7 +7,9 @@ import {
   Link,
   useMediaQuery,
   Avatar,
-  Box
+  Box,
+  Tabs,
+  Tab
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Navbar from '../components/Navbar';
@@ -25,10 +27,15 @@ const DashboardPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [passengers, setPassengers] = useState([]);
   const isNonMobileScreens = useMediaQuery('(min-width:800px)');
+  const [currentTab, setCurrentTab] = useState(0);
+
+  const handleTabChange = (event, newValue) => {
+    setCurrentTab(newValue);
+  };
 
   const handleDateChange = async date => {
+    setSelectedDate(date);
     const formattedDate = dayjs(date).format('YYYY-MM-DD');
-    setSelectedDate(formattedDate);
 
     try {
       const retrievedPassengers = await getPassengers(formattedDate);
@@ -63,6 +70,7 @@ const DashboardPage = () => {
   return (
     <>
       {isMobileScreen ? <MobileNavbar /> : <Navbar />}
+
       <Container maxWidth="lg" sx={{ marginTop: '50px' }}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
@@ -91,132 +99,165 @@ const DashboardPage = () => {
               <DashboardIcon sx={{ marginLeft: '10px', fontSize: '32px' }} />
             </Box>
           </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper elevation={3} sx={{ ...boxStyle }}>
-              <Typography
-                variant="h6"
-                component="h2"
-                mb={2}
-                sx={{ ...whiteFontStyle }}
-              >
-                Select a Date
-              </Typography>
-              <LocalizationProvider
-                dateAdapter={AdapterDayjs}
-                adapterLocale="en-gb"
-              >
-                <DatePicker
-                  label="Choose a date"
-                  value={selectedDate}
-                  onChange={handleDateChange}
-                  fullWidth
-                  sx={{
-                    '& .MuiOutlinedInput-root': {
-                      color: ' white'
-                    },
-                    '& .MuiInput-underline:before': {
-                      borderBottomColor: 'white'
-                    },
-                    '& .MuiInput-underline:after': {
-                      borderBottomColor: 'white'
-                    },
-                    '& .MuiInputLabel-root': {
-                      color: 'white'
-                    },
-                    '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
-                      {
-                        borderColor: 'white'
-                      },
-                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
-                      {
-                        borderColor: '#D3D3D2'
-                      },
-                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
-                      {
-                        borderColor: 'white'
-                      }
-                  }}
-                />
-              </LocalizationProvider>
-            </Paper>
+          <Grid item xs={12} md={12}>
+            <Box
+              sx={{
+                marginTop: 2,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                backgroundColor: 'rgba(200, 200, 200, 0.6)',
+                border: '1px solid #ccc',
+                borderRadius: '8px',
+                height: '10vh',
+                textAlign: 'center',
+                margin: '0 auto',
+                marginBottom: '2%'
+              }}
+            >
+              <Tabs value={currentTab} onChange={handleTabChange}>
+                <Tab label="Confirmed rides" sx={{ ...whiteFontStyle }} />
+                <Tab label="Pending rides" sx={{ ...whiteFontStyle }} />
+              </Tabs>
+            </Box>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Paper elevation={3} sx={{ ...boxStyle }}>
-              <Typography
-                variant="h6"
-                component="h2"
-                mb={2}
-                sx={{ ...whiteFontStyle }}
-              >
-                Passengers for {selectedDate}
-              </Typography>
-              {passengers.length > 0 ? (
-                passengers.map(passenger => (
-                  <Paper
-                    elevation={1}
-                    key={passenger._id}
-                    sx={{
-                      ...boxStyle,
-                      marginBottom: '8px',
-                      display: 'flex',
-                      alignItems: 'center'
-                    }}
-                  >
-                    <Avatar
-                      src={passenger.picture}
-                      alt={`${passenger.firstName} ${passenger.lastName}`}
-                      sx={{ marginRight: '24px' }}
-                    />
-                    <div
-                      style={{ flex: 1, display: 'flex', alignItems: 'center' }}
-                    >
-                      <Typography
-                        variant="body1"
-                        component="p"
-                        sx={{ ...whiteFontStyle }}
-                      >
-                        {passenger.firstName} {passenger.lastName}
-                      </Typography>
-                      <Link
-                        href={`https://wa.me/${passenger.phoneNumber}`}
-                        color="inherit"
-                        underline="none"
-                        target="_blank"
-                        ml={2}
-                        sx={{ marginLeft: 'auto' }}
-                      >
-                        <WhatsAppIcon
-                          sx={{
-                            color: '#128c7e'
-                          }}
-                        />
-                      </Link>
-                      <Link
-                        href={`mailto:${passenger.email}`}
-                        color="inherit"
-                        underline="none"
-                        target="_blank"
-                        ml={2}
-                      >
-                        <EmailIcon
-                          sx={{
-                            color: '#FF5722'
-                          }}
-                        />
-                      </Link>
-                    </div>
-                  </Paper>
-                ))
-              ) : (
+            {currentTab === 0 && (
+              <Paper elevation={3} sx={{ ...boxStyle }}>
                 <Typography
-                  variant="body1"
-                  component="p"
+                  variant="h6"
+                  component="h2"
+                  mb={2}
                   sx={{ ...whiteFontStyle }}
                 >
-                  No passengers found for the selected date.
+                  Select a Date
                 </Typography>
-              )}
-            </Paper>
+                <LocalizationProvider
+                  dateAdapter={AdapterDayjs}
+                  adapterLocale="en-gb"
+                >
+                  <DatePicker
+                    label="Choose a date"
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    fullWidth
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        color: ' white'
+                      },
+                      '& .MuiInput-underline:before': {
+                        borderBottomColor: 'white'
+                      },
+                      '& .MuiInput-underline:after': {
+                        borderBottomColor: 'white'
+                      },
+                      '& .MuiInputLabel-root': {
+                        color: 'white'
+                      },
+                      '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                        {
+                          borderColor: 'white'
+                        },
+                      '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                        {
+                          borderColor: '#D3D3D2'
+                        },
+                      '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                        {
+                          borderColor: 'white'
+                        }
+                    }}
+                  />
+                </LocalizationProvider>
+              </Paper>
+            )}
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            {currentTab === 0 && (
+              <Paper elevation={3} sx={{ ...boxStyle, minHeight: '14.75vh' }}>
+                <Typography
+                  variant="h6"
+                  component="h2"
+                  mb={2}
+                  sx={{ ...whiteFontStyle }}
+                >
+                  Passengers for{' '}
+                  {selectedDate && dayjs(selectedDate).format('DD/MM/YYYY')}
+                </Typography>
+
+                {passengers.length > 0 ? (
+                  passengers.map(passenger => (
+                    <Paper
+                      elevation={1}
+                      key={passenger._id}
+                      sx={{
+                        ...boxStyle,
+                        marginBottom: '8px',
+                        display: 'flex',
+                        alignItems: 'center'
+                      }}
+                    >
+                      <Avatar
+                        src={passenger.picture}
+                        alt={`${passenger.firstName} ${passenger.lastName}`}
+                        sx={{ marginRight: '24px' }}
+                      />
+                      <div
+                        style={{
+                          flex: 1,
+                          display: 'flex',
+                          alignItems: 'center'
+                        }}
+                      >
+                        <Typography
+                          variant="body1"
+                          component="p"
+                          sx={{ ...whiteFontStyle }}
+                        >
+                          {passenger.firstName} {passenger.lastName}
+                        </Typography>
+                        <Link
+                          href={`https://wa.me/${passenger.phoneNumber}`}
+                          color="inherit"
+                          underline="none"
+                          target="_blank"
+                          ml={2}
+                          sx={{ marginLeft: 'auto' }}
+                        >
+                          <WhatsAppIcon
+                            sx={{
+                              color: '#128c7e'
+                            }}
+                          />
+                        </Link>
+                        <Link
+                          href={`mailto:${passenger.email}`}
+                          color="inherit"
+                          underline="none"
+                          target="_blank"
+                          ml={2}
+                        >
+                          <EmailIcon
+                            sx={{
+                              color: '#FF5722'
+                            }}
+                          />
+                        </Link>
+                      </div>
+                    </Paper>
+                  ))
+                ) : (
+                  <Typography
+                    variant="body1"
+                    component="p"
+                    sx={{ ...whiteFontStyle }}
+                  >
+                    No passengers found for the selected date.
+                  </Typography>
+                )}
+              </Paper>
+            )}
           </Grid>
         </Grid>
       </Container>

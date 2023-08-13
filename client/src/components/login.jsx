@@ -116,7 +116,7 @@ export default function Login({ isLogin, setIsLogin }) {
             maxWidth: '100%'
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'green', width: 62, height: 62 }}>
+          <Avatar sx={{ m: 1, bgcolor: 'orange', width: 62, height: 62 }}>
             <LockIcon />
           </Avatar>
           <Typography component="h1" variant="h5" color="white">

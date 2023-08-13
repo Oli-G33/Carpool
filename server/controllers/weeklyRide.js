@@ -237,10 +237,30 @@ const cancelMyRide = async (req, res) => {
   }
 };
 
+const getPendingPassengers = async (req, res) => {
+  const loggedInDriverId = req.params;
+  try {
+    const pendingPassengers = await WeeklyRide.find({
+      driver: loggedInDriverId,
+      'passengers.status': 'pending'
+    })
+      .select('passengers')
+      .populate('passengers.userId', 'firstName lastName');
+
+    res.json(pendingPassengers);
+  } catch (error) {
+    console.error('Error fetching pending passengers:', error);
+    res
+      .status(500)
+      .json({ error: 'An error occurred while fetching pending passengers.' });
+  }
+};
+
 module.exports = {
   getSeats,
   bookSeat,
   fetchPassengers,
   fetchMyRides,
-  cancelMyRide
+  cancelMyRide,
+  getPendingPassengers
 };

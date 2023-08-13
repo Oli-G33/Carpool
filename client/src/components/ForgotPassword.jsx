@@ -24,7 +24,7 @@ function ForgotPassword() {
   return (
     <Container
       component="div"
-      maxWidth="xs"
+      maxWidth="80%"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -38,7 +38,7 @@ function ForgotPassword() {
           backgroundColor: 'rgba(200, 200, 200, 0.6)',
           border: '1px solid #ccc',
           borderRadius: '8px',
-          width: '100%',
+          width: '80%',
           maxWidth: '400px',
           padding: '16px',
           textAlign: 'center'
