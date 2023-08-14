@@ -358,7 +358,7 @@ const EditProfileModal = ({
                 {picture ? (
                   <Avatar src={picture} alt="Selected" sx={{ mt: 1, mb: 1 }} />
                 ) : (
-                  <Typography variant="body2" color="white">
+                  <Typography variant="body2" color="black">
                     Click to Upload
                   </Typography>
                 )}
