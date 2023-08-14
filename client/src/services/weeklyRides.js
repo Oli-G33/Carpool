@@ -39,3 +39,12 @@ export const fetchPendingRides = async driverId => {
     throw error;
   }
 };
+
+export const confirmRide = async body => {
+  try {
+    const response = await api.post('/booking/confirm-ride', body);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

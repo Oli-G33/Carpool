@@ -31,7 +31,7 @@ const EditProfileModal = ({
   const [lastName, setLastName] = useState(user.lastName || '');
   const [phone, setPhone] = useState(user.phoneNumber || '');
   const [email, setEmail] = useState(user.email || '');
-  const [picture, setPicture] = useState("");
+  const [picture, setPicture] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [firstNameError, setFirstNameError] = useState(false);
@@ -198,8 +198,8 @@ const EditProfileModal = ({
             onClick={handleCloseModal}
             sx={{
               position: 'absolute',
-              top: isMobileScreen ? 'unset' : '8px', // Set to 'unset' for mobile screens, '8px' for non-mobile screens
-              bottom: isMobileScreen ? '8px' : 'unset', // Set to '8px' for mobile screens, 'unset' for non-mobile screens
+              top: isMobileScreen ? 'unset' : '8px',
+              bottom: isMobileScreen ? '8px' : 'unset',
               left: '8px',
               padding: '4px',
               minWidth: 'unset',
@@ -331,13 +331,12 @@ const EditProfileModal = ({
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  width: '50px',
+                  width: '150px',
                   height: '50px',
                   border: '1px dashed #ccc',
                   borderRadius: '8px',
                   padding: '8px',
                   textAlign: 'center',
-                  width: '150px',
                   margin: '0 auto'
                 }}
               >
@@ -351,12 +350,16 @@ const EditProfileModal = ({
                     position: 'absolute',
                     left: 0,
                     top: 0,
-                    width: '100%',
-                    height: '100%'
+                    width: '165px',
+                    height: '65px'
                   }}
                 />
                 {picture ? (
-                  <Avatar src={picture} alt="Selected" sx={{ mt: 1, mb: 1 }} />
+                  <Avatar
+                    src={picture}
+                    alt="Selected"
+                    sx={{ mt: 1, mb: 1, width: 48 }}
+                  />
                 ) : (
                   <Typography variant="body2" color="black">
                     Click to Upload

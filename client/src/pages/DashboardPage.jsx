@@ -9,7 +9,8 @@ import {
   Avatar,
   Box,
   Tabs,
-  Tab
+  Tab,
+  Button
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Navbar from '../components/Navbar';
@@ -23,6 +24,8 @@ import MobileNavbar from '../components/MobileNavbar';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import EmailIcon from '@mui/icons-material/Email';
 import { useSelector } from 'react-redux';
+import RideConfirmModal from '../components/RideConfirmModal';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 const DashboardPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -30,6 +33,8 @@ const DashboardPage = () => {
   const [pendingPassengers, setPendingPassengers] = useState([]);
   const isNonMobileScreens = useMediaQuery('(min-width:800px)');
   const [currentTab, setCurrentTab] = useState(0);
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedPassenger, setSelectedPassenger] = useState(null);
 
   const user = useSelector(state => state.user);
 
@@ -86,6 +91,15 @@ const DashboardPage = () => {
 
   const whiteFontStyle = {
     color: 'white'
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
+  const handleOpenModal = passenger => {
+    setSelectedPassenger(passenger);
+    setOpenModal(true);
   };
 
   return (
@@ -239,6 +253,7 @@ const DashboardPage = () => {
                         >
                           {passenger.firstName} {passenger.lastName}
                         </Typography>
+
                         <Link
                           href={`https://wa.me/${passenger.phoneNumber}`}
                           color="inherit"
@@ -326,6 +341,27 @@ const DashboardPage = () => {
                           {passenger.userId.lastName}{' '}
                           {dayjs(passenger.date).format('DD/MM/YYYY')}
                         </Typography>
+
+                        <Link
+                          href="#"
+                          color="inherit"
+                          underline="none"
+                          onClick={() => handleOpenModal(passenger)}
+                          sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            marginLeft: 'auto',
+                            marginRight: '10px'
+                          }}
+                        >
+                          <CheckCircleOutlineIcon
+                            sx={{
+                              color: 'green',
+                              marginRight: '4px'
+                            }}
+                          />
+                        </Link>
+
                         <Link
                           href={`https://wa.me/${passenger.userId.phoneNumber}`}
                           color="inherit"
@@ -341,7 +377,7 @@ const DashboardPage = () => {
                           />
                         </Link>
                         <Link
-                          href={`mailto:${passenger.email}`}
+                          href={`mailto:${passenger.userId.email}`}
                           color="inherit"
                           underline="none"
                           target="_blank"
@@ -362,12 +398,18 @@ const DashboardPage = () => {
                     component="p"
                     sx={{ ...whiteFontStyle }}
                   >
-                    No pending rides.
+                    No pending rides
                   </Typography>
                 )}
               </Paper>
             )}
           </Grid>
+          <RideConfirmModal
+            open={openModal}
+            onClose={() => setOpenModal(false)}
+            selectedPassenger={selectedPassenger}
+            fetchPendingRides={fetchPendingRides}
+          />
         </Grid>
       </Container>
     </>

@@ -101,7 +101,6 @@ const MyRidesPage = () => {
     }
   };
 
-
   const isMobileScreen = useMediaQuery('(max-width:600px)');
   const boxStyle = {
     backgroundColor: 'rgba(200, 200, 200, 0.6)',
@@ -143,7 +142,7 @@ const MyRidesPage = () => {
                   My Rides
                 </Typography>
                 <DirectionsCarIcon
-                  sx={{ marginLeft: '10px', fontSize: '32px' }}
+                  sx={{ marginLeft: '10px', fontSize: '32px', color: 'white' }}
                 />
               </Box>
             </Grid>
@@ -157,7 +156,7 @@ const MyRidesPage = () => {
                   backgroundColor: 'rgba(200, 200, 200, 0.6)',
                   border: '1px solid #ccc',
                   borderRadius: '8px',
-                  height: '10vh',
+                  height: '7vh',
                   textAlign: 'center',
                   margin: '0 auto',
                   marginBottom: '2%',
@@ -301,8 +300,8 @@ const MyRidesPage = () => {
                   )}
                 </Paper>
               </Grid>
-            )}     
-          </Grid>            
+            )}
+          </Grid>
         </Container>
       </Box>
     </>
