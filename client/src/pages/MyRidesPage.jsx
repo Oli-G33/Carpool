@@ -17,16 +17,13 @@ import {
   Tabs,
   Tab
 } from '@mui/material';
-import ModeIcon from '@mui/icons-material/Mode';
 import Navbar from '../components/Navbar';
 import { getMyRides, cancelMyRide } from '../services/weeklyRides';
 import CircularProgress from '@mui/material/CircularProgress';
 import dayjs from 'dayjs';
-import EditProfileModal from '../components/EditProfileModal';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import MobileNavbar from '../components/MobileNavbar';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const MyRidesPage = () => {
@@ -34,9 +31,7 @@ const MyRidesPage = () => {
   const isNonMobileScreens = useMediaQuery('(min-width:800px)');
 
   const [rides, setRides] = useState([]);
-  const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const [currentTab, setCurrentTab] = useState(0);
 
   const handleTabChange = (event, newValue) => {
@@ -106,13 +101,6 @@ const MyRidesPage = () => {
     }
   };
 
-  const handleOpenModal = () => {
-    setOpenModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
 
   const isMobileScreen = useMediaQuery('(max-width:600px)');
   const boxStyle = {
@@ -313,24 +301,8 @@ const MyRidesPage = () => {
                   )}
                 </Paper>
               </Grid>
-            )}
-            <Grid item xs={12}>
-              <Box mt={2} mb={12}>
-                <Link href="#" onClick={handleOpenModal} color="#D3D3D2">
-                  Edit Profile
-                  <ModeIcon sx={{ ml: 1 }} />
-                </Link>
-              </Box>
-            </Grid>
-          </Grid>
-
-          {/* Personal Details Modal */}
-          <EditProfileModal
-            user={user}
-            handleCloseModal={handleCloseModal}
-            handleOpenModal={handleOpenModal}
-            openModal={openModal}
-          />
+            )}     
+          </Grid>            
         </Container>
       </Box>
     </>

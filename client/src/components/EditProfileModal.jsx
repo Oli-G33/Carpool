@@ -31,7 +31,7 @@ const EditProfileModal = ({
   const [lastName, setLastName] = useState(user.lastName || '');
   const [phone, setPhone] = useState(user.phoneNumber || '');
   const [email, setEmail] = useState(user.email || '');
-  const [picture, setPicture] = useState(user.picture);
+  const [picture, setPicture] = useState("");
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [firstNameError, setFirstNameError] = useState(false);
@@ -358,7 +358,7 @@ const EditProfileModal = ({
                 {picture ? (
                   <Avatar src={picture} alt="Selected" sx={{ mt: 1, mb: 1 }} />
                 ) : (
-                  <Typography variant="body2" color="white">
+                  <Typography variant="body2" color="black">
                     Click to Upload
                   </Typography>
                 )}

@@ -21,10 +21,12 @@ import Link from '@mui/material/Link';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import CloseIcon from '@mui/icons-material/Close';
 import MinorCrashTwoToneIcon from '@mui/icons-material/MinorCrashTwoTone';
+import EditProfileModal from './EditProfileModal';
 
 const Navbar = ({ isNonMobileScreens, isMobileScreen }) => {
   const [open, setOpen] = useState(false);
   const [avatarKey, setAvatarKey] = useState(0);
+  const [openModal, setOpenModal] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -49,6 +51,14 @@ const Navbar = ({ isNonMobileScreens, isMobileScreen }) => {
     dispatch(setLogout());
   };
   const phoneNumber = process.env.REACT_APP_WHATSAPP_NUMBER;
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
 
   const drawer = (
     <List>
@@ -243,12 +253,8 @@ const Navbar = ({ isNonMobileScreens, isMobileScreen }) => {
         {user && (
           <>
             {' '}
-            <Link
-              component={RouterLink}
-              to="/myrides"
-              color="inherit"
-              underline="none"
-            >
+         
+               <Link href="#" onClick={handleOpenModal}  color="inherit" underline="none">
               <Avatar
                 key={avatarKey}
                 src={user.picture}
@@ -280,6 +286,13 @@ const Navbar = ({ isNonMobileScreens, isMobileScreen }) => {
       >
         {drawer}
       </Drawer>
+
+      <EditProfileModal
+            user={user}
+            handleCloseModal={handleCloseModal}
+            handleOpenModal={handleOpenModal}
+            openModal={openModal}
+          />
     </AppBar>
   );
 };
