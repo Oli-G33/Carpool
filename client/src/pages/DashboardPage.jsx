@@ -130,10 +130,10 @@ const DashboardPage = () => {
                 backgroundColor: 'rgba(200, 200, 200, 0.6)',
                 border: '1px solid #ccc',
                 borderRadius: '8px',
-                height: '10vh',
+                height: '7.5vh',
                 textAlign: 'center',
                 margin: '0 auto',
-                marginBottom: '2%'
+                marginBottom: '0.5%'
               }}
             >
               <Tabs value={currentTab} onChange={handleTabChange}>
