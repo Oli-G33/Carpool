@@ -42,8 +42,6 @@ const DashboardPage = () => {
 
   useEffect(() => {
     if (currentTab === 1) {
-      // Assuming 1 corresponds to the "Pending rides" tab
-      // Call the API function here with the driver's ID
       fetchPendingRides(driverId)
         .then(data => {
           setPendingPassengers(data);
@@ -100,6 +98,16 @@ const DashboardPage = () => {
   const handleOpenModal = passenger => {
     setSelectedPassenger(passenger);
     setOpenModal(true);
+  };
+
+  const handleRideConfirmed = () => {
+    fetchPendingRides(driverId)
+      .then(data => {
+        setPendingPassengers(data);
+      })
+      .catch(error => {
+        console.error('Error fetching pending passengers:', error);
+      });
   };
 
   return (
@@ -408,7 +416,7 @@ const DashboardPage = () => {
             open={openModal}
             onClose={() => setOpenModal(false)}
             selectedPassenger={selectedPassenger}
-            fetchPendingRides={fetchPendingRides}
+            onRideConfirmed={handleRideConfirmed}
           />
         </Grid>
       </Container>

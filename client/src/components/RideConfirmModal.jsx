@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from '@mui/material/Modal';
 import { Typography, TextField, Button, Box } from '@mui/material';
 import { confirmRide } from '../services/weeklyRides';
@@ -8,17 +8,18 @@ const RideConfirmModal = ({
   open,
   onClose,
   selectedPassenger,
-  fetchPendingRides
+  onRideConfirmed
 }) => {
   const [location, setLocation] = useState('');
   const [pickupTime, setPickupTime] = useState('');
+  const [isConfirmed, setIsConfirmed] = useState(false);
 
   const rideId = selectedPassenger ? selectedPassenger._id : null;
 
   const handleConfirm = async () => {
     await confirmRide({ location, pickupTime, rideId });
     onClose();
-    fetchPendingRides();
+    onRideConfirmed();
   };
 
   const handleClose = () => {
