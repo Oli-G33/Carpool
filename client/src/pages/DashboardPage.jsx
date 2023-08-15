@@ -376,7 +376,6 @@ const DashboardPage = () => {
                           underline="none"
                           target="_blank"
                           ml={2}
-                          sx={{ marginLeft: 'auto' }}
                         >
                           <WhatsAppIcon
                             sx={{

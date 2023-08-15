@@ -13,7 +13,6 @@ const handlebars = require('handlebars');
 const getSeats = async (req, res) => {
   const { date } = req.params;
   const formattedDate = date.split('-').reverse().join('-');
-  console.log(formattedDate);
 
   WeeklyRide.findOne(
     { [`availableSeats.${formattedDate}`]: { $exists: true } }, // match the document with the specified date
@@ -100,12 +99,12 @@ const bookSeat = async (req, res) => {
 
     const msg = {
       to: userEmail,
-      from: 'Export-Carpooler@outlook.com',
-      subject: 'Ride Confirmation 🚗',
+      from: process.env.CARPOOLER_EMAIL,
+      subject: 'Ride requested',
       html: htmlContent
     };
 
-    await sgMail.send(msg);
+    // await sgMail.send(msg);
 
     // Return the updated available seats count
     res.json({ availableSeats });
@@ -138,7 +137,7 @@ const fetchPassengers = async (req, res) => {
         passenger.status === 'confirmed'
     );
 
-    console.log('passengers =>', passengersWithRideOnDate);
+    'passengers =>', passengersWithRideOnDate;
 
     const passengerIds = passengersWithRideOnDate.map(
       (passenger) => passenger.userId
@@ -191,8 +190,6 @@ const fetchMyRides = async (req, res) => {
 const cancelMyRide = async (req, res) => {
   try {
     const { passengerId: _id, formattedDate } = req.body;
-
-    console.log('Here=> ', formattedDate);
 
     // Find the ride in the database using the passengerId
     const ride = await WeeklyRide.findOne({
@@ -295,6 +292,53 @@ const confirmRide = async (req, res) => {
 
     if (!updatedRide) {
       return res.status(404).json({ message: 'Ride not found' });
+    }
+
+    const passenger = updatedRide.passengers.find(
+      (passenger) => passenger._id.toString() === rideId
+    );
+
+    if (passenger && passenger.userId) {
+      const passengerUser = await User.findById(passenger.userId);
+
+      if (passengerUser && passengerUser.email) {
+        // Fetch driver's name and ride date from the WeeklyRide document
+        const driverId = updatedRide.driver;
+        const driver = await User.findById(driverId);
+        const driverFirstName = driver.firstName;
+        const driverLastName = driver.lastName;
+        const rideDate = passenger.date;
+
+        function formatDateToDDMMYYYY(date) {
+          const day = String(date.getDate()).padStart(2, '0');
+          const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+          const year = date.getFullYear();
+
+          return `${day}/${month}/${year}`;
+        }
+
+        const formattedDate = formatDateToDDMMYYYY(rideDate);
+
+        const templatePath = './views/emails/bookingConfirmation.hbs';
+        const templateContent = fs.readFileSync(templatePath, 'utf8');
+        const compiledTemplate = handlebars.compile(templateContent);
+
+        const emailContent = compiledTemplate({
+          location,
+          pickupTime,
+          driverName: `${driverFirstName} ${driverLastName}`,
+          rideDate: formattedDate
+        });
+
+        const msg = {
+          to: passengerUser.email,
+          from: process.env.CARPOOLER_EMAIL,
+          subject: 'Ride Confirmation 🚗',
+          html: emailContent
+        };
+
+        await sgMail.send(msg);
+      }
     }
 
     res.json(updatedRide);
