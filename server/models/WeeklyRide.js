@@ -37,13 +37,35 @@ const weeklyRideSchema = new mongoose.Schema(
       }
     ],
 
+    shifts: {
+      type: Map,
+      of: String,
+      default: function () {
+        const shifts = new Map();
+        const startDate = new Date('21-05-2023');
+        for (let i = 0; i < 5; i++) {
+          const date = new Date(startDate);
+          date.setDate(startDate.getDate() + i);
+          shifts.set(date.toISOString().slice(0, 10), '');
+        }
+        return shifts;
+      },
+      validate: {
+        validator: function (shifts) {
+          for (const shift of shifts.values()) {
+            if (!['E1', 'E2', 'L1'].includes(shift)) {
+              return false;
+            }
+          }
+          return true;
+        },
+        message: 'Invalid shifts'
+      }
+    },
+
     availableSeats: {
       type: Map,
-      of: {
-        type: Number,
-        default: 4,
-        max: 4
-      },
+      of: Number,
       default: function () {
         const seats = new Map();
         const startDate = new Date('21-05-2023');
@@ -56,7 +78,6 @@ const weeklyRideSchema = new mongoose.Schema(
       },
       validate: {
         validator: function (seats) {
-          // Iterate over each seat value and check if it's less than 0
           for (const value of seats.values()) {
             if (value < 0) {
               return false;

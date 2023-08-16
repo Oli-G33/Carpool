@@ -254,7 +254,10 @@ const BookingPage = () => {
                 textAlign: 'center'
               }}
             >
-              Availability
+              Availability <br></br>
+              {availableSeats && availableSeats.shift && (
+                <small>Shift: {availableSeats.shift}</small>
+              )}
             </Typography>
 
             {availableSeats && (

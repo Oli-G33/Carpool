@@ -4,14 +4,17 @@ import dayjs from 'dayjs';
 export const getAvailableSeats = date =>
   api.get(`/booking/availability/${date}`).then(response => response.data);
 
-export const bookRide = (formattedDate, id) => {
-  return api
-    .post('/booking/book', { date: formattedDate, userId: id })
-    .then(response => response.data)
-    .catch(error => {
-      console.error(error);
-      throw error;
+export const bookRide = async (formattedDate, id) => {
+  try {
+    const response = await api.post('/booking/book', {
+      date: formattedDate,
+      userId: id
     });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 export const getPassengers = date =>

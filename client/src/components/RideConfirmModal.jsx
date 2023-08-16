@@ -18,7 +18,7 @@ const RideConfirmModal = ({
 
   const handleConfirm = async () => {
     await confirmRide({ location, pickupTime, rideId });
-    onClose();
+    handleClose();
     onRideConfirmed();
   };
 

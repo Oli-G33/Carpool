@@ -15,8 +15,8 @@ const getSeats = async (req, res) => {
   const formattedDate = date.split('-').reverse().join('-');
 
   WeeklyRide.findOne(
-    { [`availableSeats.${formattedDate}`]: { $exists: true } }, // match the document with the specified date
-    { [`availableSeats.${formattedDate}`]: 1 } // project only the available seats for that date
+    { [`availableSeats.${formattedDate}`]: { $exists: true } },
+    { [`availableSeats.${formattedDate}`]: 1, [`shifts.${formattedDate}`]: 1 }
   ).exec((err, ride) => {
     if (err) {
       res
@@ -32,15 +32,17 @@ const getSeats = async (req, res) => {
       // handle no ride found
     } else {
       const availableSeats = ride.availableSeats.get(formattedDate);
+      const shift = ride.shifts.get(formattedDate);
+
       if (availableSeats < 1) {
         res.status(200).json({
           error: 'There are no available seats for the selected date'
         });
         console.log(`There are no available seats for date ${formattedDate}`);
       } else {
-        res.status(200).json({ availableSeats });
+        res.status(200).json({ availableSeats, shift });
         console.log(
-          `There are ${availableSeats} available seats for date ${formattedDate}`
+          `There are ${availableSeats} available seats and the shift is ${shift} for date ${formattedDate}`
         );
       }
     }
