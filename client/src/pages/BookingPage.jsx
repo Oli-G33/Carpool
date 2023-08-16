@@ -255,10 +255,19 @@ const BookingPage = () => {
               }}
             >
               Availability <br></br>
-              {availableSeats && availableSeats.shift && (
-                <small>Shift: {availableSeats.shift}</small>
-              )}
             </Typography>
+            {availableSeats && availableSeats.shift && (
+              <Typography
+                variant={isNonMobileScreens ? 'h5' : 'h6'}
+                sx={{
+                  marginBottom: '10px',
+                  color: 'white',
+                  textAlign: 'center'
+                }}
+              >
+                Shift: {availableSeats.shift}
+              </Typography>
+            )}
 
             {availableSeats && (
               <Box
