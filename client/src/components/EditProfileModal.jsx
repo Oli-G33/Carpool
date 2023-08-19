@@ -21,12 +21,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useDispatch } from 'react-redux';
 import { setLogin } from '../state';
 
-const EditProfileModal = ({
-  user,
-  handleCloseModal,
-  openModal,
-  isMobileScreen
-}) => {
+const EditProfileModal = ({ user, handleCloseModal, openModal }) => {
   const [firstName, setFirstName] = useState(user.firstName || '');
   const [lastName, setLastName] = useState(user.lastName || '');
   const [phone, setPhone] = useState(user.phoneNumber || '');
@@ -49,7 +44,7 @@ const EditProfileModal = ({
   const [alertMessage, setAlertMessage] = useState('');
 
   const dispatch = useDispatch();
-  // const isMobileScreen = useMediaQuery('(max-width:600px)');
+  const isMobileScreen = useMediaQuery('(max-width:600px)');
 
   const handleClick = () => setShow(!show);
 
@@ -217,10 +212,13 @@ const EditProfileModal = ({
           >
             <CloseIcon />
           </Button>
-          <Typography variant="h6" align="center" gutterBottom color="black">
-            Modify Personal Details
-            <ModeIcon sx={{ ml: 1, color: 'black' }} />
-          </Typography>
+          {!isMobileScreen && (
+            <Typography variant="h6" align="center" gutterBottom color="black">
+              Modify Personal Details
+              <ModeIcon sx={{ ml: 1, color: 'black' }} />
+            </Typography>
+          )}
+
           <TextField
             label="First Name"
             fullWidth
@@ -380,14 +378,16 @@ const EditProfileModal = ({
               <CircularProgress sx={{ my: 2 }} />{' '}
             </Box>
           ) : (
-            <Button
-              variant="contained"
-              sx={{ mt: 2 }}
-              disabled={isLoading || !!alertMessage}
-              onClick={handleSavePersonalDetails}
-            >
-              Save
-            </Button>
+            <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
+              <Button
+                variant="contained"
+                sx={{ mt: 2 }}
+                disabled={isLoading || !!alertMessage}
+                onClick={handleSavePersonalDetails}
+              >
+                Save
+              </Button>
+            </Box>
           )}
         </Box>
       </Modal>

@@ -177,7 +177,10 @@ const fetchMyRides = async (req, res) => {
           driverPhoneNumber: ride.driver.phoneNumber,
           driverPicture: ride.driver.picture,
           driverFirstName: ride.driver.firstName,
-          driverLastName: ride.driver.lastName
+          driverLastName: ride.driver.lastName,
+          status: passenger.status,
+          location: passenger.location,
+          pickupTime: passenger.pickupTime
         }));
       return [...result, ...passengerDates];
     }, []);
