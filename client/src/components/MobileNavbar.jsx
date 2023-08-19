@@ -71,13 +71,14 @@ const MobileNavbar = () => {
             gap: '16px',
             alignItems: 'center',
             justifyContent: 'space-between',
-            width: '100%'
+            width: '100%',
+            padding: 0
           }}
         >
           <ListItemButton
             component={Link}
             to="/"
-            sx={{ alignItems: 'center', flexDirection: 'column' }}
+            sx={{ alignItems: 'center', flexDirection: 'column', padding: 0 }}
           >
             <Box
               sx={{
@@ -91,7 +92,27 @@ const MobileNavbar = () => {
                   color: 'linear-gradient(19deg, #21D4FD 0%, #1c305c 100%)'
                 }}
               >
-                <HomeIcon sx={{ color: '#21D4FD' }} />
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center'
+                  }}
+                >
+                  <HomeIcon sx={{ color: '#21D4FD', fontSize: '1.5rem' }} />{' '}
+                  <ListItemText
+                    primary={
+                      <Typography
+                        variant="subtitle2"
+                        sx={{
+                          color: '#21D4FD'
+                        }}
+                      >
+                        Home
+                      </Typography>
+                    }
+                  />
+                </Box>
               </ListItemIcon>
             </Box>
           </ListItemButton>
@@ -100,7 +121,7 @@ const MobileNavbar = () => {
             <ListItemButton
               component={Link}
               to="/dashboard"
-              sx={{ alignItems: 'center', flexDirection: 'column' }}
+              sx={{ alignItems: 'center', flexDirection: 'column', padding: 0 }}
             >
               <Box
                 sx={{
@@ -110,7 +131,29 @@ const MobileNavbar = () => {
                 }}
               >
                 <ListItemIcon>
-                  <DashboardIcon sx={{ color: '#21D4FD' }} />
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <DashboardIcon
+                      sx={{ color: '#21D4FD', fontSize: '1.5rem' }}
+                    />
+                    <ListItemText
+                      primary={
+                        <Typography
+                          variant="subtitle2"
+                          sx={{
+                            color: '#21D4FD'
+                          }}
+                        >
+                          Dashboard
+                        </Typography>
+                      }
+                    />
+                  </Box>
                 </ListItemIcon>
               </Box>
             </ListItemButton>
@@ -129,12 +172,29 @@ const MobileNavbar = () => {
               }}
             >
               <ListItemIcon>
-                <DirectionsCarIcon sx={{ color: '#21D4FD' }} />
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center'
+                  }}
+                >
+                  <DirectionsCarIcon
+                    sx={{ color: '#21D4FD', fontSize: '1.5rem' }}
+                  />
+                  <ListItemText
+                    primary="MyRides"
+                    primaryTypographyProps={{
+                      variant: 'subtitle2',
+                      color: '#21D4FD'
+                    }}
+                  />
+                </Box>
               </ListItemIcon>
             </Box>
           </ListItemButton>
 
-          <ListItemButton
+          {/* <ListItemButton
             component="a"
             href={`https://wa.me/${process.env.REACT_APP_WHATSAPP_NUMBER}`}
             target="_blank"
@@ -151,12 +211,12 @@ const MobileNavbar = () => {
                 <WhatsAppIcon sx={{ color: '#25d366' }} />
               </ListItemIcon>
             </Box>
-          </ListItemButton>
+          </ListItemButton> */}
 
           {user && (
             <ListItemButton
               onClick={handleOpenModal}
-              sx={{ alignItems: 'center', flexDirection: 'column' }}
+              sx={{ alignItems: 'center', flexDirection: 'column', padding: 0 }}
             >
               <Box
                 sx={{
@@ -171,7 +231,7 @@ const MobileNavbar = () => {
                     src={user.picture}
                     alt={user.firstName}
                     sx={{
-                      border: '2px solid #21D4FD',
+                      border: '2px solid #25d366',
                       cursor: 'pointer'
                     }}
                   />
@@ -180,16 +240,41 @@ const MobileNavbar = () => {
             </ListItemButton>
           )}
 
-          <ListItemButton onClick={handleLogout}>
+          <ListItemButton
+            onClick={handleLogout}
+            sx={{
+              alignItems: 'center',
+              flexDirection: 'column',
+              padding: 0
+            }}
+          >
             <Box
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center'
+                alignItems: 'center',
+                padding: 0
               }}
             >
               <ListItemIcon>
-                <ExitToAppIcon sx={{ color: '#21D4FD' }} />
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center'
+                  }}
+                >
+                  <ExitToAppIcon
+                    sx={{ color: '#21D4FD', fontSize: '1.5rem' }}
+                  />
+                  <ListItemText
+                    primary="Logout"
+                    primaryTypographyProps={{
+                      variant: 'subtitle2',
+                      color: '#21D4FD'
+                    }}
+                  />
+                </Box>
               </ListItemIcon>
             </Box>
           </ListItemButton>

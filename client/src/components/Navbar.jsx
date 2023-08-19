@@ -253,8 +253,12 @@ const Navbar = ({ isNonMobileScreens, isMobileScreen }) => {
         {user && (
           <>
             {' '}
-         
-               <Link href="#" onClick={handleOpenModal}  color="inherit" underline="none">
+            <Link
+              href="#"
+              onClick={handleOpenModal}
+              color="inherit"
+              underline="none"
+            >
               <Avatar
                 key={avatarKey}
                 src={user.picture}
@@ -288,11 +292,11 @@ const Navbar = ({ isNonMobileScreens, isMobileScreen }) => {
       </Drawer>
 
       <EditProfileModal
-            user={user}
-            handleCloseModal={handleCloseModal}
-            handleOpenModal={handleOpenModal}
-            openModal={openModal}
-          />
+        user={user}
+        handleCloseModal={handleCloseModal}
+        handleOpenModal={handleOpenModal}
+        openModal={openModal}
+      />
     </AppBar>
   );
 };

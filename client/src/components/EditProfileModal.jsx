@@ -113,7 +113,7 @@ const EditProfileModal = ({
       lastName,
       phoneNumber: phone,
       email,
-      picture,
+      picture: picture ? picture : user.picture,
       password: password ? password : user.password
     };
 
