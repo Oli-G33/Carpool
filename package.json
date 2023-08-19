@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "maplibre-gl": "^3.3.0",
+    "react-map-gl": "^7.1.4"
+  }
+}
