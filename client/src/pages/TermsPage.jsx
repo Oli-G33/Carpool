@@ -21,8 +21,10 @@ const TermsPage = () => {
         </Typography>
 
         <Typography variant="body1" sx={{ mb: 2 }}>
-          1.1 The meeting point and time for each carpool ride will be agreed
-          upon by the driver and the passengers before the ride via WhatsApp.
+          1.1 Users can request rides through our platform, specifying their
+          prefered date. Ride providers will confirm the requested service by
+          sending an email to the user at the soonest convenience, specifying
+          the pick-up time and location.
         </Typography>
 
         <Typography variant="body1" sx={{ mb: 2 }}>

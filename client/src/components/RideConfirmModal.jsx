@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Modal from '@mui/material/Modal';
 import { Typography, TextField, Button, Box } from '@mui/material';
 import { confirmRide } from '../services/weeklyRides';
 import dayjs from 'dayjs';
+import { TimePicker } from '@mui/x-date-pickers';
 
 const RideConfirmModal = ({
   open,
@@ -11,20 +12,24 @@ const RideConfirmModal = ({
   onRideConfirmed
 }) => {
   const [location, setLocation] = useState('');
-  const [pickupTime, setPickupTime] = useState('');
-  const [isConfirmed, setIsConfirmed] = useState(false);
+  const [pickupTime, setPickupTime] = useState(null);
 
   const rideId = selectedPassenger ? selectedPassenger._id : null;
 
   const handleConfirm = async () => {
-    await confirmRide({ location, pickupTime, rideId });
+    const formattedPickupTime = pickupTime.format('HH:mm');
+    await confirmRide({
+      location,
+      pickupTime: formattedPickupTime,
+      rideId
+    });
     handleClose();
     onRideConfirmed();
   };
 
   const handleClose = () => {
     setLocation('');
-    setPickupTime('');
+    setPickupTime(null);
     onClose();
   };
 
@@ -42,6 +47,10 @@ const RideConfirmModal = ({
           minWidth: '300px',
           outline: 'none',
           borderRadius: '8px',
+          textAlign: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
           textAlign: 'center'
         }}
       >
@@ -59,18 +68,25 @@ const RideConfirmModal = ({
           fullWidth
           margin="normal"
         />
-        <TextField
+
+        <TimePicker
           label="Pickup Time"
           value={pickupTime}
-          onChange={e => setPickupTime(e.target.value)}
+          onChange={setPickupTime}
           fullWidth
           margin="normal"
+          ampm={false}
+          renderInput={params => <TextField {...params} />}
+          sx={{
+            width: '100%'
+          }}
         />
         <Button
           variant="contained"
           color="primary"
           onClick={handleConfirm}
           disabled={!location || !pickupTime}
+          sx={{ marginTop: 4 }}
         >
           Confirm
         </Button>

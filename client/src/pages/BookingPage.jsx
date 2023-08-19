@@ -312,14 +312,14 @@ const BookingPage = () => {
 
         <Box display="flex" justifyContent="center" mt={2}>
           <Button
-            sx={{ mt: 4, width: '10rem' }}
+            sx={{ mt: 4, width: '15rem' }}
             onClick={handleBookRide}
             variant="contained"
             color="primary"
             size="large"
             disabled={availableSeats <= 0 || isLoading || !!alertMessage}
           >
-            {isLoading ? <CircularProgress size={24} /> : 'Confirm ride'}
+            {isLoading ? <CircularProgress size={24} /> : 'Request ride'}
           </Button>
         </Box>
       </Container>
