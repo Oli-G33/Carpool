@@ -5,24 +5,20 @@
     <style>
       body { font-family: Arial, sans-serif; } .container { color: whitesmoke;
       font-weight: bold; max-width: 600px; margin: 0 auto; padding: 20px;
-      border: 1px solid #ccc; border-radius: 4px; background:
-      linear-gradient(19deg, #21D4FD 0%, #1c305c 100%); } .header { text-align:
-      center } .content { text-align: center
-      } .footer {
-      text-align: center;
-      color: white; 
-    }
-    a {
-      text-decoration: none;
-    } a {
+      border: 1px solid #ccc; border-radius: 4px; background: #1c305c; } .header
+      { text-align: center } .content { text-align: center } .footer {
+      text-align: center; color: white; } a { text-decoration: none; } a {
       text-decoration: none; }
     </style>
   </head>
   <body>
-    <div class="container" style="background: #1c305c;">
-      <div class="header" >
+    <div
+      class="container"
+      style="background: linear-gradient(19deg, #21D4FD 0%, #1c305c 100%);"
+    >
+      <div class="header">
         <h2>Booking Confirmation</h2>
-          <br />
+        <br />
       </div>
       <div class="content">
         <img
@@ -36,17 +32,13 @@
         <p>Location: {{location}}</p>
         <p>Pickup Time: {{pickupTime}}</p>
       </div>
-        <br />
+      <br />
       <div class="footer">
         <p>Thank you for booking with us!</p>
-        <a
-            target="”_blank”"
-            href="https://carpooler.onrender.com/myrides"
-          >My Rides</a>
-          |<a
-            target="”_blank”"
-            href="https://carpooler.onrender.com/terms"
-          >Terms & Conditions</a>
+        <a target="”_blank”" href="https://carpooler.onrender.com/myrides">My
+          Rides</a>
+        |<a target="”_blank”" href="https://carpooler.onrender.com/terms">Terms
+          & Conditions</a>
       </div>
     </div>
   </body>

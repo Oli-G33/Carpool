@@ -27,6 +27,14 @@ const RideInfoModal = ({ type, selectedData, isModalOpen, onClose }) => {
         {selectedData && (
           <div>
             <Typography variant="h6">Ride Details</Typography>
+            <hr
+              sx={{
+                width: '80%',
+                marginTop: '16px',
+                marginBottom: '16px',
+                borderColor: '#ccc'
+              }}
+            />
             <Typography>
               Date:{' '}
               {type === 'driver'
@@ -43,6 +51,7 @@ const RideInfoModal = ({ type, selectedData, isModalOpen, onClose }) => {
             <Typography>Location: {selectedData.location}</Typography>
           </div>
         )}
+        <br />
         <Button onClick={onClose}>Close</Button>
       </Box>
     </Modal>
