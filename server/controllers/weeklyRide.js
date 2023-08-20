@@ -125,7 +125,10 @@ const fetchPassengers = async (req, res) => {
     const ride = await WeeklyRide.findOne(
       { 'passengers.date': desiredDate },
       'passengers'
-    );
+    ).populate({
+      path: 'passengers.userId', // Specify the path to populate
+      select: 'firstName lastName phoneNumber email picture' // Select the fields you want to populate
+    });
 
     if (!ride || !ride.passengers || ride.passengers.length === 0) {
       // Handle case where no ride with passengers for the desired date is found
@@ -139,19 +142,20 @@ const fetchPassengers = async (req, res) => {
         passenger.status === 'confirmed'
     );
 
-    'passengers =>', passengersWithRideOnDate;
+    const passengerDataToSend = passengersWithRideOnDate.map((passenger) => ({
+      userId: passenger.userId._id,
+      _id: passenger._id,
+      firstName: passenger.userId.firstName,
+      lastName: passenger.userId.lastName,
+      phoneNumber: passenger.userId.phoneNumber,
+      email: passenger.userId.email,
+      picture: passenger.userId.picture,
+      location: passenger.location,
+      pickupTime: passenger.pickupTime,
+      date: passenger.date
+    }));
 
-    const passengerIds = passengersWithRideOnDate.map(
-      (passenger) => passenger.userId
-    );
-
-    // Query the Users collection to get the user documents for the passengerIds
-    const passengers = await User.find(
-      { _id: { $in: passengerIds } },
-      'firstName lastName phoneNumber email picture'
-    );
-
-    res.json(passengers);
+    res.json(passengerDataToSend);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });

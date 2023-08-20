@@ -4,6 +4,7 @@ import { Typography, TextField, Button, Box } from '@mui/material';
 import { confirmRide } from '../services/weeklyRides';
 import dayjs from 'dayjs';
 import { TimePicker } from '@mui/x-date-pickers';
+import MapComponent from './MapComponent';
 
 const RideConfirmModal = ({
   open,
@@ -27,6 +28,9 @@ const RideConfirmModal = ({
     onRideConfirmed();
   };
 
+  const handleLocationSelect = selectedLocation => {
+    setLocation(selectedLocation.address);
+  };
   const handleClose = () => {
     setLocation('');
     setPickupTime(null);
@@ -61,6 +65,8 @@ const RideConfirmModal = ({
         <Typography variant="subtitle1" gutterBottom>
           Date: {dayjs(selectedPassenger?.date).format('DD/MM/YYYY')}
         </Typography>
+
+        {/* <MapComponent onSelectLocation={handleLocationSelect} /> */}
         <TextField
           label="Pickup Location"
           value={location}

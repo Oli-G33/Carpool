@@ -1,7 +1,8 @@
 import { Box, Button, Modal, Typography } from '@mui/material';
+import dayjs from 'dayjs';
 import React from 'react';
 
-const RideInfoModal = ({ selectedRide, isModalOpen, onClose }) => {
+const RideInfoModal = ({ type, selectedData, isModalOpen, onClose }) => {
   return (
     <Modal open={isModalOpen} onClose={onClose}>
       <Box
@@ -23,16 +24,23 @@ const RideInfoModal = ({ selectedRide, isModalOpen, onClose }) => {
           justifyContent: 'center'
         }}
       >
-        {selectedRide && (
+        {selectedData && (
           <div>
             <Typography variant="h6">Ride Details</Typography>
-            <Typography>Date: {selectedRide.date}</Typography>
             <Typography>
-              Driver:{' '}
-              {`${selectedRide.driverFirstName} ${selectedRide.driverLastName}`}
+              Date:{' '}
+              {type === 'driver'
+                ? selectedData.date
+                : dayjs(selectedData.date).format('DD/MM/YYYY')}
             </Typography>
-            <Typography>Pickup Time: {selectedRide.pickupTime}</Typography>
-            <Typography>Location: {selectedRide.location}</Typography>
+            <Typography>
+              {type === 'passenger' ? 'Passenger:' : 'Driver:'}{' '}
+              {type === 'driver'
+                ? `${selectedData.driverFirstName} ${selectedData.driverLastName}`
+                : `${selectedData.firstName} ${selectedData.lastName}`}
+            </Typography>
+            <Typography>Pickup Time: {selectedData.pickupTime}</Typography>
+            <Typography>Location: {selectedData.location}</Typography>
           </div>
         )}
         <Button onClick={onClose}>Close</Button>

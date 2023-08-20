@@ -168,8 +168,8 @@ const MyRidesPage = () => {
                 }}
               >
                 <Tabs value={currentTab} onChange={handleTabChange}>
-                  <Tab label="Confirmed rides" sx={{ ...whiteFontStyle }} />
-                  <Tab label="Pending rides" sx={{ ...whiteFontStyle }} />
+                  <Tab label="Confirmed" sx={{ ...whiteFontStyle }} />
+                  <Tab label="Pending" sx={{ ...whiteFontStyle }} />
                 </Tabs>
               </Box>
             </Grid>
@@ -208,100 +208,82 @@ const MyRidesPage = () => {
                                   padding: '8px',
                                   width: '95%',
                                   display: 'flex',
-                                  alignItems: 'center'
+                                  alignItems: 'center',
+                                  justifyContent: 'space-between'
                                 }}
                               >
-                                <Box
-                                  sx={{
-                                    flex: '0 0 40%',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    marginLeft: '8px',
-                                    marginRight: isMobileScreen ? '4px' : '8px'
-                                  }}
+                                <Typography
+                                  sx={{ color: 'white', marginLeft: 1 }}
                                 >
-                                  <Typography sx={{ color: 'white' }}>
-                                    {ride.date}
-                                  </Typography>
-                                </Box>
+                                  {ride.date}
+                                </Typography>
                                 <Box
                                   sx={{
-                                    flex: '0 0 60%',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'space-between'
                                   }}
                                 >
-                                  <Box
+                                  <Avatar
+                                    src={ride.driverPicture}
+                                    alt="Driver"
                                     sx={{
-                                      display: 'flex',
-                                      alignItems: 'center'
+                                      width: isMobileScreen ? 30 : 36,
+                                      height: isMobileScreen ? 30 : 36,
+                                      cursor: 'pointer',
+                                      marginRight: 2
                                     }}
+                                  />
+
+                                  <Link
+                                    href={`https://wa.me/${ride.driverPhoneNumber}`}
+                                    color="inherit"
+                                    underline="none"
+                                    target="_blank"
                                   >
-                                    <Avatar
-                                      src={ride.driverPicture}
-                                      alt="Driver"
+                                    <WhatsAppIcon
                                       sx={{
-                                        width: isMobileScreen ? 30 : 36,
-                                        height: isMobileScreen ? 30 : 36,
-                                        marginRight: isMobileScreen ? 1 : 2,
-                                        cursor: 'pointer'
+                                        color: '#128c7e',
+                                        fontSize: '30px',
+                                        marginRight: 2
                                       }}
                                     />
+                                  </Link>
 
-                                    <Link
-                                      href={`https://wa.me/${ride.driverPhoneNumber}`}
-                                      color="inherit"
-                                      underline="none"
-                                      target="_blank"
-                                      sx={{
-                                        marginRight: isMobileScreen ? 2 : 3
-                                      }}
-                                    >
-                                      <WhatsAppIcon
-                                        sx={{
-                                          color: '#128c7e',
-                                          fontSize: '20px'
-                                        }}
-                                      />
-                                    </Link>
-
-                                    <IconButton
-                                      sx={{
-                                        width: isMobileScreen ? 30 : 36,
-                                        height: isMobileScreen ? 30 : 36,
-                                        backgroundColor: 'red',
-                                        marginLeft: isMobileScreen ? 1 : 2,
-                                        '&:hover': {
-                                          backgroundColor: 'darkred'
-                                        }
-                                      }}
-                                      onClick={() =>
-                                        handleCancelRide(
-                                          ride.passengerId,
-                                          ride.date
-                                        )
+                                  <IconButton
+                                    sx={{
+                                      width: isMobileScreen ? 30 : 36,
+                                      height: isMobileScreen ? 30 : 36,
+                                      backgroundColor: 'red',
+                                      '&:hover': {
+                                        backgroundColor: 'darkred'
                                       }
-                                      disabled={loading}
-                                    >
-                                      {loading ? (
-                                        <CircularProgress size={20} />
-                                      ) : (
-                                        <DeleteIcon />
-                                      )}
-                                    </IconButton>
-                                    <MoreVertIcon
-                                      sx={{
-                                        marginLeft: 'auto',
-                                        cursor: 'pointer',
-                                        marginLeft: isMobileScreen ? 1 : 2
-                                      }}
-                                      onClick={() => {
-                                        setSelectedRide(ride);
-                                        setIsModalOpen(true);
-                                      }}
-                                    />
-                                  </Box>
+                                    }}
+                                    onClick={() =>
+                                      handleCancelRide(
+                                        ride.passengerId,
+                                        ride.date
+                                      )
+                                    }
+                                    disabled={loading}
+                                  >
+                                    {loading ? (
+                                      <CircularProgress size={20} />
+                                    ) : (
+                                      <DeleteIcon />
+                                    )}
+                                  </IconButton>
+                                  <MoreVertIcon
+                                    sx={{
+                                      marginLeft: 'auto',
+                                      cursor: 'pointer',
+                                      marginLeft: isMobileScreen ? 1 : 2
+                                    }}
+                                    onClick={() => {
+                                      setSelectedRide(ride);
+                                      setIsModalOpen(true);
+                                    }}
+                                  />
                                 </Box>
                               </Paper>
                             </ListItem>
@@ -353,83 +335,70 @@ const MyRidesPage = () => {
                                   padding: '8px',
                                   width: '95%',
                                   display: 'flex',
-                                  alignItems: 'center'
+                                  alignItems: 'center',
+                                  justifyContent: 'space-between'
                                 }}
                               >
-                                <Box
-                                  sx={{
-                                    flex: '0 0 40%',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    marginLeft: '8px',
-                                    marginRight: isMobileScreen ? '4px' : '8px'
-                                  }}
+                                <Typography
+                                  sx={{ color: 'white', marginLeft: 1 }}
                                 >
-                                  <Typography sx={{ color: 'white' }}>
-                                    {ride.date}
-                                  </Typography>
-                                </Box>
-                                <Box
-                                  sx={{
-                                    flex: '0 0 60%',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'space-between'
-                                  }}
-                                >
-                                  <Box
+                                  {ride.date}
+                                </Typography>
+
+                                <Box sx={{ display: 'flex' }}>
+                                  <Avatar
+                                    src={ride.driverPicture}
+                                    alt="Driver"
                                     sx={{
-                                      display: 'flex',
-                                      alignItems: 'center'
+                                      width: isMobileScreen ? 30 : 36,
+                                      height: isMobileScreen ? 30 : 36,
+                                      marginRight: 2,
+                                      marginLeft: 1,
+                                      cursor: 'pointer'
+                                    }}
+                                  />
+
+                                  <Link
+                                    href={`https://wa.me/${ride.driverPhoneNumber}`}
+                                    color="inherit"
+                                    underline="none"
+                                    target="_blank"
+                                    sx={{
+                                      marginRight: isMobileScreen ? 2 : 3
                                     }}
                                   >
-                                    <Avatar
-                                      src={ride.driverPicture}
-                                      alt="Driver"
+                                    <WhatsAppIcon
                                       sx={{
-                                        width: isMobileScreen ? 30 : 36,
-                                        height: isMobileScreen ? 30 : 36,
-                                        marginRight: isMobileScreen ? 1 : 2,
-                                        cursor: 'pointer'
+                                        color: '#128c7e',
+                                        fontSize: '30px'
                                       }}
                                     />
+                                  </Link>
 
-                                    <Link
-                                      href={`https://wa.me/${ride.driverPhoneNumber}`}
-                                      color="inherit"
-                                      underline="none"
-                                      target="_blank"
-                                      sx={{
-                                        marginRight: isMobileScreen ? 2 : 3
-                                      }}
-                                    >
-                                      <WhatsAppIcon
-                                        sx={{
-                                          color: '#128c7e',
-                                          fontSize: '20px'
-                                        }}
-                                      />
-                                    </Link>
-
-                                    <Button
-                                      variant="contained"
-                                      color="error"
-                                      size="small"
-                                      onClick={() =>
-                                        handleCancelRide(
-                                          ride.passengerId,
-                                          ride.date
-                                        )
+                                  <IconButton
+                                    sx={{
+                                      width: isMobileScreen ? 30 : 36,
+                                      height: isMobileScreen ? 30 : 36,
+                                      marginRight: 2,
+                                      backgroundColor: 'red',
+                                      '&:hover': {
+                                        backgroundColor: 'darkred'
                                       }
-                                      disabled={loading}
-                                    >
-                                      {loading ? (
-                                        <CircularProgress size={20} />
-                                      ) : (
-                                        <DeleteIcon />
-                                      )}
-                                    </Button>
-                                  </Box>
+                                    }}
+                                    onClick={() =>
+                                      handleCancelRide(
+                                        ride.passengerId,
+                                        ride.date
+                                      )
+                                    }
+                                    disabled={loading}
+                                  >
+                                    {loading ? (
+                                      <CircularProgress size={20} />
+                                    ) : (
+                                      <DeleteIcon />
+                                    )}
+                                  </IconButton>
                                 </Box>
                               </Paper>
                             </ListItem>
@@ -452,7 +421,8 @@ const MyRidesPage = () => {
             )}
           </Grid>
           <RideInfoModal
-            selectedRide={selectedRide}
+            type="driver"
+            selectedData={selectedRide}
             isModalOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
           />

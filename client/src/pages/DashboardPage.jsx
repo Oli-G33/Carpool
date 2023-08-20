@@ -26,6 +26,8 @@ import EmailIcon from '@mui/icons-material/Email';
 import { useSelector } from 'react-redux';
 import RideConfirmModal from '../components/RideConfirmModal';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import RideInfoModal from '../components/RideInfoModal';
 
 const DashboardPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -35,6 +37,9 @@ const DashboardPage = () => {
   const [currentTab, setCurrentTab] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [selectedPassenger, setSelectedPassenger] = useState(null);
+  const [isRideInfoModalOpen, setIsRideInfoModalOpen] = useState(false);
+  const [selectedPassengerForModal, setSelectedPassengerForModal] =
+    useState(null);
 
   const user = useSelector(state => state.user);
 
@@ -76,6 +81,12 @@ const DashboardPage = () => {
         console.log(passengers);
       }
     }
+  };
+
+  const handleOpenRideInfoModal = passenger => {
+    setSelectedPassenger(passenger);
+    setSelectedPassengerForModal(passenger);
+    setIsRideInfoModalOpen(true);
   };
 
   const isMobileScreen = useMediaQuery('(max-width:600px)');
@@ -276,19 +287,14 @@ const DashboardPage = () => {
                             }}
                           />
                         </Link>
-                        <Link
-                          href={`mailto:${passenger.email}`}
-                          color="inherit"
-                          underline="none"
-                          target="_blank"
-                          ml={2}
-                        >
-                          <EmailIcon
-                            sx={{
-                              color: '#FF5722'
-                            }}
-                          />
-                        </Link>
+                        <MoreVertIcon
+                          sx={{
+                            marginLeft: 'auto',
+                            cursor: 'pointer',
+                            marginLeft: isMobileScreen ? 1 : 2
+                          }}
+                          onClick={() => handleOpenRideInfoModal(passenger)}
+                        />
                       </div>
                     </Paper>
                   ))
@@ -418,6 +424,12 @@ const DashboardPage = () => {
             onRideConfirmed={handleRideConfirmed}
           />
         </Grid>
+        <RideInfoModal
+          type="passenger"
+          selectedData={selectedPassenger}
+          isModalOpen={isRideInfoModalOpen}
+          onClose={() => setIsRideInfoModalOpen(false)}
+        />
       </Container>
     </>
   );
