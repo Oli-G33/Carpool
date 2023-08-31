@@ -10,7 +10,9 @@ import {
   Box,
   Tabs,
   Tab,
-  Button
+  Button,
+  TextField,
+  MenuItem
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Navbar from '../components/Navbar';
@@ -28,6 +30,7 @@ import RideConfirmModal from '../components/RideConfirmModal';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import RideInfoModal from '../components/RideInfoModal';
+import WeeklyRideForm from '../components/WeeklyRideForm';
 
 const DashboardPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -40,6 +43,8 @@ const DashboardPage = () => {
   const [isRideInfoModalOpen, setIsRideInfoModalOpen] = useState(false);
   const [selectedPassengerForModal, setSelectedPassengerForModal] =
     useState(null);
+  const [formData, setFormData] = useState([]);
+  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
   const user = useSelector(state => state.user);
 
@@ -102,8 +107,17 @@ const DashboardPage = () => {
     color: 'white'
   };
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
+  const handleInputChange = (event, index) => {
+    const { name, value } = event.target;
+    const updatedFormData = [...formData];
+    updatedFormData[index] = { ...updatedFormData[index], [name]: value };
+    setFormData(updatedFormData);
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    // Handle form submission here, e.g., send formData to server
+    console.log(formData);
   };
 
   const handleOpenModal = passenger => {
@@ -172,6 +186,7 @@ const DashboardPage = () => {
               <Tabs value={currentTab} onChange={handleTabChange}>
                 <Tab label="Confirmed rides" sx={{ ...whiteFontStyle }} />
                 <Tab label="Pending rides" sx={{ ...whiteFontStyle }} />
+                <Tab label="Upload rides" sx={{ ...whiteFontStyle }} />
               </Tabs>
             </Box>
           </Grid>
@@ -423,6 +438,7 @@ const DashboardPage = () => {
             selectedPassenger={selectedPassenger}
             onRideConfirmed={handleRideConfirmed}
           />
+          {currentTab === 2 && <WeeklyRideForm driverId={driverId} />}
         </Grid>
         <RideInfoModal
           type="passenger"
