@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const ImageKit = require('imagekit');
 const AuthRouter = require('./routes/auth');
 const BookingRouter = require('./routes/weeklyRide');
+const DashboardRouter = require('./routes/dashboard');
 require('dotenv').config();
 const exphbs = require('express-handlebars');
 const path = require('path');
@@ -51,6 +52,7 @@ app.get('/auth', function (req, res) {
 // Routes
 app.use('/booking', BookingRouter);
 app.use('/auth', AuthRouter);
+app.use('/dashboard', DashboardRouter);
 
 mongoose.set('strictQuery', false);
 mongoose

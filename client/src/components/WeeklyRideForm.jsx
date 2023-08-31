@@ -8,6 +8,7 @@ import {
   Box
 } from '@mui/material';
 import { startOfWeek, addDays, format, getISOWeek, getYear } from 'date-fns';
+import { uploadRides } from '../services/dashboard';
 
 const WeeklyRideForm = driverId => {
   const getCurrentYear = () => {
@@ -83,7 +84,7 @@ const WeeklyRideForm = driverId => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    // Handle form submission here, e.g., send formData to server
+    uploadRides(driverId, formData);
     console.log(formData);
   };
 
@@ -177,7 +178,7 @@ const WeeklyRideForm = driverId => {
           ))}
           <Grid item xs={12} sx={{ marginTop: 2, marginBottom: 2 }}>
             <Button type="submit" variant="contained" color="primary" fullWidth>
-              Upload WeeklyRides
+              Upload Rides
             </Button>
           </Grid>
         </form>
