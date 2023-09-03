@@ -5,12 +5,13 @@ import {
   Grid,
   Container,
   Button,
-  Box
+  Box,
+  Alert
 } from '@mui/material';
 import { startOfWeek, addDays, format, getISOWeek, getYear } from 'date-fns';
 import { uploadRides } from '../services/dashboard';
 
-const WeeklyRideForm = ({ driverId }) => {
+const WeeklyRideForm = ({ driverId, setCurrentTab }) => {
   const getCurrentYear = () => {
     const currentDate = new Date();
     return getYear(currentDate);
@@ -32,6 +33,10 @@ const WeeklyRideForm = ({ driverId }) => {
       shift: ''
     }))
   );
+
+  const [alertMessage, setAlertMessage] = useState('');
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
+  const [alertSeverity, setAlertSeverity] = useState('success');
 
   useEffect(() => {
     const initialFormData = new Array(5).fill({
@@ -59,7 +64,7 @@ const WeeklyRideForm = ({ driverId }) => {
       const existingData = formData.find(item => item.date === date);
 
       return {
-        date, // Include the date property
+        date,
         availableSeats: existingData?.availableSeats || 4,
         shift: existingData?.shift || ''
       };
@@ -81,11 +86,23 @@ const WeeklyRideForm = ({ driverId }) => {
     setFormData(updatedFormData);
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    uploadRides(driverId, formData);
-    console.log(formData);
+    try {
+      await uploadRides(driverId, formData);
+      setAlertMessage('Rides uploaded successfully!');
+      setIsAlertVisible(true);
+      setTimeout(() => {
+        setCurrentTab(0);
+      }, 5000);
+    } catch (error) {
+      setAlertMessage('Error uploading rides. Please try again.');
+      setIsAlertVisible(true);
+      setAlertSeverity('error');
+      console.error('Error uploading rides:', error);
+    }
   };
+
   console.log(formData);
   return (
     <Container maxWidth="sm">
@@ -186,6 +203,15 @@ const WeeklyRideForm = ({ driverId }) => {
           </Grid>
         </form>
       </Box>
+      {isAlertVisible && (
+        <Alert
+          severity={alertSeverity}
+          onClose={() => setIsAlertVisible(false)}
+          sx={{ marginTop: 2 }}
+        >
+          {alertMessage}
+        </Alert>
+      )}
     </Container>
   );
 };

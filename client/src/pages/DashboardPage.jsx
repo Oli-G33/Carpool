@@ -43,8 +43,6 @@ const DashboardPage = () => {
   const [isRideInfoModalOpen, setIsRideInfoModalOpen] = useState(false);
   const [selectedPassengerForModal, setSelectedPassengerForModal] =
     useState(null);
-  const [formData, setFormData] = useState([]);
-  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
   const user = useSelector(state => state.user);
 
@@ -105,19 +103,6 @@ const DashboardPage = () => {
 
   const whiteFontStyle = {
     color: 'white'
-  };
-
-  const handleInputChange = (event, index) => {
-    const { name, value } = event.target;
-    const updatedFormData = [...formData];
-    updatedFormData[index] = { ...updatedFormData[index], [name]: value };
-    setFormData(updatedFormData);
-  };
-
-  const handleSubmit = event => {
-    event.preventDefault();
-    // Handle form submission here, e.g., send formData to server
-    console.log(formData);
   };
 
   const handleOpenModal = passenger => {
@@ -438,7 +423,9 @@ const DashboardPage = () => {
             selectedPassenger={selectedPassenger}
             onRideConfirmed={handleRideConfirmed}
           />
-          {currentTab === 2 && <WeeklyRideForm driverId={driverId} />}
+          {currentTab === 2 && (
+            <WeeklyRideForm driverId={driverId} setCurrentTab={setCurrentTab} />
+          )}
         </Grid>
         <RideInfoModal
           type="passenger"
