@@ -169,9 +169,27 @@ const DashboardPage = () => {
               }}
             >
               <Tabs value={currentTab} onChange={handleTabChange}>
-                <Tab label="Confirmed rides" sx={{ ...whiteFontStyle }} />
-                <Tab label="Pending rides" sx={{ ...whiteFontStyle }} />
-                <Tab label="Upload rides" sx={{ ...whiteFontStyle }} />
+                <Tab
+                  label="Confirmed rides"
+                  sx={{
+                    ...whiteFontStyle,
+                    fontSize: isMobileScreen ? '0.65rem' : '1rem'
+                  }}
+                />
+                <Tab
+                  label="Pending rides"
+                  sx={{
+                    ...whiteFontStyle,
+                    fontSize: isMobileScreen ? '0.65rem' : '1rem'
+                  }}
+                />
+                <Tab
+                  label="Upload rides"
+                  sx={{
+                    ...whiteFontStyle,
+                    fontSize: isMobileScreen ? '0.65rem' : '1rem'
+                  }}
+                />
               </Tabs>
             </Box>
           </Grid>
