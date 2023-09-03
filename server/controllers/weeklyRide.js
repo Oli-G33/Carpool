@@ -93,7 +93,7 @@ const bookSeat = async (req, res) => {
     const userEmail = user.email;
 
     const templateSource = fs.readFileSync(
-      './views/emails/bookingConfirmation.hbs',
+      './views/emails/rideRequested.hbs',
       'utf8'
     );
     const template = handlebars.compile(templateSource);
