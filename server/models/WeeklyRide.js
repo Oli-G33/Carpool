@@ -6,10 +6,6 @@ const weeklyRideSchema = new mongoose.Schema(
     driver: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      enum: ['648189ae50ce4d80bbf6fba4', '64a8176b97a9b10bb6fca106'].map((id) =>
-        id.toString()
-      ),
-      default: '648189ae50ce4d80bbf6fba4',
       required: true
     },
     passengers: [
@@ -49,17 +45,6 @@ const weeklyRideSchema = new mongoose.Schema(
           shifts.set(date.toISOString().slice(0, 10), '');
         }
         return shifts;
-      },
-      validate: {
-        validator: function (shifts) {
-          for (const shift of shifts.values()) {
-            if (!['E1', 'E2', 'L1'].includes(shift)) {
-              return false;
-            }
-          }
-          return true;
-        },
-        message: 'Invalid shifts'
       }
     },
 

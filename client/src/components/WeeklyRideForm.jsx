@@ -10,7 +10,7 @@ import {
 import { startOfWeek, addDays, format, getISOWeek, getYear } from 'date-fns';
 import { uploadRides } from '../services/dashboard';
 
-const WeeklyRideForm = driverId => {
+const WeeklyRideForm = ({ driverId }) => {
   const getCurrentYear = () => {
     const currentDate = new Date();
     return getYear(currentDate);
@@ -20,16 +20,17 @@ const WeeklyRideForm = driverId => {
     const currentDate = new Date();
     return getISOWeek(currentDate);
   };
+
   const [selectedWeek, setSelectedWeek] = useState(
     `${getCurrentYear()}-W${getCurrentWeek()}`
   );
   const [businessDays, setBusinessDays] = useState([]);
   const [formData, setFormData] = useState(
-    new Array(5).fill({
-      date: '',
+    new Array(5).fill(0).map((_, index) => ({
+      date: businessDays[index],
       availableSeats: 4,
       shift: ''
-    })
+    }))
   );
 
   useEffect(() => {
@@ -54,30 +55,28 @@ const WeeklyRideForm = driverId => {
     }
     setBusinessDays(businessDays);
 
-    const updatedFormData = businessDays.map(date => ({
-      date,
-      availableSeats: formData[date]?.availableSeats || 4,
-      shift: formData[date]?.shift || ''
-    }));
+    const updatedFormData = businessDays.map(date => {
+      const existingData = formData.find(item => item.date === date);
+
+      return {
+        date, // Include the date property
+        availableSeats: existingData?.availableSeats || 4,
+        shift: existingData?.shift || ''
+      };
+    });
     setFormData(updatedFormData);
   };
 
   const handleInputChange = (event, index, field) => {
     const { value } = event.target;
+    const updatedFormData = formData.map((item, i) => {
+      if (i !== index) return item;
 
-    const updatedFormData = [...formData];
-
-    if (field === 'date') {
-      updatedFormData[index] = {
-        ...updatedFormData[index],
-        [field]: value
+      return {
+        ...item,
+        [field]: field === 'availableSeats' ? parseInt(value, 10) : value
       };
-    } else {
-      updatedFormData[index] = {
-        ...updatedFormData[index],
-        [field]: value
-      };
-    }
+    });
 
     setFormData(updatedFormData);
   };
@@ -87,7 +86,7 @@ const WeeklyRideForm = driverId => {
     uploadRides(driverId, formData);
     console.log(formData);
   };
-
+  console.log(formData);
   return (
     <Container maxWidth="sm">
       <Box
@@ -121,7 +120,6 @@ const WeeklyRideForm = driverId => {
             }}
             sx={{
               marginBottom: '16px',
-
               '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
                 borderColor: '#D3D3D2'
               },
@@ -138,44 +136,49 @@ const WeeklyRideForm = driverId => {
                 }
             }}
           />
-          {businessDays.map((day, index) => (
-            <Grid container spacing={2} key={day}>
-              <Grid item xs={4} style={{ marginBottom: '16px' }}>
-                <TextField
-                  label="Date"
-                  value={formData[index].date || day}
-                  fullWidth
-                  disabled
-                  onChange={event => handleInputChange(event, index, 'date')}
-                />
+          {businessDays.map((day, index) => {
+            const date = formData[index].date || day;
+
+            return (
+              <Grid container spacing={2} key={day}>
+                <Grid item xs={4} style={{ marginBottom: '16px' }}>
+                  <TextField
+                    label="Date"
+                    value={formData[index].date || day}
+                    fullWidth
+                    disabled
+                    onChange={event => handleInputChange(event, index, 'date')}
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <TextField
+                    type="number"
+                    label="Available Seats"
+                    value={formData[index].availableSeats}
+                    onChange={event =>
+                      handleInputChange(event, index, 'availableSeats')
+                    }
+                    fullWidth
+                    inputProps={{ min: 0, max: 4 }}
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <TextField
+                    select
+                    label="Shift"
+                    value={formData[index].shift}
+                    fullWidth
+                    onChange={event => handleInputChange(event, index, 'shift')}
+                  >
+                    <MenuItem value="">None</MenuItem>
+                    <MenuItem value="E1">E1</MenuItem>
+                    <MenuItem value="E2">E2</MenuItem>
+                    <MenuItem value="L1">L1</MenuItem>
+                  </TextField>
+                </Grid>
               </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  type="number"
-                  label="Available Seats"
-                  value={formData[index].availableSeats || 4}
-                  onChange={event =>
-                    handleInputChange(event, index, 'availableSeats')
-                  }
-                  fullWidth
-                  inputProps={{ min: 0, max: 4 }}
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField
-                  select
-                  label="Shift"
-                  value={formData[index]?.shift || ''}
-                  onChange={event => handleInputChange(event, index, 'shift')}
-                  fullWidth
-                >
-                  <MenuItem value="E1">E1</MenuItem>
-                  <MenuItem value="E2">E2</MenuItem>
-                  <MenuItem value="L1">L1</MenuItem>
-                </TextField>
-              </Grid>
-            </Grid>
-          ))}
+            );
+          })}
           <Grid item xs={12} sx={{ marginTop: 2, marginBottom: 2 }}>
             <Button type="submit" variant="contained" color="primary" fullWidth>
               Upload Rides
