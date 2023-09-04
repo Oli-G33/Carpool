@@ -353,7 +353,7 @@ const DashboardPage = () => {
                       }}
                     >
                       <Avatar
-                        src={passenger.userId.picture}
+                        src={passenger.userId.picture || ''}
                         alt={`${passenger.userId.firstName} ${passenger.userId.lastName}`}
                         sx={{ marginRight: '24px' }}
                       />
