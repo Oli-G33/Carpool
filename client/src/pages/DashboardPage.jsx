@@ -46,6 +46,8 @@ const DashboardPage = () => {
 
   const user = useSelector(state => state.user);
 
+  console.log(pendingPassengers);
+
   const driverId = user._id;
 
   useEffect(() => {
@@ -53,7 +55,7 @@ const DashboardPage = () => {
       fetchPendingRides(driverId)
         .then(data => {
           setPendingPassengers(data);
-          console.log(pendingPassengers);
+          console.log(data);
         })
         .catch(error => {
           console.error('Error fetching pending passengers:', error);

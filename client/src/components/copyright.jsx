@@ -6,7 +6,7 @@ export function Copyright(props) {
       {'Copyright © '}
       <Link
         color="inherit"
-        href="https://www.linkedin.com/in/oliver-garcia3"
+        href="https://oliver-garcia.onrender.com"
         target="_blank"
       >
         Oliver Garcia
