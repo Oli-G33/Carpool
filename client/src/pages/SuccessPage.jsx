@@ -73,6 +73,7 @@ const SuccessPage = () => {
                   Request More Rides
                 </Button>
                 <br/>
+                <br/>
                 <Typography
                 variant="body1"
                 sx={{
