@@ -62,6 +62,14 @@ const SuccessPage = () => {
                 Your ride has been requested! The driver will confirm the ride
                 details by email as soon as possible.
               </Typography>
+              <Typography
+                variant="body1"
+                sx={{
+                  color: 'white'
+                }}
+              >
+               !!!Please be at your meeting point 3 minutes before the designated pickup time!!!
+              </Typography>
               <Box mt={4}>
                 <Button
                   component={Link}
