@@ -15,9 +15,13 @@ import { loadFull } from 'tsparticles';
 import { useSelector } from 'react-redux';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
+import { wakeApi } from './services/api';
 
 function App() {
   const isAuth = Boolean(useSelector(state => state.user));
+
+wakeApi()
+
   const particlesInit = useCallback(async engine => {
     await loadFull(engine);
   }, []);
