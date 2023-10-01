@@ -9,10 +9,7 @@ import {
   Avatar,
   Box,
   Tabs,
-  Tab,
-  Button,
-  TextField,
-  MenuItem
+  Tab
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Navbar from '../components/Navbar';
@@ -36,7 +33,6 @@ const DashboardPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [passengers, setPassengers] = useState([]);
   const [pendingPassengers, setPendingPassengers] = useState([]);
-  const isNonMobileScreens = useMediaQuery('(min-width:800px)');
   const [currentTab, setCurrentTab] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [selectedPassenger, setSelectedPassenger] = useState(null);
@@ -198,52 +194,60 @@ const DashboardPage = () => {
           <Grid item xs={12} md={6}>
             {currentTab === 0 && (
               <Paper elevation={3} sx={{ ...boxStyle }}>
-                <Typography
-                  variant="h6"
-                  component="h2"
-                  mb={2}
-                  sx={{ ...whiteFontStyle }}
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center'
+                  }}
                 >
-                  Select a Date
-                </Typography>
-                <LocalizationProvider
-                  dateAdapter={AdapterDayjs}
-                  adapterLocale="en-gb"
-                >
-                  <DatePicker
-                    label="Choose a date"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    className="custom-calendar"
-                    fullWidth
-                    sx={{
-                      '& .MuiOutlinedInput-root': {
-                        color: ' white'
-                      },
-                      '& .MuiInput-underline:before': {
-                        borderBottomColor: 'white'
-                      },
-                      '& .MuiInput-underline:after': {
-                        borderBottomColor: 'white'
-                      },
-                      '& .MuiInputLabel-root': {
-                        color: 'white'
-                      },
-                      '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
-                        {
-                          borderColor: 'white'
+                  <Typography
+                    variant="h6"
+                    component="h2"
+                    mb={2}
+                    sx={{ ...whiteFontStyle, textAlign: 'center' }}
+                  >
+                    Select a Date
+                  </Typography>
+                  <LocalizationProvider
+                    dateAdapter={AdapterDayjs}
+                    adapterLocale="en-gb"
+                  >
+                    <DatePicker
+                      label="Choose a date"
+                      value={selectedDate}
+                      onChange={handleDateChange}
+                      className="custom-calendar"
+                      fullWidth
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          color: ' white'
                         },
-                      '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
-                        {
-                          borderColor: '#D3D3D2'
+                        '& .MuiInput-underline:before': {
+                          borderBottomColor: 'white'
                         },
-                      '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
-                        {
-                          borderColor: 'white'
-                        }
-                    }}
-                  />
-                </LocalizationProvider>
+                        '& .MuiInput-underline:after': {
+                          borderBottomColor: 'white'
+                        },
+                        '& .MuiInputLabel-root': {
+                          color: 'white'
+                        },
+                        '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                          {
+                            borderColor: 'white'
+                          },
+                        '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                          {
+                            borderColor: '#D3D3D2'
+                          },
+                        '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                          {
+                            borderColor: 'white'
+                          }
+                      }}
+                    />
+                  </LocalizationProvider>
+                </Box>
               </Paper>
             )}
           </Grid>
@@ -255,7 +259,7 @@ const DashboardPage = () => {
                   variant="h6"
                   component="h2"
                   mb={2}
-                  sx={{ ...whiteFontStyle }}
+                  sx={{ ...whiteFontStyle, textAlign: 'center' }}
                 >
                   Passengers for{' '}
                   {selectedDate && dayjs(selectedDate).format('DD/MM/YYYY')}
@@ -309,7 +313,6 @@ const DashboardPage = () => {
                         </Link>
                         <MoreVertIcon
                           sx={{
-                            marginLeft: 'auto',
                             cursor: 'pointer',
                             marginLeft: isMobileScreen ? 1 : 2
                           }}
@@ -322,7 +325,7 @@ const DashboardPage = () => {
                   <Typography
                     variant="body1"
                     component="p"
-                    sx={{ ...whiteFontStyle }}
+                    sx={{ ...whiteFontStyle, textAlign: 'center' }}
                   >
                     No passengers found for the selected date.
                   </Typography>

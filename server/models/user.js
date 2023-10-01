@@ -55,8 +55,15 @@ const schema = new mongoose.Schema(
     resetTokenExpiration: {
       type: Date,
       default: null
-    }
+    },
+    pickupLocations: [
+      {
+        type: String,
+        trim: true
+      }
+    ]
   },
+
   { timestamps: true }
 );
 

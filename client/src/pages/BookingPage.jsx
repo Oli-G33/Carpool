@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import {
   Box,
-  Button,
   CircularProgress,
   Container,
   Typography,
-  Divider,
-  useMediaQuery
+  useMediaQuery,
+  Grid,
+  Paper
 } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -23,6 +23,7 @@ import { wakeApi } from '../services/api';
 import { Alert } from '@mui/material';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import MobileNavbar from '../components/MobileNavbar';
+import DriverInfoCard from '../components/DriverInfoCard';
 
 const BookingPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -114,6 +115,17 @@ const BookingPage = () => {
 
   const isMobileScreen = useMediaQuery('(max-width:600px)');
 
+  const boxStyle = {
+    backgroundColor: 'rgba(200, 200, 200, 0.6)',
+    border: '1px solid #ccc',
+    borderRadius: '8px',
+    padding: '16px',
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    color: 'white'
+  };
+
   return (
     <>
       {isMobileScreen ? <MobileNavbar /> : <Navbar />}
@@ -136,7 +148,8 @@ const BookingPage = () => {
             maxWidth: isNonMobileScreens ? '82.5%' : '90%',
             height: '10vh',
             textAlign: 'center',
-            margin: '0 auto'
+            margin: '0 auto',
+            marginBottom: 4
           }}
         >
           <Typography
@@ -149,179 +162,133 @@ const BookingPage = () => {
             sx={{ marginLeft: '10px', fontSize: '32px' }}
           />
         </Box>
-
-        <Box
-          boxShadow={'2px 2px 4px rgba(0, 0, 0, 0.2)'}
-          flexGrow={0}
-          p={2}
-          sx={{
-            display: 'flex',
-            flexDirection: isMobileScreen ? 'column' : 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'rgba(200, 200, 200, 0.6)',
-            border: '1px solid #ccc',
-            borderRadius: '8px',
-            maxWidth: '80%',
-            height: isMobileScreen ? '40vh' : '30vh',
-            margin: '0 auto',
-            marginTop: 4
-          }}
-        >
-          <Box
-            width="50%"
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              mb: 2
-            }}
-          >
-            <Typography
-              variant={isNonMobileScreens ? 'h4' : 'h5'}
-              sx={{ marginBottom: '20px', color: 'white', textAlign: 'center' }}
-            >
-              Select date
-            </Typography>
-            <LocalizationProvider
-              dateAdapter={AdapterDayjs}
-              adapterLocale="en-gb"
-            >
-              <DatePicker
-                value={selectedDate}
-                onChange={newDate => {
-                  setSelectedDate(dayjs(newDate));
-                  setIsLoadingSeats(true);
-                }}
-                inputVariant="outlined"
-                fullWidth
-                margin="normal"
-                disablePast
-                format="DD/MM/YYYY"
-                placeholder="Select a date"
-                shouldDisableDate={isWeekend}
-                defaultValue={selectedDate}
-                maxDate={maxSelectableDate}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    color: ' white'
-                  },
-                  '& .MuiInput-underline:before': {
-                    borderBottomColor: 'white'
-                  },
-                  '& .MuiInput-underline:after': {
-                    borderBottomColor: 'white'
-                  },
-                  '& .MuiInputLabel-root': {
-                    color: 'white'
-                  },
-                  '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-                    borderColor: '#D3D3D2'
-                  },
-                  '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
-                    {
-                      borderColor: 'white'
-                    },
-                  '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
-                    {
-                      borderColor: 'white'
-                    }
-                }}
-                views={['month', 'year', 'day']}
-              />
-            </LocalizationProvider>
-          </Box>
-          <Divider
-            orientation={isMobileScreen ? 'horizontal' : 'vertical'}
-            sx={{
-              margin: '0 20px',
-              backgroundColor: 'white'
-            }}
-          />
-          <Box
-            width="50%"
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center'
-            }}
-          >
-            <Typography
-              variant={isNonMobileScreens ? 'h4' : 'h5'}
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <Box
               sx={{
-                marginBottom: '10px',
-                color: 'white',
-                textAlign: 'center'
+                backgroundColor: 'rgba(200, 200, 200, 0.6)',
+                border: '1px solid #ccc',
+                borderRadius: '8px',
+                padding: '16px',
+                marginBottom: 4,
+                display: 'flex',
+                justifyContent: 'start',
+                alignItems: 'center',
+                maxWidth: isNonMobileScreens ? '82.5%' : '90%',
+                padding: 3
               }}
             >
-              Availability <br></br>
-            </Typography>
-            {availableSeats && availableSeats.shift && (
               <Typography
-                variant={isNonMobileScreens ? 'h5' : 'h6'}
+                variant={'h5'}
                 sx={{
-                  marginBottom: '10px',
                   color: 'white',
-                  textAlign: 'center'
+                  textAlign: 'center',
+                  marginRight: 2,
+                  marginLeft: 1
                 }}
               >
-                Shift: {availableSeats.shift}
+                Select date:
               </Typography>
-            )}
+              <LocalizationProvider
+                dateAdapter={AdapterDayjs}
+                adapterLocale="en-gb"
+              >
+                <DatePicker
+                  value={selectedDate}
+                  onChange={newDate => {
+                    setSelectedDate(dayjs(newDate));
+                    setIsLoadingSeats(true);
+                  }}
+                  inputVariant="outlined"
+                  fullWidth
+                  margin="normal"
+                  disablePast
+                  format="DD/MM/YYYY"
+                  placeholder="Select a date"
+                  shouldDisableDate={isWeekend}
+                  defaultValue={selectedDate}
+                  maxDate={maxSelectableDate}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      color: ' white'
+                    },
+                    '& .MuiInput-underline:before': {
+                      borderBottomColor: 'white'
+                    },
+                    '& .MuiInput-underline:after': {
+                      borderBottomColor: 'white'
+                    },
+                    '& .MuiInputLabel-root': {
+                      color: 'white'
+                    },
+                    '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: '#D3D3D2'
+                      },
+                    '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: 'white'
+                      },
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                      {
+                        borderColor: 'white'
+                      }
+                  }}
+                  views={['month', 'year', 'day']}
+                />
+              </LocalizationProvider>
+            </Box>
+          </Grid>
 
-            {availableSeats && (
+          {alertMessage && (
+            <Box display="flex" justifyContent="center" mt={2}>
+              <Alert severity="error">{alertMessage}</Alert>
+            </Box>
+          )}
+
+          <Grid item xs={12} md={6}>
+            <Paper
+              sx={{
+                ...boxStyle
+              }}
+            >
               <Box
-                flexGrow={0}
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center'
+                  maxWidth: '100%'
                 }}
               >
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  sx={{
-                    borderColor: 'primary.main',
-                    borderRadius: '4px',
-                    padding: '4px',
-                    width: '100%',
-                    maxWidth: '400px',
-                    margin: '0 auto',
-                    justifyContent: 'center',
-                    '@media (min-width: 768px)': {
-                      width: `${availableSeats * 4}%`
-                    }
-                  }}
-                >
-                  {isLoadingSeats ? (
-                    <CircularProgress size={isMobileScreen ? 48 : 36} />
-                  ) : (
-                    renderSeatIcons(availableSeats)
-                  )}
-                </Box>
+                {availableSeats !== null &&
+                availableSeats !== undefined &&
+                availableSeats.length > 0 ? (
+                  availableSeats.map((driverInfo, index) => (
+                    <Paper
+                      elevation={3}
+                      sx={{
+                        ...boxStyle,
+                        marginBottom: '8px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        minWidth: '80%'
+                      }}
+                    >
+                      <DriverInfoCard
+                        key={index}
+                        driverInfo={driverInfo}
+                        handleBookRide={handleBookRide}
+                      />
+                    </Paper>
+                  ))
+                ) : (
+                  <Box>
+                    <Typography variant="body1" color="white">
+                      No available rides for the selected date.
+                    </Typography>
+                  </Box>
+                )}
               </Box>
-            )}
-          </Box>
-        </Box>
-        {alertMessage && (
-          <Box display="flex" justifyContent="center" mt={2}>
-            <Alert severity="error">{alertMessage}</Alert>
-          </Box>
-        )}
-
-        <Box display="flex" justifyContent="center" mt={2}>
-          <Button
-            sx={{ mt: 4, width: '15rem' }}
-            onClick={handleBookRide}
-            variant="contained"
-            color="primary"
-            size="large"
-            disabled={availableSeats <= 0 || isLoading || !!alertMessage}
-          >
-            {isLoading ? <CircularProgress size={24} /> : 'Request ride'}
-          </Button>
-        </Box>
+            </Paper>
+          </Grid>
+        </Grid>
       </Container>
     </>
   );

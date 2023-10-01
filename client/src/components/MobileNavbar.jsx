@@ -78,7 +78,12 @@ const MobileNavbar = () => {
           <ListItemButton
             component={Link}
             to="/"
-            sx={{ alignItems: 'center', flexDirection: 'column', padding: 0 }}
+            sx={{
+              alignItems: 'center',
+              flexDirection: 'column',
+              padding: 0,
+              position: 'relative'
+            }}
           >
             <Box
               sx={{

@@ -42,7 +42,7 @@ const SuccessPage = () => {
                   color: 'white'
                 }}
               >
-                Ride Booked Successfully!
+                Ride Requested!
               </Typography>
               <Box display="flex" justifyContent="center">
                 <ConfettiExplosion
@@ -69,7 +69,7 @@ const SuccessPage = () => {
                   variant="contained"
                   color="primary"
                 >
-                  Request More Rides
+                  Find More Rides
                 </Button>
               </Box>
             </Box>

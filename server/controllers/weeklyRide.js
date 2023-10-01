@@ -14,39 +14,56 @@ const getSeats = async (req, res) => {
   const { date } = req.params;
   const formattedDate = date.split('-').reverse().join('-');
 
-  WeeklyRide.findOne(
-    { [`availableSeats.${formattedDate}`]: { $exists: true } },
-    { [`availableSeats.${formattedDate}`]: 1, [`shifts.${formattedDate}`]: 1 }
-  ).exec((err, ride) => {
-    if (err) {
-      res
-        .status(503)
-        .json({ error: 'An error occurred while fetching available seats.' });
-      console.error(err);
-      // handle error
-    } else if (!ride || ride.availableSeats === undefined) {
-      res
-        .status(200)
-        .json({ error: `No ride found for date ${formattedDate}` });
-      console.error(`No ride found for date ${formattedDate}`);
-      // handle no ride found
-    } else {
-      const availableSeats = ride.availableSeats.get(formattedDate);
-      const shift = ride.shifts.get(formattedDate);
-
-      if (availableSeats < 1) {
-        res.status(200).json({
-          error: 'There are no available seats for the selected date'
-        });
-        console.log(`There are no available seats for date ${formattedDate}`);
-      } else {
-        res.status(200).json({ availableSeats, shift });
-        console.log(
-          `There are ${availableSeats} available seats and the shift is ${shift} for date ${formattedDate}`
-        );
+  try {
+    const rides = await WeeklyRide.aggregate([
+      {
+        $match: {
+          [`availableSeats.${formattedDate}`]: { $exists: true }
+        }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'driver',
+          foreignField: '_id',
+          as: 'driverInfo'
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          availableSeats: `$availableSeats.${formattedDate}`,
+          shift: `$shifts.${formattedDate}`,
+          driverInfo: {
+            $arrayElemAt: ['$driverInfo', 0]
+          }
+        }
       }
+    ]);
+
+    if (rides.length === 0) {
+      return res
+        .status(200)
+        .json({ error: `No rides found for date ${formattedDate}` });
     }
-  });
+
+    const response = rides.map((ride) => ({
+      availableSeats: ride.availableSeats,
+      shift: ride.shift,
+      driverFirstName: ride.driverInfo.firstName,
+      driverLastName: ride.driverInfo.lastName,
+      driverPicture: ride.driverInfo.picture
+    }));
+
+    console.log(response);
+
+    return res.status(200).json(response);
+  } catch (err) {
+    console.error(err);
+    res
+      .status(503)
+      .json({ error: 'An error occurred while fetching available seats.' });
+  }
 };
 
 const bookSeat = async (req, res) => {
@@ -93,7 +110,7 @@ const bookSeat = async (req, res) => {
     const userEmail = user.email;
 
     const templateSource = fs.readFileSync(
-      './views/emails/rideRequested.hbs',
+      './views/emails/rideRequestedDriver.hbs',
       'utf8'
     );
     const template = handlebars.compile(templateSource);
