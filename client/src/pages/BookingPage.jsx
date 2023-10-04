@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import {
   Box,
-  CircularProgress,
   Container,
   Typography,
   useMediaQuery,
@@ -56,7 +55,6 @@ const BookingPage = () => {
       getAvailableSeats(formattedDate)
         .then(data => {
           setAvailableSeats(data);
-          console.log(data);
           if (data && data.error) {
             setAlertMessage(data.error);
           } else {
@@ -68,7 +66,6 @@ const BookingPage = () => {
         })
         .finally(() => {
           setIsLoadingSeats(false);
-          console.log('Load 2 =>', isLoadingSeats);
         });
     }
   }, [formattedDate]);
@@ -260,30 +257,34 @@ const BookingPage = () => {
                 {availableSeats !== null &&
                 availableSeats !== undefined &&
                 availableSeats.length > 0 ? (
-                  availableSeats.map((driverInfo, index) => (
-                    <Paper
-                      elevation={3}
-                      sx={{
-                        ...boxStyle,
-                        marginBottom: '8px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        minWidth: '80%'
-                      }}
-                    >
-                      <DriverInfoCard
-                        key={index}
-                        driverInfo={driverInfo}
-                        handleBookRide={handleBookRide}
-                      />
-                    </Paper>
-                  ))
+                  availableSeats.map((driverInfo, index) =>
+                    driverInfo.availableSeats > 0 ? (
+                      <Paper
+                        elevation={3}
+                        sx={{
+                          ...boxStyle,
+                          marginBottom: '8px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          minWidth: '80%'
+                        }}
+                      >
+                        <DriverInfoCard
+                          key={index}
+                          driverInfo={driverInfo}
+                          handleBookRide={handleBookRide}
+                        />
+                      </Paper>
+                    ) : (
+                      <Box>
+                        <Typography variant="body1" color="white">
+                          No available rides for the selected date.
+                        </Typography>
+                      </Box>
+                    )
+                  )
                 ) : (
-                  <Box>
-                    <Typography variant="body1" color="white">
-                      No available rides for the selected date.
-                    </Typography>
-                  </Box>
+                  <h1>Null</h1>
                 )}
               </Box>
             </Paper>
