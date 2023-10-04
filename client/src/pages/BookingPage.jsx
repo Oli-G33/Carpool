@@ -284,7 +284,11 @@ const BookingPage = () => {
                     )
                   )
                 ) : (
-                  <h1>Null</h1>
+                  <Box>
+                    <Typography variant="body1" color="white">
+                      Select a date
+                    </Typography>
+                  </Box>
                 )}
               </Box>
             </Paper>
