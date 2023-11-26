@@ -231,7 +231,7 @@ const Navbar = ({ isNonMobileScreens, isMobileScreen }) => {
           <Typography
             variant={isMobileScreen ? 'h7' : 'h6'}
             component="div"
-            sx={{ flexGrow: 1, textAlign: 'center' }}
+            sx={{ flexGrow: 1, textAlign: 'center', alignItems: 'center' }}
           >
             <Link
               component={RouterLink}
