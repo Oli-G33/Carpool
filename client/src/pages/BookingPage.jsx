@@ -260,6 +260,7 @@ const BookingPage = () => {
                   availableSeats.map((driverInfo, index) =>
                     driverInfo.availableSeats > 0 ? (
                       <Paper
+                        key={driverInfo.id}
                         elevation={3}
                         sx={{
                           ...boxStyle,

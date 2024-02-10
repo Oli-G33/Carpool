@@ -105,9 +105,10 @@ const bookSeat = async (req, res) => {
     // Get the updated available seats count
     const availableSeats = ride.availableSeats[formattedDate];
 
-    // Send email notification
+    // Send User email notification
     const user = await User.findById(userId);
     const userEmail = user.email;
+    const userName = user.firstName + ' ' + user.lastName;
 
     const templateSource = fs.readFileSync(
       './views/emails/rideRequestedDriver.hbs',
@@ -123,7 +124,29 @@ const bookSeat = async (req, res) => {
       html: htmlContent
     };
 
-    // await sgMail.send(msg);
+    //await sgMail.send(msg);
+
+    const driverId = ride.driver;
+    const driver = await User.findById(driverId);
+    const driverEmail = driver.email;
+    const driverName = driver.firstName + ' ' + driver.lastName;
+
+    const driverTemplateSource = fs.readFileSync(
+      './views/emails/rideRequestedDriver.hbs',
+      'utf8'
+    );
+    const driverTemplate = handlebars.compile(driverTemplateSource);
+    const driverHtmlContent = driverTemplate({ date, userName, driverName });
+    console.log(`User Name:${userName}`, `Driver Name:${driverName}`);
+
+    const driverMsg = {
+      to: driverEmail,
+      from: process.env.CARPOOLER_EMAIL,
+      subject: 'Passenger booked a seat',
+      html: driverHtmlContent
+    };
+
+    await sgMail.send(driverMsg);
 
     // Return the updated available seats count
     res.json({ availableSeats });

@@ -40,7 +40,7 @@ app.set('view engine', 'handlebars');
 app.set('views', './views');
 
 app.get('/', (req, res) => {
-  res.send('hello world!');
+  res.send('Hello World!');
 });
 
 // ImageKitIO authentication
