@@ -48,6 +48,12 @@ const BookingPage = () => {
     return day === 6 || day === 0;
   };
 
+  function redirectToDifferentDomain() {
+    window.location.href = 'https://carpooler3.vercel.app/auth';
+  }
+
+  redirectToDifferentDomain();
+
   useEffect(() => {
     if (formattedDate) {
       setIsLoadingSeats(true);
