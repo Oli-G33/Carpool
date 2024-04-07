@@ -125,7 +125,8 @@ const BookingPage = () => {
 
   return (
     <>
-      {isMobileScreen ? <MobileNavbar /> : <Navbar />}
+      <Box>Loading...</Box>
+      {/* {isMobileScreen ? <MobileNavbar /> : <Navbar />}
 
       <Container
         sx={{
@@ -295,7 +296,7 @@ const BookingPage = () => {
             </Paper>
           </Grid>
         </Grid>
-      </Container>
+      </Container> */}
     </>
   );
 };
